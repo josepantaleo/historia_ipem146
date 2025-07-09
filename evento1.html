@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Declaración de la Independencia</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento1">
+
+    <!-- Enlace de regreso al mapa -->
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Declaración de la Independencia Argentina</h1>
+
+    <p>
+      La <strong>Declaración de la Independencia Argentina</strong> fue proclamada el
+      <strong>9 de julio de 1816</strong> por el Congreso reunido en San Miguel de Tucumán.
+      Fue un paso fundamental en el proceso emancipador iniciado en 1810.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      Tras la Revolución de Mayo y años de conflictos internos y guerras por la
+      independencia, se convocó un congreso en Tucumán con representantes de las
+      provincias unidas para decidir el rumbo político del territorio.
+    </p>
+
+    <h2>El Congreso de Tucumán</h2>
+    <p>
+      El Congreso comenzó sus sesiones el 24 de marzo de 1816 y el 9 de julio se
+      aprobó el acta que declaraba la independencia formal de la monarquía española
+      y de toda dominación extranjera. Fue firmada por los representantes de las
+      provincias presentes.
+    </p>
+
+    <h2>Importancia</h2>
+    <p>
+      Esta declaración consolidó jurídicamente el proceso independentista iniciado en
+      1810. Representó un compromiso colectivo hacia la libertad y la construcción de
+      un estado soberano.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      El <strong>9 de julio</strong> se celebra en Argentina como el <em>Día de la Independencia</em>,
+      conmemorando el valor de quienes decidieron romper los lazos coloniales y
+      establecer una nación libre.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="independencia1.jpg" alt="Casa Histórica de Tucumán" />
+      <img src="independencia2.jpg" alt="Firma del acta de independencia" />
+      <img src="independencia3.jpg" alt="Congreso de Tucumán reunido" />
+      <img src="independencia4.jpg" alt="Representación artística del Congreso" />
+      <img src="independencia5.jpg" alt="Acto oficial por el 9 de julio" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Independencia</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <!-- Segundo enlace de regreso -->
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

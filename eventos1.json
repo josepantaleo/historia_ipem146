@@ -1,0 +1,172 @@
+[
+{
+        "id": 1,
+        "titulo": "Primera Fundación de Buenos Aires",
+        "fecha": "1536-02-02",
+        "periodo": "Época Colonial",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Pedro de Mendoza funda por primera vez la ciudad de Buenos Aires, aunque luego fue abandonada.",
+        "media": "primera_fundacion_bsas.jpg"
+    },
+    {
+        "id": 2,
+        "titulo": "Segunda Fundación de Buenos Aires",
+        "fecha": "1580-06-11",
+        "periodo": "Época Colonial",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Juan de Garay funda por segunda vez la ciudad de Buenos Aires.",
+        "media": "segunda_fundacion_bsas.jpg"
+    },
+    {
+        "id": 3,
+        "titulo": "Revolución de Mayo",
+        "fecha": "1810-05-25",
+        "periodo": "Proceso de Independencia",
+        "ubicacion": [-34.6083, -58.3712],
+        "pais": "Argentina",
+        "descripcion": "Formación de la Primera Junta de gobierno autónomo del Virreinato del Río de la Plata.",
+        "media": "revolucion_de_mayo.jpg"
+    },
+    {
+        "id": 4,
+        "titulo": "Declaración de la Independencia",
+        "fecha": "1816-07-09",
+        "periodo": "Proceso de Independencia",
+        "ubicacion": [-26.8083, -65.2176],
+        "pais": "Argentina",
+        "descripcion": "Declaración formal de independencia de las Provincias Unidas del Río de la Plata, en Tucumán.",
+        "media": "declaracion_independencia.jpg"
+    },
+    {
+        "id": 5,
+        "titulo": "Batalla de Caseros",
+        "fecha": "1852-02-03",
+        "periodo": "Organización Nacional",
+        "ubicacion": [-34.6100, -58.6200],
+        "pais": "Argentina",
+        "descripcion": "Batalla entre Justo José de Urquiza y Juan Manuel de Rosas que marcó el fin del poder rosista.",
+        "media": "batalla_caseros.jpg"
+    },
+    {
+        "id": 6,
+        "titulo": "Sanción de la Constitución Nacional",
+        "fecha": "1853-05-01",
+        "periodo": "Organización Nacional",
+        "ubicacion": [-31.6333, -60.7000],
+        "pais": "Argentina",
+        "descripcion": "En Santa Fe se sanciona la Constitución Nacional, base del sistema federal argentino.",
+        "media": "constitucion_1853.jpg"
+    },
+    {
+        "id": 7,
+        "titulo": "Federalización de Buenos Aires",
+        "fecha": "1880-09-20",
+        "periodo": "Organización Nacional",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Se federaliza la ciudad de Buenos Aires, consolidando el Estado argentino moderno.",
+        "media": "federalizacion_bsas.jpg"
+    },
+    {
+        "id": 8,
+        "titulo": "Ley Sáenz Peña",
+        "fecha": "1912-02-10",
+        "periodo": "Argentina Moderna",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Se establece el voto secreto, universal y obligatorio para varones argentinos.",
+        "media": "ley_saenz_pena.jpg"
+    },
+    {
+        "id": 9,
+        "titulo": "Golpe de Estado de 1930",
+        "fecha": "1930-09-06",
+        "periodo": "Crisis Política",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Primer golpe militar que derroca al presidente Hipólito Yrigoyen.",
+        "media": "golpe_1930.jpg"
+    },
+    {
+        "id": 10,
+        "titulo": "Primera Presidencia de Juan Domingo Perón",
+        "fecha": "1946-06-04",
+        "periodo": "Peronismo Clásico",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Inicio del primer gobierno de Perón con profundas reformas sociales y laborales.",
+        "media": "peron_1946.jpg"
+    },
+    {
+        "id": 11,
+        "titulo": "Golpe de Estado de 1955",
+        "fecha": "1955-09-16",
+        "periodo": "Dictadura Militar",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "La Revolución Libertadora derroca a Juan Domingo Perón.",
+        "media": "golpe_1955.jpg"
+    },
+    {
+        "id": 12,
+        "titulo": "Último Golpe Militar",
+        "fecha": "1976-03-24",
+        "periodo": "Dictadura y Democracia",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Inicio del Proceso de Reorganización Nacional con terrorismo de Estado.",
+        "media": "golpe_1976.jpg"
+    },
+    {
+        "id": 13,
+        "titulo": "Guerra de Malvinas",
+        "fecha": "1982-04-02",
+        "periodo": "Conflictos Territoriales",
+        "ubicacion": [-51.6942, -57.8510],
+        "pais": "Argentina",
+        "descripcion": "Enfrentamiento bélico entre Argentina y Reino Unido por la soberanía de las Islas Malvinas.",
+        "media": "guerra_malvinas.jpg"
+    },
+    {
+        "id": 14,
+        "titulo": "Retorno a la Democracia",
+        "fecha": "1983-12-10",
+        "periodo": "Dictadura y Democracia",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Raúl Alfonsín asume la presidencia, marcando el fin de la última dictadura militar.",
+        "media": "retorno_democracia.jpg"
+    },
+    {
+        "id": 15,
+        "titulo": "Crisis del 2001",
+        "fecha": "2001-12-20",
+        "periodo": "Argentina Contemporánea",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Grave crisis económica y social con estallido del orden institucional y varios presidentes en pocos días.",
+        "media": "crisis_2001.jpg"
+    },
+    {
+        "id": 16,
+        "titulo": "Elección de Néstor Kirchner",
+        "fecha": "2003-05-25",
+        "periodo": "Argentina Contemporánea",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Néstor Kirchner asume la presidencia tras la crisis de 2001.",
+        "media": "kirchner_2003.jpg"
+    },
+    {
+        "id": 17,
+        "titulo": "Elección de Javier Milei",
+        "fecha": "2023-11-19",
+        "periodo": "Argentina Contemporánea",
+        "ubicacion": [-34.6037, -58.3816],
+        "pais": "Argentina",
+        "descripcion": "Javier Milei es elegido presidente en un contexto de crisis económica y polarización política.",
+        "media": "milei_2023.jpg"
+    }
+]

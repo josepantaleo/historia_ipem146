@@ -1,0 +1,55 @@
+{
+  "evento1": [
+    {
+      "pregunta": "¿En qué fecha se declaró la independencia argentina?",
+      "opciones": ["25 de mayo de 1810", "9 de julio de 1816", "20 de julio de 1816"],
+      "respuesta": "9 de julio de 1816"
+    },
+    {
+      "pregunta": "¿Dónde se reunió el Congreso que declaró la independencia?",
+      "opciones": ["Buenos Aires", "Mendoza", "San Miguel de Tucumán"],
+      "respuesta": "San Miguel de Tucumán"
+    },
+    {
+      "pregunta": "¿Qué documento se firmó el 9 de julio de 1816?",
+      "opciones": ["Acta de Independencia", "Constitución Nacional", "Manifiesto de Mayo"],
+      "respuesta": "Acta de Independencia"
+    },
+    {
+      "pregunta": "¿Qué rey europeo fue mencionado como enemigo en el acta?",
+      "opciones": ["Carlos III", "Fernando VII", "Luis XVI"],
+      "respuesta": "Fernando VII"
+    },
+    {
+      "pregunta": "¿Qué provincia fue anfitriona del Congreso de 1816?",
+      "opciones": ["Salta", "Tucumán", "Córdoba"],
+      "respuesta": "Tucumán"
+    },
+    {
+      "pregunta": "¿Cuál fue uno de los motivos principales para declarar la independencia?",
+      "opciones": ["Evitar el comercio con España", "Reafirmar la soberanía", "Expandir el territorio"],
+      "respuesta": "Reafirmar la soberanía"
+    },
+    {
+      "pregunta": "¿Qué general tenía influencia desde el norte durante ese periodo?",
+      "opciones": ["José de San Martín", "Juan Lavalle", "Manuel Belgrano"],
+      "respuesta": "Manuel Belgrano"
+    },
+    {
+      "pregunta": "¿Qué tipo de gobierno buscaban establecer los congresales?",
+      "opciones": ["Monarquía absolutista", "República independiente", "Virreinato reformado"],
+      "respuesta": "República independiente"
+    },
+    {
+      "pregunta": "¿Qué himno se cantó en la ceremonia del 9 de julio de 1816?",
+      "opciones": ["Marcha de San Lorenzo", "Himno Nacional Argentino", "Himno a la Independencia"],
+      "respuesta": "Himno Nacional Argentino"
+    },
+    {
+      "pregunta": "¿Cuántos diputados aproximadamente firmaron el Acta de Independencia?",
+      "opciones": ["23", "29", "33"],
+      "respuesta": "29"
+    }
+  ]
+}
+

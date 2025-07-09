@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mapa de Eventos Históricos - IPEM 146 "Centenario"</title>
+
+  <!-- Estilos de Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="estilos.css" />
+
+  <!-- Mejora SEO y redes sociales -->
+  <meta name="description" content="Visor interactivo con mapa y lista de eventos históricos para 4º Año Informática - IPEM 146 Centenario" />
+  <meta name="author" content="IPEM 146 'Centenario'" />
+</head>
+<body>
+  <header role="banner">
+    <div class="header-superior">
+      <div class="header-izquierda">
+        <h3>Sistemas Digitales 4to- Prof. Pantaleo José</h3>
+        <p><em>Formación Profesional: Programación Web</em></p>
+        <p>IPEM 146 "Centenario"</p>
+        
+      </div>
+      <div class="header-derecha">
+        <h2>Visor Interactivo de Eventos Históricos</h2>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <nav class="filtros" aria-label="Filtros de búsqueda">
+      <form id="form-filtros" role="search" aria-describedby="ayudaFiltros">
+        <p id="ayudaFiltros" class="sr-only">
+          Use los siguientes filtros para buscar eventos por período, país o título.
+        </p>
+        <div class="filtro">
+          <label for="filtroPeriodo">Período:</label>
+          <select id="filtroPeriodo" aria-label="Filtrar por período">
+            <option value="todos">Todos los períodos</option>
+          </select>
+        </div>
+        <div class="filtro">
+          <label for="filtroPais">País:</label>
+          <select id="filtroPais" aria-label="Filtrar por país">
+            <option value="todos">Todos los países</option>
+          </select>
+        </div>
+        <div class="filtro">
+          <label for="busquedaTitulo">Título:</label>
+          <input
+            id="busquedaTitulo"
+            type="search"
+            placeholder="Buscar por título..."
+            aria-label="Buscar eventos por título"
+            autocomplete="off"
+          />
+        </div>
+       
+        </div>
+      </form>
+    </nav>
+  </header>
+
+  <main>
+    <section class="contenedor-principal">
+      <!-- Mapa -->
+      <div
+        id="mapa"
+        role="region"
+        aria-label="Mapa interactivo con eventos históricos"
+        tabindex="0"
+        aria-live="polite"
+        aria-relevant="additions"
+        style="height: 500px;"
+      ></div>
+
+      <!-- Zona de eventos -->
+      <aside
+        class="zona-eventos"
+        role="region"
+        aria-label="Lista de eventos históricos"
+        tabindex="0"
+      >
+        <p id="mensaje-no-eventos" aria-live="polite" hidden>No se encontraron eventos.</p>
+        <p id="contador-eventos" aria-live="polite" style="text-align: center;"></p>
+        <div id="lista-eventos" aria-label="Lista de eventos" tabindex="0"></div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- Indicador de carga -->
+  <div id="cargando" class="loader" role="alert" aria-live="assertive" hidden>⏳ Cargando eventos...</div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js" defer></script>
+  <script src="principal.js" defer></script>
+
+  <!-- Accesibilidad: Estilos para elementos screen-reader only -->
+  <style>
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+  </style>
+</body>
+</html>

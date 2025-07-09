@@ -1,0 +1,456 @@
+/* RESET Y GENERAL */
+* {
+  box-sizing: border-box; /* Incluye padding y border en el ancho y alto total */
+  margin: 0;              /* Elimina márgenes por defecto */
+  padding: 0;             /* Elimina padding por defecto */
+}
+
+html, body {
+  height: 100%;           /* Ocupan toda la altura de la ventana */
+  width: 100%;            /* Ocupan todo el ancho */
+  overflow: hidden;       /* Evita scroll global */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente legible */
+  display: flex;          /* Usamos flexbox para layout principal */
+}
+
+/* HEADER LATERAL IZQUIERDO */
+header {
+  width: 250px;                         /* Ancho fijo para la barra lateral */
+  height: 100%;                        /* Ocupa toda la altura */
+  position: fixed;                     /* Fijo a la izquierda */
+  top: 0; left: 0;                    /* Pegado a la esquina superior izquierda */
+  background: rgba(0, 64, 128, 0.95); /* Fondo azul oscuro semitransparente */
+  color: white;                       /* Texto blanco */
+  padding: 20px;                     /* Espaciado interno */
+  overflow-y: auto;                  /* Scroll vertical si contenido excede */
+  z-index: 1000;                     /* Por encima de otros elementos */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;                        /* Espacio entre hijos */
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+header h2,
+header h4,
+header h3,
+header p {
+  margin-bottom: 0.5rem;    
+  color:#ffffff         /* Separación inferior entre textos */
+}
+
+/* FORMULARIO DE FILTROS */
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;                       /* Separación vertical entre filtros */
+}
+
+.filtros select,
+.filtros input {
+  padding: 6px 8px;               /* Relleno interno cómodo */
+  font-size: 0.9rem;              /* Tamaño de texto legible */
+  border-radius: 4px;             /* Bordes redondeados */
+  border: 1px solid #ccc;         /* Borde gris claro */
+}
+
+/* CONTENEDOR PRINCIPAL A LA DERECHA DEL HEADER */
+main {
+  margin-left: 250px;               /* Deja espacio para el header fijo */
+  width: calc(100% - 250px);       /* Resta ancho del header para llenar resto */
+  height: 100%;                    /* Altura completa */
+  display: flex;
+  flex-direction: column;          /* Layout vertical (mapa arriba, eventos abajo) */
+}
+
+/* MAPA PRINCIPAL */
+#mapa {
+  flex: 1;                          /* Ocupa todo el espacio disponible */
+  width: 100%;                      /* Ancho completo del contenedor */
+  height: 100%;                     /* Alto completo del contenedor */
+  min-height: 400px;                /* Altura mínima para no quedar muy pequeño */
+  max-height: 200vh;                /* No superar la altura visible */
+  box-sizing: border-box;           /* Incluye padding y borde en tamaño */
+  background-color: #e0e7ff;       /* Fondo suave para cargar */
+  
+  border: 3px solid #0284c7;       /* Borde azul vivo de 3px */
+  border-radius: 12px;             /* Bordes redondeados */
+  
+  /* Sombra interna y externa para profundidad */
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.1),
+    0 4px 15px rgba(2, 132, 199, 0.5);
+  
+  padding: 8px;                    /* Espacio interno para que controles no toquen borde */
+  
+  cursor: grab;                    /* Cursor “agarrar” para indicar drag */
+  
+  opacity: 0;                     /* Empieza invisible para animación */
+  animation: fadeInMap 1s forwards ease-in; /* Animación fade-in */
+  
+  transition: box-shadow 0.3s ease, border-color 0.3s ease; /* Transición suave para hover */
+}
+
+/* Animación fade-in */
+@keyframes fadeInMap {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Efecto al pasar mouse */
+#mapa:hover {
+  border-color: #0c4a6e;           /* Borde azul más oscuro */
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.1),
+    0 8px 25px rgba(2, 132, 199, 0.7); /* Sombra más marcada */
+}
+
+/* Efecto mientras se arrastra */
+#mapa:active {
+  cursor: grabbing;
+}
+
+/* Focus visible para accesibilidad */
+#mapa:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.1),
+    0 0 0 4px rgba(2, 132, 199, 0.7);
+}
+
+/* Adaptación para móviles */
+@media (max-width: 768px) {
+  #mapa {
+    border-width: 2px;
+    border-radius: 8px;
+    box-shadow:
+      inset 0 0 6px rgba(0, 0, 0, 0.07),
+      0 2px 8px rgba(2, 132, 199, 0.3);
+  }
+}
+
+.imagen-popup {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+
+
+/* LISTA DE EVENTOS EN PARTE INFERIOR */
+.zona-eventos {
+  max-height: 20vh;              /* Máximo 20% de la altura de viewport */
+  overflow-y: auto;             /* Scroll vertical si contenido excede */
+  padding: 16px;                /* Espaciado interno */
+  background: #f8fafc;          /* Fondo muy claro */
+  border-top: 1px solid #ccc;   /* Línea separadora arriba */
+}
+
+/* BLOQUES DE EVENTOS */
+#mensaje-no-eventos,
+#contador-eventos,
+#lista-eventos {
+  margin-bottom: 20px;           /* Separación inferior */
+  background: #fff;              /* Fondo blanco */
+  padding: 16px;                 /* Relleno interno */
+  border-radius: 10px;           /* Bordes redondeados */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* SCROLL SUAVE EN LISTA DE EVENTOS */
+.zona-eventos::-webkit-scrollbar {
+  width: 8px;                   /* Ancho del scrollbar */
+}
+.zona-eventos::-webkit-scrollbar-thumb {
+  background-color: #ccc;       /* Color del pulgar del scrollbar */
+  border-radius: 4px;           /* Bordes redondeados para pulgar */
+}
+
+/* RESPONSIVE: header arriba y diseño vertical para pantallas pequeñas */
+@media (max-width: 768px) {
+  html, body {
+    flex-direction: column;     /* Layout vertical */
+  }
+
+  header {
+    position: relative;         /* Header deja de estar fijo */
+    width: 100%;                /* Ocupa ancho completo */
+    height: auto;
+    flex-direction: row;        /* Fila horizontal */
+    flex-wrap: wrap;            /* Permite que elementos bajen */
+    justify-content: space-between; /* Espacio entre elementos */
+    gap: 10px;                  /* Espacio entre hijos */
+  }
+
+  main {
+    margin-left: 0;             /* Sin margen izquierdo */
+    width: 100%;                /* Ancho completo */
+    height: auto;               /* Altura ajustable */
+  }
+
+  #mapa {
+    height: 50vh;               /* Altura 50% de la ventana */
+  }
+
+  .zona-eventos {
+    max-height: 50vh;           /* Máximo 50% de la ventana */
+    border-top: 1px solid #ccc; /* Línea separadora arriba */
+  }
+}
+
+/* CLASE PARA RESALTAR EVENTOS ENCONTRADOS */
+.item-resaltado {
+  background: linear-gradient(to right, #a7f3d0, #6ee7b7) !important; /* Fondo verde degradado */
+  border-left: 6px solid #059669 !important; /* Barra verde oscura */
+  box-shadow: 0 6px 14px rgba(0, 128, 0, 0.2); /* Sombra verde */
+  transform: scale(1.015); /* Ligera ampliación */
+  color: #064e3b;          /* Texto verde oscuro */
+}
+
+/* ESTILO PARA LOS BOTONES DE EVENTOS */
+.item-lista-evento {
+  all: unset;              /* Elimina estilos por defecto de botón para personalizar */
+  display: block;          /* Bloque para que ocupe todo el ancho */
+  width: 100%;             /* Ancho completo */
+  padding: 8px 12px;       /* Espaciado interno */
+  border-radius: 12px;     /* Bordes redondeados */
+  margin-bottom: 14px;     /* Separación inferior entre botones */
+  cursor: pointer;         /* Cursor puntero en hover */
+  border-left: 6px solid #0284c7; /* Barra azul izquierda */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra para profundidad */
+  font-size: 1.55rem;      /* Tamaño de texto grande */
+  font-weight: 600;        /* Texto seminegrita */
+  color: #0f172a;          /* Color texto azul oscuro */
+  user-select: none;       /* Evita selección accidental */
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.3s ease,
+    color 0.3s ease;       /* Transiciones suaves para interacción */
+  text-align: center;      /* Texto centrado */
+}
+
+/* ESTADO HOVER Y FOCUS PARA MEJOR ACCESIBILIDAD */
+.item-lista-evento:hover,
+.item-lista-evento:focus-visible {
+  background: linear-gradient(to right, #7dd3fc, #38bdf8); /* Fondo azul degradado */
+  transform: scale(1.02); /* Pequeña ampliación */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+  color: #1e3a8a;         /* Texto azul más oscuro */
+  outline: none;          /* Sin outline extra */
+}
+
+/* ESTILO PARA BOTONES RESALTADOS (EVENTOS FILTRADOS) */
+.item-lista-evento.item-resaltado {
+  background: linear-gradient(to right, #a7f3d0, #6ee7b7) !important; /* Fondo verde degradado */
+  border-left: 6px solid #059669 !important; /* Barra verde */
+  box-shadow: 0 6px 14px rgba(0, 128, 0, 0.2); /* Sombra verde */
+  transform: scale(1.015); /* Pequeña ampliación */
+  color: #064e3b;          /* Texto verde oscuro */
+}
+
+/* CONTENEDOR GENERAL DEL POPUP */
+.popup-evento {
+  background: #fff;
+  border-radius: 8px;           /* Bordes un poco menos redondeados */
+  padding: 10px 12px;           /* Menos padding para compacto */
+  max-width: 280px;             /* Más estrecho para popup pequeño */
+  box-shadow:
+    inset 0 0 6px rgba(0, 0, 0, 0.04),
+    0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1e293b;
+  user-select: text;
+  line-height: 1;
+  font-size: 0.85rem;
+  font-weight: bold;           /* Texto más pequeño */
+}
+
+/* TÍTULO PRINCIPAL DEL POPUP */
+.popup-evento h3 {
+  font-size: 1.2rem;            /* Título más pequeño */
+  font-weight: 700;
+  color: #0c4a6e;
+  margin-bottom: 0.3em;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* PÁRRAFOS GENERALES */
+.popup-evento p {
+  font-size: 0.85rem;           /* Texto más pequeño */
+  color: #475569;
+  margin-bottom: 0.6em;
+}
+
+/* TEXTO "¿SABÍAS QUE?" */
+.popup-evento .sabias-que {
+  font-style: italic;
+  background: #d1fae5;
+  border-left: 4px solid #059669;
+  padding: 6px 10px;
+  margin-bottom: 0.8em;
+  color: #064e3b;
+  box-shadow: 0 1.5px 6px rgba(5, 150, 105, 0.1);
+  font-size: 0.85rem;
+}
+
+/* IMAGEN DENTRO DEL POPUP */
+.popup-evento .imagen-popup {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 8px auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+/* Efecto hover imagen popup */
+.popup-evento .imagen-popup:hover,
+.popup-evento .imagen-popup:focus {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  outline: none;
+}
+
+/* ENLACES Y BOTONES AL FINAL DEL POPUP */
+.popup-evento a,
+.popup-evento .boton-ver-mas {
+  display: inline-block;
+  margin-right: 8px;
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  user-select: none;
+}
+
+/* Enlace "Ver en Google Maps" */
+.popup-evento a[href*="google.com/maps"] {
+  background-color: #0284c7;
+  color: white;
+  border: 2px solid #0369a1;
+}
+.popup-evento a[href*="google.com/maps"]:hover,
+.popup-evento a[href*="google.com/maps"]:focus {
+  background-color: #0369a1;
+  outline: none;
+}
+
+/* Botón "Ver más" */
+.popup-evento .boton-ver-mas {
+  background: linear-gradient(90deg, #059669, #10b981);
+  color: white;
+  border: 2px solid #047857;
+}
+.popup-evento .boton-ver-mas:hover,
+.popup-evento .boton-ver-mas:focus {
+  background: linear-gradient(90deg, #10b981, #059669);
+  outline: none;
+  box-shadow: 0 0 8px #34d399;
+}
+
+/* Accesibilidad: foco visible */
+.popup-evento a:focus,
+.popup-evento .boton-ver-mas:focus,
+.popup-evento .imagen-popup:focus {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.boton-inicio {
+  background-color: #0284c7;          /* Azul vivo */
+  color: white;                      /* Texto blanco */
+  font-weight: 700;                  /* Negrita */
+  font-size: 1.2rem;                 /* Tamaño visible */
+  padding: 8px 14px;                 /* Espacio cómodo */
+  border-radius: 6px;                /* Bordes redondeados */
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.5); /* Sombra visible */
+  cursor: pointer;                  /* Cursor puntero */
+  user-select: none;                /* No seleccionar texto */
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.15s ease;
+  text-align: center;
+  line-height: 1.1;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.boton-inicio:hover,
+.boton-inicio:focus {
+  background-color: #0369a1;       /* Azul más oscuro */
+  box-shadow: 0 6px 18px rgba(3, 105, 65, 0.7);
+  outline: none;
+  transform: scale(1.05);
+}
+
+.boton-inicio:active {
+  background-color: #025d8c;       /* Azul aún más oscuro */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+/* Contenedor de filtros */
+.filtros {
+  background-color: #f0f4f8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 1rem auto;
+  max-width: 960px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Cada filtro individual */
+.filtro {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 1px;
+  min-width: 140px;
+}
+
+/* Etiquetas de los filtros */
+.filtro label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Inputs y selects de filtros */
+.filtro select,
+.filtro input[type="search"] {
+  padding: 8px 10px;
+  border: 1.5px solid #bbb;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  outline-offset: 2px;
+  outline-color: transparent;
+  font-family: inherit;
+}
+
+/* Foco visible y accesible */
+.filtro select:focus,
+.filtro input[type="search"]:focus {
+  border-color: #1976d2;
+  outline-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.5);
+}
