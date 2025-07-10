@@ -194,7 +194,7 @@ function crearMarcadores() {
   marcadores.forEach(m => markerCluster.addLayer(m));
 }
 
-// --- Crear contenido popup sin trivia ---
+// --- Crear contenido popup sin imagen ---
 
 function crearPopupContenido(evento) {
   const container = document.createElement("div");
@@ -207,20 +207,6 @@ function crearPopupContenido(evento) {
     <p><strong>País:</strong> ${evento.pais || "Desconocido"}</p>
     <p>${evento.descripcion || ""}</p>
   `;
-
-  if (evento.media) {
-    const img = document.createElement("img");
-    img.src = evento.media;
-    img.alt = evento.titulo;
-    img.className = "imagen-popup";
-    Object.assign(img.style, {
-      width: "100%",
-      height: "auto",
-      borderRadius: "8px",
-      marginTop: "10px",
-    });
-    container.appendChild(img);
-  }
 
   if (evento.sabiasQue) {
     const btnSabiasQue = document.createElement("button");
@@ -426,7 +412,6 @@ map.on("zoomend", () => {
     }
   }
 });
-
 
 // --- Inicialización ---
 
