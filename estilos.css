@@ -1,32 +1,32 @@
 /* RESET Y GENERAL */
 * {
-  box-sizing: border-box; /* Incluye padding y border en el ancho y alto total */
-  margin: 0;              /* Elimina márgenes por defecto */
-  padding: 0;             /* Elimina padding por defecto */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
-  height: 100%;           /* Ocupan toda la altura de la ventana */
-  width: 100%;            /* Ocupan todo el ancho */
-  overflow: hidden;       /* Evita scroll global */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente legible */
-  display: flex;          /* Usamos flexbox para layout principal */
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
 }
 
 /* HEADER LATERAL IZQUIERDO */
 header {
-  width: 250px;                         /* Ancho fijo para la barra lateral */
-  height: 100%;                        /* Ocupa toda la altura */
-  position: fixed;                     /* Fijo a la izquierda */
-  top: 0; left: 0;                    /* Pegado a la esquina superior izquierda */
-  background: rgba(0, 64, 128, 0.95); /* Fondo azul oscuro semitransparente */
-  color: white;                       /* Texto blanco */
-  padding: 20px;                     /* Espaciado interno */
-  overflow-y: auto;                  /* Scroll vertical si contenido excede */
-  z-index: 1000;                     /* Por encima de otros elementos */
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(0, 64, 128, 0.95);
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 1rem;                        /* Espacio entre hijos */
+  gap: 1rem;
   font-weight: bold;
   font-size: 1rem;
 }
@@ -35,259 +35,143 @@ header h2,
 header h4,
 header h3,
 header p {
-  margin-bottom: 0.5rem;    
-  color:#ffffff         /* Separación inferior entre textos */
+  margin-bottom: 0.5rem;
+  color:#ffffff;
 }
 
 /* FORMULARIO DE FILTROS */
 .filtros {
   display: flex;
   flex-direction: column;
-  gap: 10px;                       /* Separación vertical entre filtros */
+  gap: 10px;
 }
 
 .filtros select,
 .filtros input {
-  padding: 6px 8px;               /* Relleno interno cómodo */
-  font-size: 0.9rem;              /* Tamaño de texto legible */
-  border-radius: 4px;             /* Bordes redondeados */
-  border: 1px solid #ccc;         /* Borde gris claro */
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
-/* CONTENEDOR PRINCIPAL A LA DERECHA DEL HEADER */
+/* CONTENEDOR PRINCIPAL */
 main {
-  margin-left: 250px;               /* Deja espacio para el header fijo */
-  width: calc(100% - 250px);       /* Resta ancho del header para llenar resto */
-  height: 100%;                    /* Altura completa */
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  height: 100%;
   display: flex;
-  flex-direction: column;          /* Layout vertical (mapa arriba, eventos abajo) */
+  flex-direction: column;
 }
 
 /* MAPA PRINCIPAL */
 #mapa {
-  flex: 1;                          /* Ocupa todo el espacio disponible */
-  width: 100%;                      /* Ancho completo del contenedor */
-  height: 100%;                     /* Alto completo del contenedor */
-  min-height: 400px;                /* Altura mínima para no quedar muy pequeño */
-  max-height: 200vh;                /* No superar la altura visible */
-  box-sizing: border-box;           /* Incluye padding y borde en tamaño */
-  background-color: #e0e7ff;       /* Fondo suave para cargar */
-  
-  border: 3px solid #0284c7;       /* Borde azul vivo de 3px */
-  border-radius: 12px;             /* Bordes redondeados */
-  
-  /* Sombra interna y externa para profundidad */
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  max-height: 200vh;
+  background-color: #e0e7ff;
+  border: 3px solid #0284c7;
+  border-radius: 12px;
   box-shadow:
     inset 0 0 10px rgba(0, 0, 0, 0.1),
     0 4px 15px rgba(2, 132, 199, 0.5);
-  
-  padding: 8px;                    /* Espacio interno para que controles no toquen borde */
-  
-  cursor: grab;                    /* Cursor “agarrar” para indicar drag */
-  
-  opacity: 0;                     /* Empieza invisible para animación */
-  animation: fadeInMap 1s forwards ease-in; /* Animación fade-in */
-  
-  transition: box-shadow 0.3s ease, border-color 0.3s ease; /* Transición suave para hover */
+  padding: 8px;
+  cursor: grab;
+  opacity: 0;
+  animation: fadeInMap 1s forwards ease-in;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Animación fade-in */
 @keyframes fadeInMap {
-  to {
-    opacity: 1;
-  }
+  to { opacity: 1; }
 }
 
-/* Efecto al pasar mouse */
 #mapa:hover {
-  border-color: #0c4a6e;           /* Borde azul más oscuro */
+  border-color: #0c4a6e;
   box-shadow:
     inset 0 0 10px rgba(0, 0, 0, 0.1),
-    0 8px 25px rgba(2, 132, 199, 0.7); /* Sombra más marcada */
+    0 8px 25px rgba(2, 132, 199, 0.7);
 }
 
-/* Efecto mientras se arrastra */
 #mapa:active {
   cursor: grabbing;
 }
 
-/* Focus visible para accesibilidad */
 #mapa:focus-visible {
   outline: none;
-  box-shadow:
-    inset 0 0 10px rgba(0, 0, 0, 0.1),
-    0 0 0 4px rgba(2, 132, 199, 0.7);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(2, 132, 199, 0.7);
 }
 
-/* Adaptación para móviles */
-@media (max-width: 768px) {
-  #mapa {
-    border-width: 2px;
-    border-radius: 8px;
-    box-shadow:
-      inset 0 0 6px rgba(0, 0, 0, 0.07),
-      0 2px 8px rgba(2, 132, 199, 0.3);
-  }
-}
-
+/* Imagen flotante */
 .imagen-popup {
-  max-width: 50%;
+  max-width: 1%;
   height: auto;
   display: block;
   margin: 10px 0;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px 5px rgba(0,0,0,0.15);
 }
 
-
-
-/* LISTA DE EVENTOS EN PARTE INFERIOR */
+/* LISTA DE EVENTOS */
 .zona-eventos {
-  max-height: 20vh;              /* Máximo 20% de la altura de viewport */
-  overflow-y: auto;             /* Scroll vertical si contenido excede */
-  padding: 16px;                /* Espaciado interno */
-  background: #f8fafc;          /* Fondo muy claro */
-  border-top: 1px solid #ccc;   /* Línea separadora arriba */
+  max-height: 20vh;
+  overflow-y: auto;
+  padding: 16px;
+  background: #f8fafc;
+  border-top: 1px solid #ccc;
 }
 
-/* BLOQUES DE EVENTOS */
 #mensaje-no-eventos,
 #contador-eventos,
 #lista-eventos {
-  margin-bottom: 20px;           /* Separación inferior */
-  background: #fff;              /* Fondo blanco */
-  padding: 16px;                 /* Relleno interno */
-  border-radius: 10px;           /* Bordes redondeados */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* SCROLL SUAVE EN LISTA DE EVENTOS */
 .zona-eventos::-webkit-scrollbar {
-  width: 8px;                   /* Ancho del scrollbar */
+  width: 8px;
 }
 .zona-eventos::-webkit-scrollbar-thumb {
-  background-color: #ccc;       /* Color del pulgar del scrollbar */
-  border-radius: 4px;           /* Bordes redondeados para pulgar */
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
-/* RESPONSIVE: header arriba y diseño vertical para pantallas pequeñas */
-@media (max-width: 768px) {
-  html, body {
-    flex-direction: column;     /* Layout vertical */
-  }
-
-  header {
-    position: relative;         /* Header deja de estar fijo */
-    width: 100%;                /* Ocupa ancho completo */
-    height: auto;
-    flex-direction: row;        /* Fila horizontal */
-    flex-wrap: wrap;            /* Permite que elementos bajen */
-    justify-content: space-between; /* Espacio entre elementos */
-    gap: 10px;                  /* Espacio entre hijos */
-  }
-
-  main {
-    margin-left: 0;             /* Sin margen izquierdo */
-    width: 100%;                /* Ancho completo */
-    height: auto;               /* Altura ajustable */
-  }
-
-  #mapa {
-    height: 50vh;               /* Altura 50% de la ventana */
-  }
-
-  .zona-eventos {
-    max-height: 50vh;           /* Máximo 50% de la ventana */
-    border-top: 1px solid #ccc; /* Línea separadora arriba */
-  }
-}
-
-/* CLASE PARA RESALTAR EVENTOS ENCONTRADOS */
-.item-resaltado {
-  background: linear-gradient(to right, #a7f3d0, #6ee7b7) !important; /* Fondo verde degradado */
-  border-left: 6px solid #059669 !important; /* Barra verde oscura */
-  box-shadow: 0 6px 14px rgba(0, 128, 0, 0.2); /* Sombra verde */
-  transform: scale(1.015); /* Ligera ampliación */
-  color: #064e3b;          /* Texto verde oscuro */
-}
-
-/* ESTILO PARA LOS BOTONES DE EVENTOS */
-.item-lista-evento {
-  all: unset;              /* Elimina estilos por defecto de botón para personalizar */
-  display: block;          /* Bloque para que ocupe todo el ancho */
-  width: 100%;             /* Ancho completo */
-  padding: 8px 12px;       /* Espaciado interno */
-  border-radius: 12px;     /* Bordes redondeados */
-  margin-bottom: 14px;     /* Separación inferior entre botones */
-  cursor: pointer;         /* Cursor puntero en hover */
-  border-left: 6px solid #0284c7; /* Barra azul izquierda */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra para profundidad */
-  font-size: 1.55rem;      /* Tamaño de texto grande */
-  font-weight: 600;        /* Texto seminegrita */
-  color: #0f172a;          /* Color texto azul oscuro */
-  user-select: none;       /* Evita selección accidental */
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.3s ease,
-    color 0.3s ease;       /* Transiciones suaves para interacción */
-  text-align: center;      /* Texto centrado */
-}
-
-/* ESTADO HOVER Y FOCUS PARA MEJOR ACCESIBILIDAD */
-.item-lista-evento:hover,
-.item-lista-evento:focus-visible {
-  background: linear-gradient(to right, #7dd3fc, #38bdf8); /* Fondo azul degradado */
-  transform: scale(1.02); /* Pequeña ampliación */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
-  color: #1e3a8a;         /* Texto azul más oscuro */
-  outline: none;          /* Sin outline extra */
-}
-
-/* ESTILO PARA BOTONES RESALTADOS (EVENTOS FILTRADOS) */
-.item-lista-evento.item-resaltado {
-  background: linear-gradient(to right, #a7f3d0, #6ee7b7) !important; /* Fondo verde degradado */
-  border-left: 6px solid #059669 !important; /* Barra verde */
-  box-shadow: 0 6px 14px rgba(0, 128, 0, 0.2); /* Sombra verde */
-  transform: scale(1.015); /* Pequeña ampliación */
-  color: #064e3b;          /* Texto verde oscuro */
-}
-
-/* CONTENEDOR GENERAL DEL POPUP */
+/* POPUP EVENTO */
 .popup-evento {
   background: #fff;
-  border-radius: 8px;           /* Bordes un poco menos redondeados */
-  padding: 10px 12px;           /* Menos padding para compacto */
-  max-width: 280px;             /* Más estrecho para popup pequeño */
-  box-shadow:
-    inset 0 0 6px rgba(0, 0, 0, 0.04),
-    0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  max-width: 380px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1e293b;
   user-select: text;
-  line-height: 1;
+  line-height: 0.8;
   font-size: 0.85rem;
-  font-weight: bold;           /* Texto más pequeño */
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-/* TÍTULO PRINCIPAL DEL POPUP */
 .popup-evento h3 {
-  font-size: 1.2rem;            /* Título más pequeño */
+  font-size: 1rem;
   font-weight: 700;
   color: #0c4a6e;
   margin-bottom: 0.3em;
   text-align: center;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
-/* PÁRRAFOS GENERALES */
 .popup-evento p {
-  font-size: 0.85rem;           /* Texto más pequeño */
+  font-size: 0.72rem;
   color: #475569;
   margin-bottom: 0.6em;
+  transition: all 0.3s ease;
 }
 
-/* TEXTO "¿SABÍAS QUE?" */
 .popup-evento .sabias-que {
   font-style: italic;
   background: #d1fae5;
@@ -299,34 +183,32 @@ main {
   font-size: 0.85rem;
 }
 
-/* IMAGEN DENTRO DEL POPUP */
 .popup-evento .imagen-popup {
-  max-width: 100%;
+  max-width: 40%;
   height: auto;
   border-radius: 6px;
   display: block;
-  margin: 8px auto;
+  margin: auto;
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
   transition: transform 0.3s ease;
   cursor: zoom-in;
 }
 
-/* Efecto hover imagen popup */
 .popup-evento .imagen-popup:hover,
 .popup-evento .imagen-popup:focus {
-  transform: scale(1.03);
+  transform: scale(1.9);
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   outline: none;
 }
 
-/* ENLACES Y BOTONES AL FINAL DEL POPUP */
 .popup-evento a,
 .popup-evento .boton-ver-mas {
+  text-align: center;
   display: inline-block;
   margin-right: 8px;
   margin-top: 8px;
   padding: 6px 12px;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-decoration: none;
   border-radius: 6px;
@@ -334,9 +216,10 @@ main {
   cursor: pointer;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
   user-select: none;
+  white-space: nowrap;
+  min-width: 120px;
 }
 
-/* Enlace "Ver en Google Maps" */
 .popup-evento a[href*="google.com/maps"] {
   background-color: #0284c7;
   color: white;
@@ -348,7 +231,6 @@ main {
   outline: none;
 }
 
-/* Botón "Ver más" */
 .popup-evento .boton-ver-mas {
   background: linear-gradient(90deg, #059669, #10b981);
   color: white;
@@ -361,7 +243,6 @@ main {
   box-shadow: 0 0 8px #34d399;
 }
 
-/* Accesibilidad: foco visible */
 .popup-evento a:focus,
 .popup-evento .boton-ver-mas:focus,
 .popup-evento .imagen-popup:focus {
@@ -369,20 +250,84 @@ main {
   outline-offset: 2px;
 }
 
+/* BOTONES EN EL POPUP EN FILA HORIZONTAL */
+.popup-botones {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* BOTONES ESCUCHAR DATO CURIOSO */
+.boton-sabias-que {
+  background-color: #1976d2; /* azul vivo */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  user-select: none;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.boton-sabias-que:hover,
+.boton-sabias-que:focus {
+  background-color: #145a9c; /* azul más oscuro */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.5);
+}
+
+.boton-sabias-que:active {
+  background-color: #0e3c6b; /* azul aún más oscuro */
+  box-shadow: none;
+  transform: scale(0.98);
+}
+
+/* LISTA DE EVENTOS */
+.item-resaltado {
+  background: linear-gradient(to right, #a7f3d0, #6ee7b7) !important;
+  border-left: 6px solid #059669 !important;
+  box-shadow: 0 6px 14px rgba(0, 128, 0, 0.2);
+  transform: scale(1.015);
+  color: #064e3b;
+}
+
+.item-lista-evento {
+  all: unset;
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  border-left: 6px solid #0284c7;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #0f172a;
+  user-select: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
+  text-align: center;
+}
+
+/* BOTÓN INICIO */
 .boton-inicio {
-  background-color: #0284c7;          /* Azul vivo */
-  color: white;                      /* Texto blanco */
-  font-weight: 700;                  /* Negrita */
-  font-size: 1.2rem;                 /* Tamaño visible */
-  padding: 8px 14px;                 /* Espacio cómodo */
-  border-radius: 6px;                /* Bordes redondeados */
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.5); /* Sombra visible */
-  cursor: pointer;                  /* Cursor puntero */
-  user-select: none;                /* No seleccionar texto */
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.15s ease;
+  background-color: #0284c7;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.5);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
   text-align: center;
   line-height: 1.1;
   width: max-content;
@@ -391,19 +336,20 @@ main {
 
 .boton-inicio:hover,
 .boton-inicio:focus {
-  background-color: #0369a1;       /* Azul más oscuro */
+  background-color: #0369a1;
   box-shadow: 0 6px 18px rgba(3, 105, 65, 0.7);
   outline: none;
   transform: scale(1.05);
 }
 
 .boton-inicio:active {
-  background-color: #025d8c;       /* Azul aún más oscuro */
+  background-color: #025d8c;
   box-shadow: 0 3px 8px rgba(0,0,0,0.3);
   transform: scale(0.98);
   transition-duration: 0.1s;
 }
-/* Contenedor de filtros */
+
+/* FILTROS */
 .filtros {
   background-color: #f0f4f8;
   border-radius: 8px;
@@ -415,10 +361,8 @@ main {
   flex-wrap: wrap;
   gap: 12px;
   align-items: flex-end;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Cada filtro individual */
 .filtro {
   display: flex;
   flex-direction: column;
@@ -426,7 +370,6 @@ main {
   min-width: 140px;
 }
 
-/* Etiquetas de los filtros */
 .filtro label {
   font-weight: 600;
   margin-bottom: 6px;
@@ -434,7 +377,6 @@ main {
   font-size: 0.9rem;
 }
 
-/* Inputs y selects de filtros */
 .filtro select,
 .filtro input[type="search"] {
   padding: 8px 10px;
@@ -442,15 +384,117 @@ main {
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  outline-offset: 2px;
-  outline-color: transparent;
   font-family: inherit;
 }
 
-/* Foco visible y accesible */
 .filtro select:focus,
 .filtro input[type="search"]:focus {
   border-color: #1976d2;
-  outline-color: #1976d2;
   box-shadow: 0 0 6px rgba(25, 118, 210, 0.5);
 }
+
+/* RESPONSIVE: MOBILE */
+@media (max-width: 768px) {
+  html, body {
+    flex-direction: column;
+  }
+
+  header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  main {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  #mapa {
+    height: 50vh;
+  }
+
+  .zona-eventos {
+    max-height: 45vh;
+    padding: 12px;
+  }
+
+  .item-lista-evento {
+    font-size: 1.1rem;
+    padding: 6px 10px;
+  }
+}
+
+/* OPTIMIZACIÓN POPUP EN DISPOSITIVOS MÁS PEQUEÑOS */
+@media (max-width: 600px) {
+  .popup-evento {
+    max-width: 90vw;
+    padding: 8px 10px;
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .popup-evento h3 {
+    font-size: 1rem;
+  }
+
+  .popup-evento p {
+    font-size: 0.72rem;
+  }
+
+  .popup-evento .sabias-que {
+    font-size: 0.72rem;
+    padding: 5px 8px;
+  }
+
+  .popup-evento .imagen-popup {
+    max-width: 80%;
+    margin: 8px auto;
+    border-radius: 4px;
+  }
+
+  .popup-evento .imagen-popup:hover {
+    transform: scale(1.3);
+  }
+
+  .popup-evento .boton-ver-mas,
+  .popup-evento a {
+    font-size: 0.75rem;
+    padding: 6px 8px;
+  }
+
+  .boton-inicio {
+    font-size: 1rem;
+    padding: 6px 10px;
+  }
+
+  /* BOTONES EN FILA HORIZONTAL CON SCROLL */
+  .popup-botones {
+    flex-direction: row;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .popup-botones button,
+  .popup-botones a {
+    min-width: 140px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+/* COLORES PARA ZONAS (ejemplo complementarios) */
+.zona-1 { background-color: #a7f3d0; border-left: 6px solid #059669; } /* verde claro */
+.zona-2 { background-color: #fcd34d; border-left: 6px solid #b45309; } /* amarillo dorado */
+.zona-3 { background-color: #93c5fd; border-left: 6px solid #1e40af; } /* azul claro */
+.zona-4 { background-color: #fca5a5; border-left: 6px solid #991b1b; } /* rojo suave */
+.zona-5 { background-color: #c7d2fe; border-left: 6px solid #3730a3; } /* violeta claro */

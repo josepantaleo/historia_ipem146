@@ -1,0 +1,413 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: #f4f6f8;
+  color: #1e293b;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Encabezado */
+header {
+  background: #004080;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Panel de filtros */
+#panel-filtros {
+  background: #f0f0f0;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+#panel-filtros select,
+#panel-filtros input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  min-width: 160px;
+}
+
+/* Layout principal */
+main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 400px;
+}
+#mapa {
+  flex: 2;
+  height: 100%;
+  width: 100%;
+}
+#panel-lista {
+  flex: 1;
+  overflow-y: auto;
+  border-left: 2px solid #004080;
+  padding: 1rem;
+  background: #fafafa;
+}
+
+/* Lista de eventos */
+#contador-eventos {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+#mensaje-no-eventos {
+  color: #888;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.item-lista-evento {
+  background: #f1f5f9;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+.item-lista-evento:hover {
+  background-color: #d0e4ff;
+  color: #000;
+}
+
+/* Popup */
+.leaflet-popup-content {
+  font-size: 0.95rem;
+  max-width: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.popup-content-extremo {
+  max-width: 320px !important;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+}
+.popup-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+}
+.popup-close-btn:hover {
+  color: #000;
+}
+.popup-evento img.imagen-popup {
+  max-width: 100%;
+  height: auto;
+  max-height: 140px;
+  min-width: 120px;
+  min-height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: block;
+  cursor: pointer;
+}
+
+/* Modal imagen */
+#modal-imagen {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.85);
+  z-index: 10500;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#modal-imagen img {
+  max-width: 95vw;
+  max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #fff;
+}
+
+/* Botones */
+.boton-inicio {
+  background: #004080;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  user-select: none;
+}
+.boton-ver-mas,
+.boton-responder,
+.boton-siguiente,
+.boton-resultado {
+  display: inline-block;
+  background: #0b0b0b;
+  color: #d5c707;
+  padding: 10px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.boton-responder:hover,
+.boton-siguiente:hover:not(:disabled),
+.boton-ver-mas:hover,
+.boton-resultado:hover {
+  background: #51035d;
+  color: yellow;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-weight: bold;
+}
+.boton-siguiente:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Focus accesible para botones */
+.boton-ver-mas:focus,
+.boton-responder:focus,
+.boton-siguiente:focus,
+.boton-resultado:focus {
+  outline: 3px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e40af;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 25px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: pre-wrap;
+  max-width: 80%;
+  text-align: center;
+  z-index: 20000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.toast.visible {
+  opacity: 1;
+  animation: fadeIn 0.3s forwards;
+}
+.toast.hide {
+  animation: fadeOut 0.3s forwards;
+}
+
+/* Animaciones Toast */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+/* Trivia mejorada */
+.trivia-container {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  transition: box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.trivia-container:hover {
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.6);
+}
+
+.trivia-pregunta {
+  font-size: 0,5 rem;
+  font-weight: 7;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 16px;
+  line-height: 1.3;
+ 
+}
+
+.trivia-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-bottom: 12px;
+}
+
+.trivia-opcion {
+  flex: 1 1 calc(50% - 14px);
+  background: #ffffff;
+  border: 2px solid #3b82f6;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.3 rem;
+  color: #341eaf;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(243, 3, 3, 0.15);
+  transition: 
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+  user-select: none;
+  
+}
+
+.trivia-opcion:hover:not(.deshabilitada):not(.seleccionada) {
+  background-color: #3b82f6;
+  color: #ffffff;
+  transform: scale(1.07);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.5);
+}
+
+.trivia-opcion.seleccionada {
+  background-color: #2563eb;
+  color: #f0f9ff;
+  border-color: #1e40af;
+  font-weight: 700;
+  box-shadow: 0 0 12px #3b82f6;
+  transform: scale(1.05);
+}
+
+.trivia-opcion.deshabilitada {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+  background-color: #dbeafe;
+  color: #6b7280;
+  border-color: #93c5fd;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Márgenes para botones en trivia */
+.trivia-container button {
+  margin-right: 10px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* Responsive para celulares */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+  #mapa {
+    height: 60vh;
+    width: 100%;
+  }
+  #panel-lista {
+    height: 40vh;
+    border-left: none;
+    border-top: 2px solid #cbd5e1;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+  .item-lista-evento {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  .trivia-opcion {
+    flex: 1 1 100%;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #mapa {
+    height: 100vh;
+    width: 100vw;
+  }
+  #panel-filtros {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  #panel-filtros select,
+  #panel-filtros input {
+    width: 100%;
+  }
+  .boton-responder,
+  .boton-siguiente,
+  .boton-ver-mas,
+  .boton-resultado {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+  .leaflet-popup-content {
+    font-size: 0.85rem;
+    max-height: 60vh;
+  }
+  .popup-evento img.imagen-popup {
+    max-height: 120px;
+  }
+}
+
+/* Ocultar sección "sabías que" */
+.sabias-que {
+  background-color: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  padding: 6px 10px;
+  margin-top: 8px;
+  font-style: italic;
+  display: none !important;
+}
+
+/* Botón resultado */
+.boton-resultado {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+.boton-resultado:hover {
+  background-color: #125ea4;
+}

@@ -1,0 +1,267 @@
+/* Reset básico y fuente */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px;
+  padding: 0;
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+header {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+  max-width: 600px;
+  margin: 30px auto 15px;
+  padding: 20px;
+  background: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  text-align: center;
+  color: #3b2d6f;
+}
+
+header h1 {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 2.2rem;
+  margin-bottom: 0.2em;
+  color: blue;
+  box-shadow: 10px 10px 5px rgba(185, 16, 16, 0.1); /* Sombra suave para legibilidad */
+  letter-spacing: 0.5px; /* Espaciado sutil entre letras */
+}
+
+header h3 {
+  font-size: 20px;
+  margin-bottom: 0.2em;
+  color: rgb(186, 90, 30);
+}
+
+header p {
+  font-size: 1rem;
+  margin: 0.3em 0;
+}
+
+/* Contenedor filtros */
+.filtros {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+select, input[type="text"] {
+  margin: 0 10px 10px 0;
+  padding: 8px 12px;
+  font-size: 15px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+  background-color: #fff;
+  min-width: 160px;
+}
+
+select:hover, input[type="text"]:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8aa;
+}
+
+select:focus, input[type="text"]:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 12px #0284c7cc;
+  outline: none;
+  background-color: #f0f9ff;
+  transition: none;
+}
+
+/* Mapa */
+#mapa {
+  height: 650px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(3, 105, 161, 0.3);
+  border: 3px solid #0284c7;
+  background: #e0f2fe;
+  position: relative;
+}
+
+/* Lista de eventos */
+#lista-eventos {
+  max-width: 900px;
+  margin: 0 auto 30px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1.5px solid #0284c7;
+  box-shadow: 0 4px 10px rgba(3, 105, 161, 0.2);
+  font-size: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-height: 280px;
+  overflow-y: auto;
+  user-select: none;
+}
+
+.item-lista-evento {
+  padding: 10px 12px;
+  border-bottom: 1px solid #cbd5e1;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  user-select: none;
+}
+
+.item-lista-evento:last-child {
+  border-bottom: none;
+}
+
+.item-lista-evento:hover,
+.item-lista-evento:focus {
+  background-color: #0284c7;
+  color: white;
+  outline: none;
+}
+
+.item-lista-evento:focus {
+  outline: 3px solid #0284c7;
+  background: #dbeafe;
+}
+
+/* Mensaje cuando no hay eventos */
+#mensaje-no-eventos {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.95);
+  padding: 25px 40px;
+  border-radius: 12px;
+  font-size: 20px;
+  color: #334155;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  display: none;
+  pointer-events: none;
+  user-select: none;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Popup personalizado */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3) !important;
+}
+
+.leaflet-popup-content {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  color: #1e293b;
+  max-width: 300px;
+}
+
+.leaflet-popup-content h3 {
+  margin-top: 0;
+  color: #0369a1;
+  font-weight: 700;
+}
+
+.leaflet-popup-content p {
+  margin: 5px 0;
+}
+
+/* Botón dentro del popup */
+.leaflet-popup-content button {
+  background-color: #0284c7;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 14px;
+  box-shadow: 0 3px 8px #0284c7aa;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.leaflet-popup-content button:hover,
+.leaflet-popup-content button:focus {
+  background-color: #0369a1;
+  outline: none;
+  box-shadow: 0 5px 12px #0369a1cc;
+}
+
+/* Estilos para clusters */
+.marker-cluster-small {
+  background-color: rgba(60, 180, 75, 0.7);
+  color: #164d00;
+  box-shadow: 0 0 12px rgba(60, 180, 75, 0.8);
+}
+.marker-cluster-medium {
+  background-color: rgba(250, 190, 40, 0.8);
+  color: #6a4a00;
+  box-shadow: 0 0 14px rgba(250, 190, 40, 0.9);
+}
+.marker-cluster-large {
+  background-color: rgba(240, 100, 40, 0.85);
+  color: #5a1a00;
+  box-shadow: 0 0 16px rgba(240, 100, 40, 1);
+}
+.marker-cluster div {
+  border-radius: 50%;
+  text-align: center;
+  font-weight: 700;
+  line-height: 42px;
+  font-size: 16px;
+  user-select: none;
+}
+
+/* Botón inicio en el mapa */
+.leaflet-top.leaflet-right > div > button {
+  font-weight: bold;
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.leaflet-top.leaflet-right > div > button:hover {
+  background-color: #0056b3;
+}
+
+/* Scroll personalizado para lista de eventos */
+#lista-eventos::-webkit-scrollbar {
+  width: 8px;
+}
+
+#lista-eventos::-webkit-scrollbar-track {
+  background: #f0f9ff;
+  border-radius: 10px;
+}
+
+#lista-eventos::-webkit-scrollbar-thumb {
+  background-color: #0284c7;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #mapa {
+    height: 400px;
+  }
+
+  select, input[type="text"] {
+    min-width: 120px;
+  }
+}

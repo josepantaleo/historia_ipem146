@@ -1,5 +1,4 @@
 // --- Configuración inicial del mapa ---
-
 const POSICION_INICIAL = [0, 0];
 const ZOOM_INICIAL = 3;
 const ZOOM_MIN = 3;
@@ -20,8 +19,9 @@ let marcadores = [];
 let eventosMap = new Map();
 
 let popupAbierto = null;
-let triviaActiva = null;
+let evitarAperturaPopup = false;
 
+// Referencias a filtros y elementos UI
 const filtros = {
   periodo: document.getElementById("filtroPeriodo"),
   busqueda: document.getElementById("busquedaTitulo"),
@@ -41,39 +41,12 @@ map.addLayer(markerCluster);
 
 // --- Funciones auxiliares ---
 
-// Función narrar mejorada
 function narrar(texto) {
   if (!('speechSynthesis' in window)) return;
-
-  window.speechSynthesis.cancel(); // Detener narración previa siempre
-
+  window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(texto);
   utterance.lang = 'es-AR';
   window.speechSynthesis.speak(utterance);
-}
-
-// Función abrir evento con cancelación de narración previa
-function abrirEventoEnMapa(id) {
-  const evento = eventosMap.get(id);
-  if (!evento) return;
-  const marker = marcadores.find(m => m.eventoId === id);
-  if (marker) {
-    // Detener narración antes de abrir otro popup
-    window.speechSynthesis.cancel();
-
-    map.flyTo(evento.ubicacion, 8, { duration: 1.5 });
-    if (popupAbierto && popupAbierto !== marker) popupAbierto.closePopup();
-    marker.openPopup();
-    popupAbierto = marker;
-  }
-}
-
-
-function mezclarArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
 }
 
 function showToast(mensaje, duracion = 4000) {
@@ -98,7 +71,15 @@ function agregarBotonInicio() {
     div.style.cursor = "pointer";
     div.onclick = () => {
       window.speechSynthesis.cancel();
+      if (popupAbierto) {
+        popupAbierto.closePopup();
+        popupAbierto = null;
+      }
+      evitarAperturaPopup = true; // bloquea apertura popup tras inicio
       map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 1.2 });
+      setTimeout(() => {
+        evitarAperturaPopup = false;
+      }, 1500);
     };
     return div;
   };
@@ -155,17 +136,13 @@ async function cargarEventos() {
     cargarEstadoMapa();
     cargarFiltros();
     actualizarEventos();
-
-    // ** Aquí forzamos la vista a la posición inicial al terminar de cargar eventos **
     map.setView(POSICION_INICIAL, ZOOM_INICIAL);
-
     document.getElementById("cargando")?.style?.setProperty("display", "none");
   } catch (err) {
     console.error(err);
     alert("Error al cargar eventos.");
   }
 }
-
 
 function llenarFiltroPeriodos() {
   const periodos = [...new Set(eventos.map(e => e.periodo))].sort();
@@ -185,11 +162,12 @@ function crearMarcadores() {
   marcadores = eventos.filter(e => Array.isArray(e.ubicacion) && e.ubicacion.length === 2).map(evento => {
     const marker = L.marker(evento.ubicacion);
     marker.eventoId = evento.id;
+
     marker.bindPopup('', {
       minWidth: 320,
       maxWidth: 360,
       maxHeight: 450,
-      autoPan: true
+      autoPan: true,
     });
 
     marker.on("popupopen", () => {
@@ -200,10 +178,7 @@ function crearMarcadores() {
 
     marker.on("popupclose", () => {
       if (popupAbierto === marker) popupAbierto = null;
-      if (triviaActiva) {
-        triviaActiva.style.display = "none";
-        triviaActiva = null;
-      }
+      window.speechSynthesis.cancel();
     });
 
     marker.on("mouseover", () => {
@@ -212,12 +187,14 @@ function crearMarcadores() {
       popupAbierto = marker;
     });
 
-    markerCluster.addLayer(marker);
     return marker;
   });
+
+  markerCluster.clearLayers();
+  marcadores.forEach(m => markerCluster.addLayer(m));
 }
 
-// --- Creación contenido Popup con Trivia ---
+// --- Crear contenido popup sin trivia ---
 
 function crearPopupContenido(evento) {
   const container = document.createElement("div");
@@ -230,21 +207,6 @@ function crearPopupContenido(evento) {
     <p><strong>País:</strong> ${evento.pais || "Desconocido"}</p>
     <p>${evento.descripcion || ""}</p>
   `;
-
-  if (evento.sabiasQue) {
-    const utterance = new SpeechSynthesisUtterance(evento.sabiasQue);
-    utterance.lang = 'es-AR';
-
-    utterance.onend = () => {
-      const quiereVerMas = confirm("¿Querés ver más información sobre este evento?");
-      if (quiereVerMas) {
-        window.open(`evento${evento.id}.html`, "_blank", "noopener");
-      }
-    };
-
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-  }
 
   if (evento.media) {
     const img = document.createElement("img");
@@ -260,12 +222,28 @@ function crearPopupContenido(evento) {
     container.appendChild(img);
   }
 
-  // --- Trivia ---
-  if (evento.trivias?.length) {
-    crearTrivia(container, evento);
+  if (evento.sabiasQue) {
+    const btnSabiasQue = document.createElement("button");
+    btnSabiasQue.textContent = "▶️ Escuchar dato curioso";
+    btnSabiasQue.className = "boton-sabias-que";
+    btnSabiasQue.style.marginTop = "8px";
+
+    btnSabiasQue.onclick = () => {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(evento.sabiasQue);
+      utterance.lang = 'es-AR';
+      utterance.onend = () => {
+        const quiereVerMas = confirm("¿Querés ver más información sobre este evento?");
+        if (quiereVerMas) {
+          window.open(`evento${evento.id}.html`, "_blank", "noopener");
+        }
+      };
+      window.speechSynthesis.speak(utterance);
+    };
+
+    container.appendChild(btnSabiasQue);
   }
 
-  // Link a Google Maps
   const linkMaps = document.createElement("a");
   linkMaps.href = `https://www.google.com/maps?q=${evento.ubicacion[0]},${evento.ubicacion[1]}`;
   linkMaps.target = "_blank";
@@ -275,7 +253,6 @@ function crearPopupContenido(evento) {
   linkMaps.style.marginTop = "8px";
   container.appendChild(linkMaps);
 
-  // Botón Ver más info
   const verMasBtn = document.createElement("a");
   verMasBtn.href = `evento${evento.id}.html`;
   verMasBtn.textContent = "🔎 Ver más";
@@ -285,148 +262,6 @@ function crearPopupContenido(evento) {
   container.appendChild(verMasBtn);
 
   return container;
-}
-
-function crearTrivia(container, evento) {
-  const triviaDiv = document.createElement("div");
-  triviaDiv.className = "trivia-container";
-  triviaDiv.style.display = "none";
-
-  const preguntaP = document.createElement("p");
-  preguntaP.className = "trivia-pregunta";
-  triviaDiv.appendChild(preguntaP);
-
-  const opcionesDiv = document.createElement("div");
-  opcionesDiv.className = "trivia-opciones";
-  triviaDiv.appendChild(opcionesDiv);
-
-  const btnSiguiente = document.createElement("button");
-  btnSiguiente.textContent = "Siguiente pregunta";
-  btnSiguiente.className = "boton-siguiente";
-  btnSiguiente.style.marginTop = "8px";
-  btnSiguiente.disabled = true;
-  triviaDiv.appendChild(btnSiguiente);
-
-  const btnResultado = document.createElement("button");
-  btnResultado.textContent = "Resultado trivia";
-  btnResultado.className = "boton-resultado";
-  btnResultado.style.marginTop = "8px";
-  btnResultado.style.marginLeft = "10px";
-  btnResultado.style.display = "none";
-  triviaDiv.appendChild(btnResultado);
-
-  let idx = 0;
-  let puntaje = 0;
-  let preguntas = evento.trivias.map(t => ({
-    pregunta: t.pregunta,
-    opciones: [...t.opciones],
-    correcta: t.correcta
-  }));
-
-  const btnResponder = document.createElement("button");
-  btnResponder.textContent = "Responder trivia";
-  btnResponder.className = "boton-responder";
-  btnResponder.style.marginTop = "12px";
-
-  btnResponder.onclick = () => {
-    if (triviaActiva && triviaActiva !== triviaDiv) {
-      triviaActiva.style.display = "none";
-      triviaActiva.parentElement.querySelector(".boton-responder").style.display = "inline-block";
-      triviaActiva.parentElement.querySelector(".boton-resultado").style.display = "none";
-    }
-    triviaActiva = triviaDiv;
-
-    idx = 0;
-    puntaje = 0;
-    triviaDiv.style.display = "block";
-    btnResponder.style.display = "none";
-    btnResultado.style.display = "inline-block";
-    mostrarPregunta();
-    btnSiguiente.focus();
-
-    // Ajusta la vista para la trivia
-    setTimeout(() => {
-      if (popupAbierto) {
-        const latlng = popupAbierto.getLatLng();
-        const desplazado = L.latLng(latlng.lat + 0.25, latlng.lng);
-        map.panTo(desplazado, { animate: true });
-      }
-    }, 100);
-  };
-  container.appendChild(btnResponder);
-  container.appendChild(triviaDiv);
-
-  function mostrarPregunta() {
-    if (idx >= preguntas.length) {
-      const mensajeFinal = `Trivia finalizada. Obtuviste ${puntaje} de ${preguntas.length} respuestas correctas.`;
-      showToast(mensajeFinal);
-      narrar(mensajeFinal);
-      triviaDiv.style.display = "none";
-      btnResponder.style.display = "inline-block";
-      btnResultado.style.display = "none";
-      return;
-    }
-
-    const actual = preguntas[idx];
-    preguntaP.textContent = `Pregunta ${idx + 1}: ${actual.pregunta}`;
-    narrar(actual.pregunta);
-    opcionesDiv.innerHTML = "";
-    btnSiguiente.disabled = true;
-
-    actual.opciones.forEach((opt, i) => {
-      const btn = document.createElement("button");
-      btn.textContent = opt;
-      btn.className = "trivia-opcion";
-      btn.type = "button";
-      btn.onclick = () => {
-        if (!btnSiguiente.disabled) return; // evita doble clic
-
-        const correcta = actual.opciones[actual.correcta];
-        const esCorrecta = opt === correcta;
-
-        if (esCorrecta) puntaje++;
-
-        // Deshabilitar botones y colorear respuestas
-        Array.from(opcionesDiv.children).forEach(b => {
-          b.disabled = true;
-          b.classList.remove("seleccionada");
-          if (b.textContent === correcta) b.style.borderColor = "#22c55e";  // verde
-          if (b === btn && !esCorrecta) b.style.borderColor = "#dc2626";    // rojo
-        });
-        btn.classList.add("seleccionada");
-
-        const mensaje = esCorrecta
-          ? `¡Muy bien! La respuesta es "${opt}".`
-          : `¡Lo siento! La respuesta correcta es "${correcta}".`;
-        showToast(mensaje);
-        narrar(mensaje);
-
-        btnSiguiente.disabled = false;
-        btnSiguiente.focus();
-      };
-      opcionesDiv.appendChild(btn);
-    });
-
-    // Ajusta la vista para la trivia cada vez que aparece pregunta
-    setTimeout(() => {
-      if (popupAbierto) {
-        const latlng = popupAbierto.getLatLng();
-        const desplazado = L.latLng(latlng.lat + 0.25, latlng.lng);
-        map.panTo(desplazado, { animate: true });
-      }
-    }, 100);
-  }
-
-  btnSiguiente.onclick = () => {
-    idx++;
-    mostrarPregunta();
-  };
-
-  btnResultado.onclick = () => {
-    const mensaje = `Llevas ${puntaje} respuestas correctas de ${preguntas.length} preguntas.`;
-    showToast(mensaje);
-    narrar(mensaje);
-  };
 }
 
 // --- Filtros y búsqueda ---
@@ -477,116 +312,147 @@ function actualizarEventos() {
     listaEventos.appendChild(div);
   });
 
-  // Si NO hay filtros activos (todos en periodo y país, y búsqueda vacía) => resetear vista
   const sinFiltroPeriodo = filtros.periodo.value === "todos";
   const sinFiltroPais = filtros.pais.value === "todos";
   const sinFiltroBusqueda = filtros.busqueda.value.trim() === "";
 
   if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
+    window.speechSynthesis.cancel();
     map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 1.2 });
   } else if (filtrados.length > 0) {
-    // Hacer foco automático en el primer evento filtrado
-    const primerEvento = filtrados[0];
-    abrirEventoEnMapa(primerEvento.id);
+    abrirEventoEnMapa(filtrados[0].id);
   }
-  if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
-  window.speechSynthesis.cancel();  // Cancela narración activa
-  map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 1.2 });
-} else if (filtrados.length > 0) {
-  abrirEventoEnMapa(filtrados[0].id);
 }
-
-}
-
-// Filtros (período, país, búsqueda)
-Object.values(filtros).forEach(input => {
-  input.addEventListener("input", () => {
-    guardarFiltros();
-    actualizarEventos();
-  });
-});
-
 
 function abrirEventoEnMapa(id) {
   const evento = eventosMap.get(id);
   if (!evento) return;
   const marker = marcadores.find(m => m.eventoId === id);
   if (marker) {
-    map.flyTo(evento.ubicacion, 8, { duration: 1.5 });
+    window.speechSynthesis.cancel();
+    map.flyTo(evento.ubicacion, 8, { duration: 1.2 });
     if (popupAbierto && popupAbierto !== marker) popupAbierto.closePopup();
     marker.openPopup();
     popupAbierto = marker;
   }
 }
 
-// --- Guardado y carga estado mapa y filtros ---
+// --- Guardado y carga de estado localStorage ---
 
 function guardarEstadoMapa() {
-  const centro = map.getCenter();
-  localStorage.setItem("mapa_lat", centro.lat);
-  localStorage.setItem("mapa_lng", centro.lng);
-  localStorage.setItem("mapa_zoom", map.getZoom());
+  const estado = {
+    centro: map.getCenter(),
+    zoom: map.getZoom(),
+  };
+  localStorage.setItem("mapaEstado", JSON.stringify(estado));
 }
 
 function cargarEstadoMapa() {
-  const lat = parseFloat(localStorage.getItem("mapa_lat"));
-  const lng = parseFloat(localStorage.getItem("mapa_lng"));
-  const zoom = parseInt(localStorage.getItem("mapa_zoom"), 10);
-  if (!isNaN(lat) && !isNaN(lng) && !isNaN(zoom)) {
-    map.setView([lat, lng], zoom);
+  const estadoStr = localStorage.getItem("mapaEstado");
+  if (!estadoStr) return;
+  try {
+    const estado = JSON.parse(estadoStr);
+    map.setView([estado.centro.lat, estado.centro.lng], estado.zoom);
+  } catch {
+    // ignorar
   }
 }
 
-function configurarEventosMapa() {
-  let debounce;
-  map.on("moveend zoomend", () => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      guardarEstadoMapa();
-    }, 500);
-  });
-
-  map.on("zoomend", () => {
-    if (map.getZoom() >= 8) {
-      const visibles = marcadores.filter(m => markerCluster.hasLayer(m));
-      if (visibles.length > 0) {
-        const primerVisible = visibles[0];
-        if (popupAbierto && popupAbierto !== primerVisible) popupAbierto.closePopup();
-        primerVisible.openPopup();
-        popupAbierto = primerVisible;
-      }
-    }
-  });
-}
-
 function guardarFiltros() {
-  localStorage.setItem("filtro_periodo", filtros.periodo.value);
-  localStorage.setItem("filtro_busqueda", filtros.busqueda.value);
-  localStorage.setItem("filtro_pais", filtros.pais.value);
+  const filtrosObj = {
+    periodo: filtros.periodo.value,
+    busqueda: filtros.busqueda.value,
+    pais: filtros.pais.value,
+  };
+  localStorage.setItem("filtrosEvento", JSON.stringify(filtrosObj));
 }
 
 function cargarFiltros() {
-  const periodo = localStorage.getItem("filtro_periodo");
-  const busqueda = localStorage.getItem("filtro_busqueda");
-  const pais = localStorage.getItem("filtro_pais");
-
-  if (periodo) filtros.periodo.value = periodo;
-  if (busqueda) filtros.busqueda.value = busqueda;
-  if (pais) filtros.pais.value = pais;
+  const filtroStr = localStorage.getItem("filtrosEvento");
+  if (!filtroStr) return;
+  try {
+    const f = JSON.parse(filtroStr);
+    if (f.periodo && filtros.periodo.querySelector(`option[value="${f.periodo}"]`)) filtros.periodo.value = f.periodo;
+    if (f.busqueda !== undefined) filtros.busqueda.value = f.busqueda;
+    if (f.pais && filtros.pais.querySelector(`option[value="${f.pais}"]`)) filtros.pais.value = f.pais;
+  } catch {
+    // ignorar
+  }
 }
 
-// --- Eventos de filtros ---
+// --- Eventos del mapa ---
 
-Object.values(filtros).forEach(input => {
-  input.addEventListener("input", () => {
-    guardarFiltros();
-    actualizarEventos();
-  });
+map.on("zoomend", () => {
+  if (evitarAperturaPopup) return; // No abrir popup si está bloqueado (tras Inicio)
+
+  const zoom = map.getZoom();
+
+  if (zoom >= 12) {
+    // Zoom alto: abrir popup primer marcador visible
+    const visibles = marcadores.filter(m => markerCluster.hasLayer(m));
+    if (visibles.length > 0) {
+      const primerVisible = visibles[0];
+      if (popupAbierto && popupAbierto !== primerVisible) popupAbierto.closePopup();
+      primerVisible.openPopup();
+      popupAbierto = primerVisible;
+    }
+  } else if (zoom >= 8) {
+    // Zoom medio (aprox 100 km): abrir popup marcador más cercano al centro
+    if (popupAbierto) {
+      popupAbierto.closePopup();
+      popupAbierto = null;
+    }
+    const centro = map.getCenter();
+    let masCercano = null;
+    let minDist = Infinity;
+
+    marcadores.forEach(m => {
+      const dist = centro.distanceTo(m.getLatLng());
+      if (dist < minDist) {
+        minDist = dist;
+        masCercano = m;
+      }
+    });
+
+    if (masCercano) {
+      masCercano.openPopup();
+      popupAbierto = masCercano;
+    }
+  } else {
+    // Zoom bajo: cerrar cualquier popup abierto
+    if (popupAbierto) {
+      popupAbierto.closePopup();
+      popupAbierto = null;
+    }
+  }
 });
+
 
 // --- Inicialización ---
 
-agregarBotonInicio();
-agregarBotonDemostracion();
-cargarEventos();
-configurarEventosMapa();
+function init() {
+  agregarBotonInicio();
+  agregarBotonDemostracion();
+  cargarEventos();
+
+  // Guardar estado mapa y filtros al cambiar
+  map.on("moveend", guardarEstadoMapa);
+  map.on("zoomend", guardarEstadoMapa);
+  filtros.periodo.addEventListener("change", () => {
+    guardarFiltros();
+    actualizarEventos();
+  });
+  filtros.pais.addEventListener("change", () => {
+    guardarFiltros();
+    actualizarEventos();
+  });
+  filtros.busqueda.addEventListener("input", () => {
+    guardarFiltros();
+    actualizarEventos();
+  });
+
+  cargarFiltros();
+  cargarEstadoMapa();
+}
+
+init();
