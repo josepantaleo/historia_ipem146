@@ -190,8 +190,18 @@ function crearMarcadores() {
     return marker;
   });
 
-  markerCluster.clearLayers();
-  marcadores.forEach(m => markerCluster.addLayer(m));
+// Eliminar todos los marcadores del mapa para refrescar
+marcadores.forEach(m => {
+  if (map.hasLayer(m)) {
+    map.removeLayer(m);
+  }
+});
+
+// Agregar todos los marcadores directamente al mapa sin clustering
+marcadores.forEach(m => {
+  m.addTo(map);
+});
+
 }
 
 // --- Crear contenido popup sin imagen ---
@@ -366,78 +376,45 @@ function cargarFiltros() {
   }
 }
 
-// --- Eventos del mapa ---
+// --- Manejo eventos UI ---
+
+filtros.periodo.onchange = () => {
+  guardarFiltros();
+  actualizarEventos();
+};
+
+filtros.pais.onchange = () => {
+  guardarFiltros();
+  actualizarEventos();
+};
+
+filtros.busqueda.oninput = () => {
+  guardarFiltros();
+  actualizarEventos();
+};
+
+// --- Zoom y popups ---
 
 map.on("zoomend", () => {
-  if (evitarAperturaPopup) return; // No abrir popup si está bloqueado (tras Inicio)
+  if (map.getZoom() < 7 && popupAbierto) {
+    popupAbierto.closePopup();
+    popupAbierto = null;
+  }
+  guardarEstadoMapa();
+});
 
-  const zoom = map.getZoom();
+map.on("moveend", guardarEstadoMapa);
 
-  if (zoom >= 12) {
-    // Zoom alto: abrir popup primer marcador visible
-    const visibles = marcadores.filter(m => markerCluster.hasLayer(m));
-    if (visibles.length > 0) {
-      const primerVisible = visibles[0];
-      if (popupAbierto && popupAbierto !== primerVisible) popupAbierto.closePopup();
-      primerVisible.openPopup();
-      popupAbierto = primerVisible;
-    }
-  } else if (zoom >= 8) {
-    // Zoom medio (aprox 100 km): abrir popup marcador más cercano al centro
-    if (popupAbierto) {
-      popupAbierto.closePopup();
-      popupAbierto = null;
-    }
-    const centro = map.getCenter();
-    let masCercano = null;
-    let minDist = Infinity;
-
-    marcadores.forEach(m => {
-      const dist = centro.distanceTo(m.getLatLng());
-      if (dist < minDist) {
-        minDist = dist;
-        masCercano = m;
-      }
-    });
-
-    if (masCercano) {
-      masCercano.openPopup();
-      popupAbierto = masCercano;
-    }
-  } else {
-    // Zoom bajo: cerrar cualquier popup abierto
-    if (popupAbierto) {
-      popupAbierto.closePopup();
-      popupAbierto = null;
-    }
+// --- Prevención apertura popup tras vuelo inicial ---
+map.on("moveend", () => {
+  if (evitarAperturaPopup) {
+    // impedir abrir popup por zoom o clusters justo después del vuelo inicial
+    popupAbierto = null;
   }
 });
 
-// --- Inicialización ---
+// --- Inicio ---
 
-function init() {
-  agregarBotonInicio();
-  agregarBotonDemostracion();
-  cargarEventos();
-
-  // Guardar estado mapa y filtros al cambiar
-  map.on("moveend", guardarEstadoMapa);
-  map.on("zoomend", guardarEstadoMapa);
-  filtros.periodo.addEventListener("change", () => {
-    guardarFiltros();
-    actualizarEventos();
-  });
-  filtros.pais.addEventListener("change", () => {
-    guardarFiltros();
-    actualizarEventos();
-  });
-  filtros.busqueda.addEventListener("input", () => {
-    guardarFiltros();
-    actualizarEventos();
-  });
-
-  cargarFiltros();
-  cargarEstadoMapa();
-}
-
-init();
+agregarBotonInicio();
+agregarBotonDemostracion();
+cargarEventos();
