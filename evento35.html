@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fundación del Virreinato del Río de la Plata</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento35">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Fundación del Virreinato del Río de la Plata</h1>
+
+    <p>
+      La creación del  Virreinato del Río de la Plata  en  1776  marcó un hito fundamental en la reorganización administrativa de los dominios españoles en América del Sur. Fue una iniciativa de la Corona española, bajo el reinado de  Carlos III , en el marco de las  Reformas Borbónicas . Su capital se estableció en la ciudad de  Buenos Aires .
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      Antes de 1776, el vasto territorio que hoy comprende Argentina, Uruguay, Paraguay, Bolivia y parte del sur de Brasil, dependía del lejano Virreinato del Perú, con su capital en Lima. Esta enorme extensión hacía difícil la administración y la defensa. Factores clave para la creación del nuevo virreinato incluyeron:
+      <ul>
+        <li>La necesidad de  frenar el avance portugués  desde Brasil hacia el sur.</li>
+        <li>Combatir el  contrabando  británico y portugués en la región.</li>
+        <li>Mejorar la  recaudación de impuestos  y la administración de los recursos, especialmente la plata de Potosí.</li>
+        <li>Reforzar la  defensa militar  del Atlántico Sur.</li>
+      </ul>
+    </p>
+
+    <h2>Creación y organización</h2>
+    <p>
+      El Virreinato fue creado provisionalmente el  1 de agosto de 1776  y ratificado por una Real Cédula el  27 de octubre de 1777 . Su primer virrey fue  Pedro de Cevallos . La nueva entidad incluyó territorios que antes pertenecían al Virreinato del Perú y a la Capitanía General de Chile, como el estratégico Alto Perú (actual Bolivia), con sus ricas minas de plata de Potosí, y la región de Cuyo. Buenos Aires, que hasta entonces había sido un puerto de relativa importancia, se transformó en un centro político y económico vital.
+    </p>
+
+    <h2>Impacto y Legado</h2>
+    <p>
+      La fundación del Virreinato tuvo consecuencias trascendentales para la región. Buenos Aires experimentó un rápido crecimiento demográfico y económico, impulsado por el comercio directo con España y la centralización administrativa. Esto generó tensiones con las antiguas élites del interior, pero también sentó las bases para el desarrollo de una identidad regional propia y el posterior surgimiento de las naciones sudamericanas. La importancia geopolítica del Río de la Plata se consolidó, y el virreinato se convirtió en un escenario clave de los conflictos europeos y de las futuras guerras de independencia. Su existencia se extendió hasta la  Revolución de Mayo de 1810 , que marcó el inicio del fin del dominio español en la región.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="virreinato1.jpg" alt="Mapa del Virreinato del Río de la Plata" />
+      <img src="virreinato2.jpg" alt="Retrato de Carlos III de España" />
+      <img src="virreinato3.jpg" alt="Puerto de Buenos Aires colonial" />
+      <img src="virreinato4.jpg" alt="Mina de Potosí en el Alto Perú" />
+      <img src="virreinato5.jpg" alt="Pedro de Cevallos, primer virrey" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Virreinato</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

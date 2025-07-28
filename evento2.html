@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Presidencia de Hipólito Yrigoyen</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento2">
+
+    <!-- Enlace de regreso al mapa -->
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Presidencia de Hipólito Yrigoyen</h1>
+
+    <p>
+      <strong>Hipólito Yrigoyen</strong> fue el primer presidente argentino elegido por sufragio secreto, obligatorio y universal (masculino) en 1916, gracias a la <strong>Ley Sáenz Peña</strong>.
+      Representó a la Unión Cívica Radical y lideró una presidencia marcada por reformas sociales, políticas y conflictos con sectores conservadores.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      A comienzos del siglo XX, Argentina vivía bajo el dominio político de la élite conservadora. La sanción de la Ley Sáenz Peña en 1912 permitió una apertura democrática, posibilitando que Yrigoyen ganara las elecciones de 1916 con el apoyo popular.
+    </p>
+
+    <h2>Gobiernos de Yrigoyen</h2>
+    <p>
+      Fue presidente en dos períodos: de <strong>1916 a 1922</strong> y de <strong>1928 a 1930</strong>. Durante su gestión impulsó reformas en educación, fomentó la nacionalización de recursos como el petróleo (a través de YPF) y enfrentó huelgas y tensiones sociales.
+      Su segundo mandato fue interrumpido por el golpe militar del 6 de septiembre de 1930.
+    </p>
+
+    <h2>Importancia</h2>
+    <p>
+      Yrigoyen significó la irrupción de las clases medias y populares en la vida política. Su figura representa el inicio de una democracia más participativa, aunque enfrentó duras críticas tanto de sus opositores como desde dentro de su propio partido.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      La figura de Yrigoyen es recordada como símbolo del radicalismo popular y de la lucha por una democracia con justicia social. Su caída marcó el inicio de una etapa de inestabilidad institucional en la Argentina conocida como la “Década Infame”.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="yrigoyen1.jpg" alt="Hipólito Yrigoyen en campaña" />
+      <img src="yrigoyen2.jpg" alt="Elecciones de 1916" />
+      <img src="yrigoyen3.jpg" alt="Creación de YPF" />
+      <img src="yrigoyen4.jpg" alt="Protestas obreras durante su gobierno" />
+      <img src="yrigoyen5.jpg" alt="Golpe de 1930" />
+    </div>
+
+    <h2>Trivia Histórica sobre Yrigoyen</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <!-- Segundo enlace de regreso -->
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

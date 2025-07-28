@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Revolución Francesa</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento37">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>La Revolución Francesa</h1>
+
+    <p>
+      La  Revolución Francesa  fue un proceso social y político que se desarrolló en  Francia  entre  1789 y 1799 , con profundas repercusiones en Europa y el mundo. Significó el fin del Antiguo Régimen, la monarquía absolutista y la sociedad estamental, para dar paso a un sistema basado en los principios de  "Libertad, Igualdad y Fraternidad" .
+    </p>
+
+    <h2>Contexto y Causas</h2>
+    <p>
+      Francia, a finales del siglo XVIII, era una de las potencias más grandes de Europa, pero enfrentaba una grave crisis. Las principales causas que llevaron al estallido de la revolución fueron:
+      <ul>
+        <li> Crisis Económica y Financiera:  Un enorme déficit estatal debido al derroche de la corte, la participación en guerras (como la de Independencia de EE. UU.) y malas cosechas que provocaron hambrunas.</li>
+        <li> Desigualdad Social:  Una sociedad estamental donde la nobleza y el clero gozaban de privilegios (no pagaban impuestos) mientras el Tercer Estado (burguesía, campesinos, artesanos) cargaba con todas las obligaciones y carecía de derechos políticos.</li>
+        <li> Ideas Ilustradas:  La difusión de los ideales de la  Ilustración  (libertad, razón, derechos individuales, soberanía popular) que cuestionaban el poder absoluto del rey y la estructura social vigente.</li>
+        <li> Ineficacia de la Monarquía:  La incapacidad de la monarquía de  Luis XVI  y  María Antonieta  para reformar el estado y satisfacer las demandas populares.</li>
+      </ul>
+    </p>
+
+    <h2>Desarrollo y Etapas Clave</h2>
+    <p>
+      La Revolución Francesa se desarrolló en varias etapas:
+      <ul>
+        <li> 1789: Toma de la Bastilla y Declaración de Derechos:  El 14 de julio de 1789, la toma de la prisión de la Bastilla simbolizó el inicio de la revolución. Poco después, se proclamó la  Declaración de los Derechos del Hombre y del Ciudadano , estableciendo principios de libertad, propiedad, seguridad y resistencia a la opresión.</li>
+        <li> Monarquía Constitucional (1789-1792):  Intentos de establecer una monarquía limitada por una constitución.</li>
+        <li> La Convención y el Terror (1792-1794):  Abolición de la monarquía, proclamación de la República, ejecución de Luis XVI y el período más radical y violento, conocido como el  "Terror" , liderado por figuras como  Robespierre .</li>
+        <li> El Directorio (1795-1799):  Una etapa más moderada pero inestable, marcada por conspiraciones y corrupción.</li>
+        <li> Ascenso de Napoleón (1799):  La revolución culmina con el golpe de estado del 18 de Brumario de  Napoleón Bonaparte , quien establecería el Consulado y, posteriormente, el Imperio.</li>
+      </ul>
+    </p>
+
+    <h2>Impacto y Legado</h2>
+    <p>
+      La Revolución Francesa es uno de los eventos más influyentes de la historia moderna:
+      <ul>
+        <li> Fin del Absolutismo:  Derrumbó el Antiguo Régimen y la monarquía absoluta como forma de gobierno dominante en Europa.</li>
+        <li> Difusión de Ideales:  Propagó los principios de libertad, igualdad y fraternidad, inspirando movimientos revolucionarios y nacionalistas en todo el mundo.</li>
+        <li> Derechos Humanos:  La Declaración de los Derechos del Hombre y del Ciudadano sentó las bases para las futuras declaraciones de derechos.</li>
+        <li> Surgimiento del Ciudadano:  Transformó a los súbditos en ciudadanos con derechos y deberes.</li>
+        <li> Nacimiento de la Política Moderna:  Introdujo conceptos como izquierda y derecha política, partidos y movimientos ideológicos.</li>
+      </ul>
+      Aunque el proceso fue complejo y violento, sus ideas transformaron el panorama político y social global.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="rev_francesa1.jpg" alt="Toma de la Bastilla, 14 de julio de 1789" />
+      <img src="rev_francesa2.jpg" alt="Declaración de los Derechos del Hombre y del Ciudadano" />
+      <img src="rev_francesa3.jpg" alt="María Antonieta y Luis XVI" />
+      <img src="rev_francesa4.jpg" alt="Maximilien Robespierre" />
+      <img src="rev_francesa5.jpg" alt="Napoleón Bonaparte" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Revolución Francesa</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

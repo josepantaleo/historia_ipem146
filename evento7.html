@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Segundo Gobierno de Hipólito Yrigoyen</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento7">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Segundo Gobierno de Hipólito Yrigoyen</h1>
+
+    <p>
+      El segundo mandato de <strong>Hipólito Yrigoyen</strong> como presidente
+      de Argentina abarcó desde <strong>1928 hasta 1930</strong>. Su regreso al
+      poder se dio en un contexto de gran respaldo popular, pero también de
+      crecientes tensiones políticas y una inminente crisis económica global.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      Yrigoyen fue reelegido con una abrumadora mayoría, lo que demostraba la
+      continuidad del apoyo a las políticas de la Unión Cívica Radical y a su
+      figura carismática. Sin embargo, su segundo gobierno coincidió con el
+      inicio de la <strong>Gran Depresión de 1929</strong> a nivel mundial, lo
+      que impactó severamente la economía argentina, dependiente de las
+      exportaciones. Internamente, la división entre "personalistas" (sus
+      partidarios) y "antipersonalistas" (opositores radicales) se agudizó.
+    </p>
+
+    <h2>Desafíos y políticas</h2>
+    <p>
+      Durante este período, Yrigoyen intentó profundizar sus políticas de
+      nacionalización y de defensa de los intereses nacionales, como la cuestión
+      del petróleo con YPF. Sin embargo, la crisis económica global generó una
+      fuerte caída de los precios de los productos agropecuarios y una
+      contracción del comercio internacional, afectando duramente a Argentina.
+      Esto, sumado a la creciente oposición de sectores conservadores, militares
+      y medios de comunicación, creó un clima de inestabilidad.
+    </p>
+
+    <h2>El fin de su mandato</h2>
+    <p>
+      El segundo gobierno de Yrigoyen fue abruptamente interrumpido por el
+      <strong>primer golpe de Estado en la historia argentina</strong>, el 6 de
+      septiembre de 1930. Liderado por el General José Félix Uriburu, este golpe
+      derrocó al gobierno constitucional, marcando el fin de la "República
+      Radical" y el inicio de un período de inestabilidad política y gobiernos
+      de facto, conocido como la "Década Infame".
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      El segundo mandato de Yrigoyen es un recordatorio de los desafíos que
+      enfrentó la joven democracia argentina frente a las crisis económicas y
+      las presiones de los sectores de poder tradicionales. Su derrocamiento
+      sentó un precedente peligroso para la interrupción de los gobiernos
+      democráticos en el país a lo largo del siglo XX.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img
+        src="yrigoyen_segundo1.jpg"
+        alt="Hipólito Yrigoyen en su segundo mandato"
+      />
+      <img
+        src="yrigoyen_segundo2.jpg"
+        alt="Manifestación de apoyo a Yrigoyen"
+      />
+      <img
+        src="yrigoyen_segundo3.jpg"
+        alt="Periódico anunciando el golpe de 1930"
+      />
+      <img
+        src="yrigoyen_segundo4.jpg"
+        alt="Soldados durante el golpe de Estado"
+      />
+      <img
+        src="yrigoyen_segundo5.jpg"
+        alt="Hipólito Yrigoyen tras su derrocamiento"
+      />
+    </div>
+
+    <h2>Trivia Histórica sobre el Segundo Gobierno de Yrigoyen</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

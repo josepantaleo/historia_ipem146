@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Revolución Industrial en Inglaterra</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento36">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>La Revolución Industrial en Inglaterra</h1>
+
+    <p>
+      La  Revolución Industrial  fue un proceso de profundas transformaciones económicas y sociales que se inició en  Inglaterra  a mediados del siglo XVIII. Marcó el paso de una economía agraria y artesanal a una industrial y mecanizada, impulsada por nuevas tecnologías y fuentes de energía.
+    </p>
+
+    <h2>Contexto y Causas</h2>
+    <p>
+      Inglaterra reunía las condiciones ideales para el inicio de la Revolución Industrial:
+      <ul>
+        <li> Revolución Agrícola:  Mejoras en las técnicas de cultivo y la introducción de nuevas herramientas (como la sembradora de Jethro Tull) aumentaron la producción de alimentos, liberaron mano de obra rural y acumularon capital.</li>
+        <li> Abundancia de Recursos Naturales:  Grandes yacimientos de  carbón  (fuente de energía) y  hierro  (materia prima para maquinaria).</li>
+        <li> Imperio Colonial y Comercio:  Un vasto imperio colonial que proveía materias primas (como el algodón) y mercados para los productos manufacturados.</li>
+        <li> Estabilidad Política y Capital:  Un sistema político estable y una burguesía emprendedora con capital disponible para invertir en nuevas industrias.</li>
+        <li> Innovación Tecnológica:  Una cultura de invención y mejora técnica que llevó al desarrollo de máquinas clave.</li>
+      </ul>
+    </p>
+
+    <h2>Innovaciones Clave y Desarrollo Industrial</h2>
+    <p>
+      La industria textil del algodón fue el motor inicial de la revolución. Inventos como la  Spinning Jenny  (James Hargreaves, 1764), la  Water Frame  (Richard Arkwright, 1769) y la  Mule Jenny  (Samuel Crompton, 1779) mecanizaron la hilatura. Posteriormente, el  telar mecánico  (Edmund Cartwright, 1785) revolucionó el tejido.
+    </p>
+    <p>
+      Sin embargo, la invención más transformadora fue la  máquina de vapor  de  James Watt  (perfeccionada en 1778). Esta máquina permitió que las fábricas se ubicaran en cualquier lugar (no solo junto a ríos para aprovechar la energía hidráulica) y impulsó el desarrollo del transporte con la  locomotora de vapor  (George Stephenson, 1814) y los barcos de vapor. La metalurgia también experimentó avances significativos.
+    </p>
+
+    <h2>Impacto Social y Consecuencias</h2>
+    <p>
+      La Revolución Industrial transformó radicalmente la sociedad británica:
+      <ul>
+        <li> Urbanización:  Millones de personas migraron del campo a las ciudades en busca de trabajo en las fábricas, lo que llevó a un rápido y desordenado crecimiento urbano, con condiciones de vida y salubridad precarias.</li>
+        <li> Nuevas Clases Sociales:  Consolidación de la  burguesía industrial  (dueños de fábricas) y el surgimiento del  proletariado  (obreros).</li>
+        <li> Condiciones Laborales:  Jornadas laborales extenuantes (14-16 horas), salarios bajos, trabajo infantil y femenino, y falta de seguridad, lo que llevó al surgimiento de movimientos obreros y los primeros sindicatos.</li>
+        <li> Cambios en el Paisaje:  El desarrollo industrial y la quema de carbón generaron una contaminación ambiental sin precedentes.</li>
+      </ul>
+      A pesar de los desafíos, la industrialización también impulsó un aumento general de la producción y la disponibilidad de bienes, sentando las bases del capitalismo moderno y el crecimiento económico global.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="rev_industrial1.jpg" alt="Fábrica textil de la época" />
+      <img src="rev_industrial2.jpg" alt="Máquina de vapor de James Watt" />
+      <img src="rev_industrial3.jpg" alt="Locomotora Stephenson's Rocket" />
+      <img src="rev_industrial4.jpg" alt="Niños trabajando en una mina de carbón" />
+      <img src="rev_industrial5.jpg" alt="Vista urbana de Manchester industrial" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Revolución Industrial</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

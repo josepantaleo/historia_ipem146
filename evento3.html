@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reforma Universitaria Argentina</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento3">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Reforma Universitaria Argentina</h1>
+
+    <p>
+      La <strong>Reforma Universitaria</strong> fue un movimiento estudiantil
+      crucial que se originó en la
+      <strong>Universidad Nacional de Córdoba</strong> en 1918. Su objetivo
+      principal fue democratizar y modernizar la educación superior en Argentina
+      y en toda América Latina.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      A principios del siglo XX, las universidades argentinas, como muchas en la
+      región, estaban controladas por élites tradicionales, con métodos de
+      enseñanza anticuados y poca participación estudiantil. El movimiento de la
+      Reforma surgió de la necesidad de adaptar la educación a los nuevos
+      tiempos y de abrir las puertas a una sociedad más inclusiva.
+    </p>
+
+    <h2>Principios y Conquistas</h2>
+    <p>
+      La Reforma impulsó principios fundamentales como la
+      <strong>autonomía universitaria</strong>, la
+      <strong>co-gobernanza</strong> (participación de docentes, estudiantes y
+      egresados en el gobierno de la universidad), la
+      <strong>libertad de cátedra</strong>, y la
+      <strong>extensión universitaria</strong> (vincular la universidad con la
+      sociedad). Logró la renovación de los planes de estudio y la modernización
+      de las estructuras académicas.
+    </p>
+
+    <h2>Impacto y Legado</h2>
+    <p>
+      El movimiento de la Reforma Universitaria tuvo un impacto trascendental.
+      No solo transformó la educación superior en Argentina, sino que también
+      inspiró movimientos similares en otros países de América Latina. Sus
+      ideales de autonomía y democratización universitaria continúan siendo
+      pilares fundamentales en la región.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img
+        src="reforma_universitaria1.jpg"
+        alt="Estudiantes en la Reforma Universitaria"
+      />
+      <img src="reforma_universitaria2.jpg" alt="Manifiesto de la Reforma" />
+      <img
+        src="reforma_universitaria3.jpg"
+        alt="Universidad Nacional de Córdoba en 1918"
+      />
+      <img
+        src="reforma_universitaria4.jpg"
+        alt="Marcha estudiantil por la Reforma"
+      />
+      <img
+        src="reforma_universitaria5.jpg"
+        alt="Logo de la Reforma Universitaria"
+      />
+    </div>
+
+    <h2>Trivia Histórica sobre la Reforma Universitaria</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

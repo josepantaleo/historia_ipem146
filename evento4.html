@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Patagonia Rebelde</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento4">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Patagonia Rebelde</h1>
+
+    <p>
+      La <strong>Patagonia Rebelde</strong>, también conocida como la Patagonia
+      Trágica, fue una serie de huelgas y levantamientos de trabajadores rurales
+      en la provincia de Santa Cruz, Argentina, que tuvieron lugar entre
+      <strong>1920 y 1922</strong>. Estos eventos culminaron en una brutal
+      represión militar ordenada por el gobierno de Hipólito Yrigoyen.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      A principios del siglo XX, las condiciones laborales en las estancias de
+      la Patagonia eran extremadamente precarias. Los trabajadores, en su
+      mayoría peones rurales y obreros esquiladores, vivían en condiciones
+      insalubres, con salarios bajos y jornadas extenuantes. La organización de
+      sindicatos anarquistas y socialistas en la región llevó a una serie de
+      reclamos por mejoras laborales.
+    </p>
+
+    <h2>Las huelgas y la represión</h2>
+    <p>
+      Las huelgas comenzaron en 1920, con demandas por mejores salarios,
+      condiciones de vida dignas y el fin del trabajo esclavo. La respuesta
+      inicial fue de intransigencia por parte de los dueños de las estancias y
+      el gobierno. Tras un breve período de tregua, las huelgas se reiniciaron
+      en 1921, escalando en violencia. El gobierno nacional envió al Ejército al
+      mando del Teniente Coronel Héctor Varela, quien llevó a cabo una feroz
+      represión que resultó en el fusilamiento de cientos, o incluso miles, de
+      trabajadores.
+    </p>
+
+    <h2>Importancia y Legado</h2>
+    <p>
+      La Patagonia Rebelde es uno de los episodios más oscuros y sangrientos de
+      la historia argentina. Simboliza la brutalidad de la represión estatal
+      frente a las demandas obreras y la lucha por los derechos laborales. A
+      pesar del intento de silenciar estos hechos, la memoria de la Patagonia
+      Rebelde ha perdurado, siendo un recordatorio de las consecuencias de la
+      injusticia social y la violencia institucional.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img
+        src="patagonia_rebelde1.jpg"
+        alt="Trabajadores rurales en la Patagonia"
+      />
+      <img
+        src="patagonia_rebelde2.jpg"
+        alt="Caricatura sobre las condiciones laborales"
+      />
+      <img src="patagonia_rebelde3.jpg" alt="Soldados durante la represión" />
+      <img src="patagonia_rebelde4.jpg" alt="Homenaje a los fusilados" />
+      <img src="patagonia_rebelde5.jpg" alt="Mapa de la Patagonia" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Patagonia Rebelde</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

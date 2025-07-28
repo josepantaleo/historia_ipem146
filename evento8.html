@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Primer Golpe de Estado Argentino (1930)</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento8">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Primer Golpe de Estado Argentino (1930)</h1>
+
+    <p>
+      El <strong>6 de septiembre de 1930</strong>, Argentina sufrió su primer golpe de Estado cívico-militar, un evento que marcó el fin de la democracia y el inicio de una etapa de inestabilidad política. Este golpe derrocó al presidente constitucional <strong>Hipólito Yrigoyen</strong>, quien estaba en su segundo mandato, e inauguró un período conocido como la <strong>"Década Infame"</strong>.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      El golpe de 1930 ocurrió en un escenario de creciente tensión política y social. El segundo gobierno de Yrigoyen enfrentaba una fuerte oposición de sectores conservadores, militares y de la prensa, agravada por el impacto de la <strong>Gran Depresión de 1929</strong> en la economía argentina. La crisis económica, sumada a la división dentro del propio radicalismo y a la avanzada edad del presidente, crearon el caldo de cultivo para la intervención militar.
+    </p>
+
+    <h2>El golpe y sus protagonistas</h2>
+    <p>
+      La asonada militar fue liderada por el General <strong>José Félix Uriburu</strong>, quien asumió como presidente de facto. Aunque la movilización militar no fue masiva, el apoyo de sectores civiles anti-yrigoyenistas y la falta de una resistencia organizada por parte del gobierno constitucional facilitaron el éxito del golpe. Yrigoyen fue detenido y la Constitución Nacional fue vulnerada por primera vez desde su sanción.
+    </p>
+
+    <h2>Consecuencias y Legado</h2>
+    <p>
+      El golpe de 1930 tuvo profundas y duraderas consecuencias para Argentina:
+      <ul>
+        <li> Fin de la democracia:  Interrumpió la incipiente democracia que se había consolidado con la Ley Sáenz Peña y sentó un precedente nefasto para futuras interrupciones constitucionales, que se repetirían en 1943, 1955, 1962, 1966 y 1976.</li>
+        <li> Inicio de la Década Infame:  Abrió un período caracterizado por el fraude electoral ("fraude patriótico"), la corrupción, la persecución política y la proscripción del radicalismo yrigoyenista.</li>
+        <li> Nuevas doctrinas militares:  Las Fuerzas Armadas comenzaron a verse a sí mismas como "garantes" del orden y la "moralidad" política, consolidando su injerencia en la vida política nacional.</li>
+        <li> Cambios económicos:  Se acentuaron las políticas de sustitución de importaciones ante la crisis global, aunque bajo un modelo conservador.</li>
+      </ul>
+      El 6 de septiembre de 1930 es una fecha crucial que marcó un antes y un después en la historia argentina, inaugurando un ciclo de inestabilidad y autoritarismo.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="golpe_1930_1.jpg" alt="Tropas golpistas en Buenos Aires" />
+      <img src="golpe_1930_2.jpg" alt="José Félix Uriburu asumiendo el poder" />
+      <img src="golpe_1930_3.jpg" alt="Periódico anunciando el derrocamiento de Yrigoyen" />
+      <img src="golpe_1930_4.jpg" alt="Manifestación en apoyo al golpe" />
+      <img src="golpe_1930_5.jpg" alt="Yrigoyen tras su detención" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Primer Golpe de Estado Argentino</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

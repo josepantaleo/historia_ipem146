@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fundación del Partido Laborista</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento12">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Fundación del Partido Laborista</h1>
+
+    <p>
+      El Partido Laborista argentino fue fundado el 24 de octubre de 1945 , en
+      un momento clave de la historia política del país. Nació como una
+      expresión directa del movimiento obrero y sindical, con el objetivo
+      principal de organizar el apoyo y sostener la candidatura presidencial del
+      coronel Juan Domingo Perón en las elecciones de 1946.
+    </p>
+
+    <h2>Contexto histórico: Post-17 de Octubre de 1945</h2>
+    <p>
+      La creación del Partido Laborista se dio inmediatamente después de los
+      trascendentales eventos del 17 de octubre de 1945 , cuando una masiva
+      movilización popular, mayoritariamente obrera, exigió la liberación de
+      Juan Domingo Perón, quien había sido detenido. Este día marcó un antes y
+      un después en la política argentina, consolidando la figura de Perón como
+      líder de las masas trabajadoras. Los sindicatos, que habían trabajado
+      estrechamente con Perón desde su rol en la Secretaría de Trabajo y
+      Previsión (a partir del golpe de 1943), vieron la necesidad de conformar
+      una estructura política propia para competir en las inminentes elecciones.
+    </p>
+
+    <h2>Principales impulsores y objetivos</h2>
+    <p>
+      La iniciativa de fundar el partido provino de un grupo de dirigentes
+      sindicales clave, entre los que se destacaron Luis Gay (del gremio
+      telefónico y primer presidente del partido) y Cipriano Reyes (del
+      Sindicato Autónomo de la Carne de Berisso y Ensenada, y líder de la
+      seccional de la Provincia de Buenos Aires, el principal bastión del
+      partido). El Partido Laborista se propuso ser la voz política de los
+      trabajadores, buscando defender directamente las conquistas sociales
+      obtenidas y garantizar su permanencia en el tiempo. Su plataforma se
+      inspiró en el laborismo británico y tenía como fin institucionalizar el
+      poder político del movimiento sindical argentino, logrando el voto obrero
+      que sería decisivo en el triunfo de la fórmula Perón-Quijano en las
+      elecciones de febrero de 1946.
+    </p>
+
+    <h2>Rol y disolución</h2>
+    <p>
+      El Partido Laborista desempeñó un rol fundamental en la campaña electoral
+      de 1946, movilizando a las bases obreras y populares para apoyar a Perón.
+      Fue una fuerza política vibrante y con vocación de autonomía, lo que
+      generó tensiones con el propio Perón una vez en el poder. A pesar de su
+      éxito electoral, esta experiencia de un partido obrero independiente tuvo
+      una duración relativamente corta. Poco después de asumir la presidencia,
+      en julio de 1947 , Perón decidió disolver el Partido Laborista junto con
+      otras fuerzas que lo habían apoyado, para unificarlas en el Partido Único
+      de la Revolución Nacional , que más tarde se conocería como el Partido
+      Peronista . Esta decisión buscó centralizar el poder político bajo una
+      única estructura partidaria leal a su liderazgo.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      A pesar de su breve existencia, el Partido Laborista es recordado como la
+      primera instancia de movilización electoral directa de la clase
+      trabajadora en Argentina y como un actor crucial en el ascenso de Juan
+      Domingo Perón al poder. Su historia refleja las complejidades de la
+      relación entre el líder, el movimiento obrero y la construcción del
+      peronismo.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img
+        src="partido_laborista1.jpg"
+        alt="Acto del Partido Laborista en 1946"
+      />
+      <img
+        src="partido_laborista2.jpg"
+        alt="Cipriano Reyes, líder sindical y fundador"
+      />
+      <img
+        src="partido_laborista3.jpg"
+        alt="Luis Gay, primer presidente del Partido Laborista"
+      />
+      <img
+        src="partido_laborista4.jpg"
+        alt="Afiche de campaña de Perón apoyado por el Laborismo"
+      />
+      <img
+        src="partido_laborista5.jpg"
+        alt="Militantes obreros tras el 17 de octubre de 1945"
+      />
+    </div>
+
+    <h2>Trivia Histórica sobre la Fundación del Partido Laborista</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

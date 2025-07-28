@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Segundo Golpe de Estado Argentino (1943)</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento11">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Segundo Golpe de Estado Argentino (1943): El GOU al Poder</h1>
+
+    <p>
+      El  4 de junio de 1943 , Argentina fue escenario de su segundo golpe de Estado en menos de 13 años. Este alzamiento militar derrocó al gobierno constitucional de Ramón Castillo y fue liderado por un sector de las Fuerzas Armadas, entre los que se destacaba un grupo nacionalista conocido como el  Grupo de Oficiales Unidos (GOU) . Este golpe marcó el fin de la "Década Infame" y el inicio de un período de profundas transformaciones políticas y sociales.
+    </p>
+
+    <h2>Contexto histórico: La Década Infame y la Segunda Guerra Mundial</h2>
+    <p>
+      La Argentina de principios de los años 40 estaba inmersa en la  Década Infame , caracterizada por el fraude electoral, la corrupción y una creciente inestabilidad. A nivel internacional, la  Segunda Guerra Mundial  estaba en pleno apogeo, y la neutralidad argentina, defendida por Castillo, era cada vez más cuestionada tanto interna como externamente por los Aliados. La crisis política, económica y social, sumada a la debilidad del gobierno y la presión militar, crearon el escenario propicio para el golpe.
+    </p>
+
+    <h2>Los protagonistas: El GOU y la "Revolución del 43"</h2>
+    <p>
+      El golpe fue impulsado por sectores de las Fuerzas Armadas que anhelaban poner fin al régimen conservador, moralizar la vida pública y, en muchos casos, adoptar una postura más nacionalista frente a la injerencia extranjera. Entre ellos, el  GOU , una logia militar secreta, tuvo un rol central. Miembros destacados como el coronel  Juan Domingo Perón , Edelmiro Farrell y Pedro Pablo Ramírez (quien asumiría la presidencia de facto) fueron figuras clave en este movimiento. Se autodenominaron la "Revolución del 43".
+    </p>
+
+    <h2>Consecuencias y Significado</h2>
+    <p>
+      El golpe de 1943 tuvo un impacto trascendental en la historia argentina:
+      <ul>
+        <li> Fin de la Década Infame:  Puso fin a un período de democracia fraudulenta y corrupción.</li>
+        <li> Ascenso de Perón:  Permitió el ascenso de Juan Domingo Perón, quien desde distintos cargos (Secretario de Trabajo y Previsión, Ministro de Guerra, Vicepresidente) comenzó a construir el proyecto político y social que daría origen al peronismo.</li>
+        <li> Políticas nacionalistas y sociales:  El gobierno militar impulsó medidas de nacionalización, desarrollo industrial y una fuerte política social, especialmente desde la Secretaría de Trabajo y Previsión, que generó un gran apoyo popular.</li>
+        <li> Neutralidad y presiones internacionales:  Mantuvo la neutralidad argentina en la Segunda Guerra Mundial durante un tiempo, lo que generó tensiones con los Aliados, aunque finalmente el país le declaró la guerra al Eje en 1945.</li>
+        <li> Intervencionismo militar:  Consolidó aún más el rol de las Fuerzas Armadas como actor político, interviniendo directamente en el poder ejecutivo.</li>
+      </ul>
+      El 4 de junio de 1943 es una fecha clave para comprender el surgimiento del peronismo y el inicio de una nueva etapa en la política argentina, marcada por el protagonismo de las masas populares y la creciente polarización política.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="golpe_1943_1.jpg" alt="Tropas militares en las calles de Buenos Aires en 1943" />
+      <img src="golpe_1943_2.jpg" alt="Generales que lideraron el golpe del 43" />
+      <img src="golpe_1943_3.jpg" alt="Juan Domingo Perón, figura clave del nuevo gobierno" />
+      <img src="golpe_1943_4.jpg" alt="Anuncio periodístico del golpe de Estado" />
+      <img src="golpe_1943_5.jpg" alt="Ramón Castillo, presidente derrocado" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Segundo Golpe de Estado Argentino</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

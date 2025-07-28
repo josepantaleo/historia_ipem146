@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gobierno de Marcelo T. de Alvear</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento6">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Gobierno de Marcelo T. de Alvear</h1>
+
+    <p>
+      El gobierno de <strong>Marcelo T. de Alvear</strong> se extendió desde
+      <strong>1922 hasta 1928</strong>. Asumió la presidencia de Argentina
+      sucediendo a Hipólito Yrigoyen, su correligionario radical, en un período
+      de crecimiento económico y de consolidación institucional.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      Alvear llegó al poder en un momento de relativa bonanza económica para
+      Argentina, impulsada por las exportaciones agropecuarias. Su presidencia
+      se caracterizó por una continuidad de algunas políticas radicales, pero
+      también por un estilo más conciliador y distante de las confrontaciones
+      que habían marcado la primera gestión de Yrigoyen. Esta etapa se conoce
+      como la "República Radical".
+    </p>
+
+    <h2>Principales aspectos de su gobierno</h2>
+    <p>
+      Durante su mandato, se consolidó la
+      <strong>industrialización por sustitución de importaciones</strong> y se
+      fortaleció la economía agroexportadora. Alvear impulsó la modernización
+      del Estado y la inversión en infraestructura. A nivel político, su
+      gobierno estuvo marcado por la división dentro de la Unión Cívica Radical
+      entre "personalistas" (yrigoyenistas) y "antipersonalistas" (alvearistas),
+      una fractura que tendría consecuencias futuras. A diferencia de Yrigoyen,
+      Alvear mantuvo una relación más cercana con los sectores conservadores y
+      las fuerzas armadas.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      El gobierno de Alvear es recordado como un período de estabilidad y
+      progreso económico, a pesar de las tensiones internas en el partido
+      gobernante. Su gestión preparó el terreno para el regreso de Yrigoyen al
+      poder en 1928, aunque la polarización política ya era un factor latente
+      que desembocaría en el primer golpe de Estado argentino en 1930. Su figura
+      representa un ala más moderada y liberal dentro del radicalismo de la
+      época.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img
+        src="alvear_gobierno1.jpg"
+        alt="Marcelo T. de Alvear asumiendo la presidencia"
+      />
+      <img src="alvear_gobierno2.jpg" alt="Ministros del gobierno de Alvear" />
+      <img
+        src="alvear_gobierno3.jpg"
+        alt="Edificios públicos construidos durante su gestión"
+      />
+      <img
+        src="alvear_gobierno4.jpg"
+        alt="Acto político de la Unión Cívica Radical durante la presidencia de Alvear"
+      />
+      <img
+        src="alvear_gobierno5.jpg"
+        alt="Marcelo T. de Alvear en un retrato oficial"
+      />
+    </div>
+
+    <h2>Trivia Histórica sobre el Gobierno de Alvear</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

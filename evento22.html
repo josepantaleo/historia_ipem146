@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Terremoto de San Juan (1944) y la Ayuda de Perón</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento22">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>El Terremoto de San Juan (1944) y la Ayuda de Perón</h1>
+
+    <p>
+      El  15 de enero de 1944 , la provincia de San Juan, en Argentina, fue devastada por un violento  terremoto de 7.8 grados en la escala de Richter . Este sismo, considerado una de las mayores catástrofes naturales en la historia argentina, causó aproximadamente  10.000 muertes  y la destrucción de más del 90% de la ciudad capital. La tragedia no solo dejó una huella imborrable en la memoria colectiva, sino que también jugó un papel crucial en el ascenso político de  Juan Domingo Perón .
+    </p>
+
+    <h2>La Catástrofe y sus Consecuencias</h2>
+    <p>
+      El terremoto golpeó la provincia alrededor de las 20:50 horas, una hora en la que muchas familias ya estaban en sus hogares, agravando el número de víctimas. La mayoría de las edificaciones de adobe colapsaron, sepultando a sus habitantes. La infraestructura de la ciudad quedó completamente destruida: hospitales, escuelas, edificios públicos y viviendas fueron reducidos a escombros. La falta de servicios básicos como agua potable, electricidad y comunicación, sumada a la epidemia de tifus, complicó aún más la situación de los sobrevivientes.
+    </p>
+
+    <h2>La Intervención de Juan Domingo Perón</h2>
+    <p>
+      En ese momento, Juan Domingo Perón se desempeñaba como  Secretario de Trabajo y Previsión Social  y Vicepresidente del gobierno militar surgido del golpe de 1943. Ante la magnitud de la tragedia, Perón asumió un rol protagónico en la organización de la ayuda humanitaria y la reconstrucción. Su rápida y efectiva respuesta fue fundamental para consolidar su imagen pública.
+
+      Las acciones de Perón incluyeron:
+      <ul>
+        <li> Centralización de la Ayuda:  Perón movilizó todos los recursos disponibles del Estado para la asistencia a San Juan.</li>
+        <li> Campaña de Solidaridad Nacional:  Impulsó una campaña masiva de recolección de fondos y donaciones a nivel nacional, convocando a la solidaridad de todos los sectores de la sociedad.</li>
+        <li> La figura de Eva Duarte:  En el marco de esta campaña, se realizó un festival benéfico en el Luna Park de Buenos Aires, donde Perón conoció a  Eva Duarte , quien en ese momento era una joven actriz. Este encuentro marcaría el inicio de su relación y el surgimiento de una de las figuras más influyentes de la política argentina. Eva Duarte tuvo un rol muy activo en la recolección de ayuda, visitando hogares y recaudando donaciones.</li>
+        <li> Reconstrucción y Medidas Sociales:  Perón impulsó la creación de la Dirección de Reconstrucción de San Juan y promovió nuevas normativas de construcción antisísmicas, prohibiendo el uso de adobe. Además, se preocupó por la situación de las familias damnificadas, facilitando la construcción de viviendas dignas y la asistencia social.</li>
+      </ul>
+    </p>
+
+    <h2>Impacto Político</h2>
+    <p>
+      La gestión de Perón durante la catástrofe de San Juan fue un momento clave en su consolidación como líder popular. Su accionar demostró una capacidad de gestión y empatía con las clases más vulnerables que contrastaba con la indiferencia de gobiernos anteriores. Esta exposición mediática y su cercanía con la gente le permitieron construir una base de apoyo popular que sería decisiva en su futuro político, especialmente de cara a las elecciones de 1946. El terremoto, paradójicamente, se convirtió en una plataforma para el ascenso del peronismo.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      El terremoto de San Juan de 1944 es un hito en la historia argentina. Más allá de la tragedia, es recordado como el punto de partida de importantes cambios en las políticas de emergencia y reconstrucción, y como un momento decisivo en la configuración del liderazgo de Juan Domingo Perón, marcando el inicio de una nueva era política para el país.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="san_juan_terremoto1.jpg" alt="Devastación en San Juan tras el terremoto de 1944" />
+      <img src="san_juan_terremoto2.jpg" alt="Juan Domingo Perón visitando las zonas afectadas" />
+      <img src="san_juan_terremoto3.jpg" alt="Eva Duarte (futura Eva Perón) colaborando con la ayuda" />
+      <img src="san_juan_terremoto4.jpg" alt="Ruinas de edificios tras el sismo" />
+      <img src="san_juan_terremoto5.jpg" alt="Carpa de ayuda y refugio para damnificados" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Terremoto de San Juan y Perón</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Primer Gobierno de Juan Domingo Perón</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento13">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Primer Gobierno de Juan Domingo Perón</h1>
+
+    <p>
+      El <strong>primer gobierno de Juan Domingo Perón</strong> se extendió desde el <strong>4 de junio de 1946 hasta el 4 de junio de 1952</strong>. Perón, acompañado por Hortensio Quijano como vicepresidente, asumió la presidencia de Argentina tras ganar las elecciones de 1946, consolidando un proyecto político y social que transformaría profundamente el país y daría origen al movimiento conocido como peronismo.
+    </p>
+
+    <h2>Contexto histórico: Post-Segunda Guerra Mundial y 17 de Octubre</h2>
+    <p>
+      Perón llegó a la presidencia en un contexto de posguerra mundial, que le permitió implementar un modelo de industrialización por sustitución de importaciones. Su ascenso al poder fue precedido por el <strong>17 de octubre de 1945</strong>, una movilización masiva de trabajadores que exigió su liberación y evidenció el fuerte apoyo popular a su figura, labrado durante su gestión al frente de la Secretaría de Trabajo y Previsión (1943-1945).
+    </p>
+
+    <h2>Principales características y políticas</h2>
+    <p>
+      El primer gobierno peronista se caracterizó por una profunda reforma del Estado y de la sociedad argentina, con políticas que buscaron la **justicia social**, la **independencia económica** y la **soberanía política** (conocidos como las "tres banderas" del peronismo).
+      <ul>
+        <li>**Justicia Social:** Se ampliaron significativamente los derechos laborales (vacaciones pagas, aguinaldo, jubilaciones), se impulsó la creación de sindicatos y se mejoraron las condiciones de vida de los trabajadores. Se destaca también el rol de **Eva Perón** en la Fundación Eva Perón, que brindó asistencia social, salud y educación.</li>
+        <li>**Independencia Económica:** Se nacionalizaron servicios públicos estratégicos como los ferrocarriles, el gas, los teléfonos y los puertos. Se fomentó la industrialización nacional, buscando reducir la dependencia de las importaciones. Se creó el IAPI (Instituto Argentino de Promoción del Intercambio) para regular el comercio exterior.</li>
+        <li>**Soberanía Política:** Se reafirmó la postura de no alineamiento automático con ninguna potencia internacional, aunque hubo un acercamiento inicial con países europeos. Se impulsó una nueva Constitución en 1949 que incorporaba los derechos sociales y laborales.</li>
+        <li>**Rol de la mujer:** En 1947, se sancionó la Ley de Sufragio Femenino, otorgando a las mujeres el derecho a votar y ser elegidas.</li>
+      </ul>
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      El primer gobierno de Perón sentó las bases del Estado de Bienestar en Argentina, generando una lealtad masiva en sectores populares y trabajadores que perduraría por décadas. Sus políticas transformaron la estructura económica y social del país, y aunque enfrentó una fuerte oposición de sectores conservadores y antiperonistas, su impacto fue innegable y dio forma a gran parte de la política argentina del siglo XX. El peronismo se consolidó como una fuerza política central y popular.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="peron_gobierno1_1.jpg" alt="Juan Domingo Perón asumiendo la presidencia en 1946" />
+      <img src="peron_gobierno1_2.jpg" alt="Eva Perón junto a los trabajadores" />
+      <img src="peron_gobierno1_3.jpg" alt="Nacionalización de los ferrocarriles" />
+      <img src="peron_gobierno1_4.jpg" alt="Voto femenino en Argentina" />
+      <img src="peron_gobierno1_5.jpg" alt="Acto multitudinario de apoyo al peronismo" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Primer Gobierno de Perón</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

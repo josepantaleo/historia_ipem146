@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Caída del Imperio Romano</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento1">
+
+    <!-- Enlace de regreso al mapa -->
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Caída del Imperio Romano de Occidente</h1>
+
+    <p>
+      La <strong>Caída del Imperio Romano de Occidente</strong> ocurrió en el año
+      <strong>476 d.C.</strong>, cuando el último emperador, Rómulo Augústulo, fue
+      depuesto por el líder germano Odoacro. Este evento marcó el fin de la
+      Antigüedad y el inicio de la Edad Media en Europa.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      El Imperio Romano enfrentaba desde hacía siglos una profunda crisis política,
+      económica y militar. La presión de los pueblos bárbaros, las luchas internas por
+      el poder y la corrupción contribuyeron al debilitamiento del Estado.
+    </p>
+
+    <h2>El fin del Imperio de Occidente</h2>
+    <p>
+      En 476 d.C., el general Odoacro derrocó al joven emperador Rómulo Augústulo y se
+      proclamó rey de Italia. Aunque el Imperio Romano de Oriente continuó en pie
+      durante siglos más, este hecho simbolizó el colapso del poder romano en
+      Occidente.
+    </p>
+
+    <h2>Importancia</h2>
+    <p>
+      La caída del Imperio Romano significó una transformación radical del mundo
+      occidental. Dio paso a la fragmentación del territorio en reinos germánicos,
+      el feudalismo, y el fortalecimiento de la Iglesia como poder central.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      A pesar de su colapso político, la cultura, el derecho y la arquitectura
+      romanas continuaron influyendo en Europa durante siglos. Muchas instituciones
+      modernas tienen sus raíces en Roma.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="roma1.jpg" alt="Ruinas del Coliseo romano" />
+      <img src="roma2.jpg" alt="Representación de la caída del Imperio" />
+      <img src="roma3.jpg" alt="Mapa del Imperio Romano dividido" />
+      <img src="roma4.jpg" alt="Odoacro y Rómulo Augústulo" />
+      <img src="roma5.jpg" alt="Invasiones bárbaras en Europa" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Imperio Romano</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <!-- Segundo enlace de regreso -->
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

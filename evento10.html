@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Asesinato de Enzo Bordabehere</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento10">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Asesinato de Enzo Bordabehere</h1>
+
+    <p>
+      El <strong>23 de julio de 1935</strong>, el senador nacional
+      <strong>Enzo Bordabehere</strong> fue trágicamente asesinado en pleno
+      recinto del Congreso de la Nación Argentina, en un hecho que conmocionó al
+      país y que es un oscuro capítulo de la "Década Infame". Su muerte ocurrió
+      mientras brindaba apoyo al senador Lisandro de la Torre, quien denunciaba
+      un escandaloso caso de corrupción en el comercio de carnes.
+    </p>
+
+    <h2>Contexto histórico: Los Debates de las Carnes</h2>
+    <p>
+      El asesinato de Bordabehere se enmarcó en los intensos debates
+      parlamentarios sobre el comercio de carnes, conocidos como los "Debates de
+      las Carnes". El senador <strong>Lisandro de la Torre</strong>, del Partido
+      Demócrata Progresista, había iniciado una investigación exhaustiva
+      denunciando la existencia de un monopolio ejercido por frigoríficos
+      británicos y la corrupción asociada a la venta de carne a Gran Bretaña
+      bajo el Pacto Roca-Runciman . De la Torre acusaba directamente a ministros
+      del gobierno de Agustín P. Justo de complicidad en estos manejos
+      irregulares.
+    </p>
+
+    <h2>El trágico suceso en el Senado</h2>
+    <p>
+      Durante una acalorada sesión en el Senado, mientras Lisandro de la Torre
+      exponía sus argumentos y realizaba fuertes acusaciones, el ex comisario
+      <strong>Ramón Valdez Cora</strong> ingresó al recinto. Su objetivo era
+      asesinar a Lisandro de la Torre, pero Enzo Bordabehere, que se interpuso
+      para proteger a su compañero de bancada, recibió los disparos mortales. El
+      crimen en el corazón de la institución democrática generó un enorme
+      impacto político y social.
+    </p>
+
+    <h2>Consecuencias y Significado</h2>
+    <p>
+      El asesinato de Bordabehere es un símbolo de la violencia política y la
+      crisis institucional que caracterizaron la Década Infame (1930-1943). Este
+      evento puso de manifiesto la impunidad con la que operaban ciertos grupos
+      y la desesperación de quienes intentaban denunciar la corrupción en un
+      sistema político viciado por el fraude y la represión.
+      <br /><br />
+      Aunque el crimen no detuvo las denuncias de Lisandro de la Torre, sí
+      ilustró la profunda polarización y el clima de hostilidad hacia la
+      oposición que existía en el país. El legado de Bordabehere se asocia a la
+      defensa de la honestidad y la lucha contra la corrupción, elementos que lo
+      convirtieron en un mártir de la democracia argentina.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="bordabehere_asesinato1.jpg" alt="Enzo Bordabehere" />
+      <img
+        src="bordabehere_asesinato2.jpg"
+        alt="Lisandro de la Torre en el Senado"
+      />
+      <img
+        src="bordabehere_asesinato3.jpg"
+        alt="Fachada del Congreso Nacional"
+      />
+      <img
+        src="bordabehere_asesinato4.jpg"
+        alt="Periódico de la época informando sobre el asesinato"
+      />
+      <img
+        src="bordabehere_asesinato5.jpg"
+        alt="Ramón Valdez Cora, el asesino"
+      />
+    </div>
+
+    <h2>Trivia Histórica sobre el Asesinato de Enzo Bordabehere</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

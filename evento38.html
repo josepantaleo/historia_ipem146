@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rebelión de Túpac Amaru en Alto Perú</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento38">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>La Rebelión de Túpac Amaru en Alto Perú</h1>
+
+    <p>
+      La  Rebelión de Túpac Amaru II  fue una de las insurrecciones indígenas más grandes e importantes de la época colonial en Hispanoamérica. Iniciada en  1780 , esta revuelta, liderada por  José Gabriel Condorcanqui  (quien tomó el nombre de Túpac Amaru II), se extendió rápidamente por vastas regiones del  Virreinato del Perú  y el  Alto Perú  (actual Bolivia), amenazando seriamente el dominio español.
+    </p>
+
+    <h2>Contexto y Causas</h2>
+    <p>
+      La rebelión fue el resultado de una acumulación de descontento entre la población indígena y mestiza debido a varios factores:
+      <ul>
+        <li> Explotación y Abusos:  El sistema de la  mita  (trabajo forzado en minas, especialmente Potosí) y el  reparto de mercancías  (venta forzada de productos inútiles o caros por parte de los corregidores) generaban una miseria extrema.</li>
+        <li> Aumento de Impuestos:  Las  Reformas Borbónicas  implementadas por la Corona española buscaron centralizar el poder y aumentar la recaudación fiscal, lo que se tradujo en más tributos y alcabalas para los indígenas.</li>
+        <li> Discriminación y Exclusión:  A pesar de su linaje noble incaico, Túpac Amaru y otros curacas (caciques) veían limitadas sus posibilidades y sufrían la opresión del sistema colonial.</li>
+        <li> Mesianismo y Profecías:  Un sentimiento de esperanza en el retorno de un Inca que restaurara el orden y la justicia prehispánica.</li>
+      </ul>
+    </p>
+
+    <h2>Desarrollo de la Rebelión</h2>
+    <p>
+      La revuelta comenzó el  4 de noviembre de 1780  con la captura y ejecución del corregidor de Tinta, Antonio de Arriaga. Rápidamente, Túpac Amaru II, presentándose como descendiente de los Incas, logró movilizar a decenas de miles de indígenas y algunos mestizos y criollos descontentos. Sus objetivos iniciales eran reformistas: acabar con la mita, los repartos y las aduanas internas. Sin embargo, la magnitud del levantamiento y la brutalidad de la represión española radicalizaron sus demandas hacia la expulsión total de los españoles.
+    </p>
+    <p>
+      Aunque Túpac Amaru fue capturado y brutalmente ejecutado en  Cuzco  el  18 de mayo de 1781 , su rebelión no terminó ahí. Su pariente,  Diego Cristóbal Túpac Amaru , y otros líderes continuaron la lucha, extendiéndose con fuerza particular en el Alto Perú, donde el levantamiento adquirió tintes aún más violentos y radicales, especialmente con el asedio a La Paz. La represión española fue feroz, dejando un saldo de cientos de miles de muertos.
+    </p>
+
+    <h2>Impacto y Legado</h2>
+    <p>
+      La Rebelión de Túpac Amaru tuvo un impacto duradero:
+      <ul>
+        <li> Precedente para la Independencia:  Aunque fracasó en su objetivo inmediato, la revuelta es considerada un importante antecedente de los movimientos independentistas hispanoamericanos del siglo XIX, al demostrar la vulnerabilidad del poder colonial.</li>
+        <li> Cambios en la Administración:  La Corona implementó algunas reformas menores para apaciguar el descontento, como la abolición de los corregidores y la creación de las Intendencias. Sin embargo, también se endureció el control sobre la población indígena y se prohibieron manifestaciones de cultura incaica.</li>
+        <li> Memoria Histórica:  Túpac Amaru II se convirtió en un símbolo de la resistencia indígena y la lucha por la justicia social en América Latina, siendo reivindicado por diversos movimientos políticos y sociales a lo largo de la historia.</li>
+      </ul>
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="tupac_amaru1.jpg" alt="Retrato de Túpac Amaru II" />
+      <img src="tupac_amaru2.jpg" alt="Mapa de la extensión de la rebelión" />
+      <img src="tupac_amaru3.jpg" alt="Grabado de la ejecución de Túpac Amaru" />
+      <img src="tupac_amaru4.jpg" alt="Mita en las minas de Potosí" />
+      <img src="tupac_amaru5.jpg" alt="Representación de un corregidor español" />
+    </div>
+
+    <h2>Trivia Histórica sobre Túpac Amaru</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Segunda Presidencia de Juan Domingo Perón</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento14">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Segunda Presidencia de Juan Domingo Perón</h1>
+
+    <p>
+      La  segunda presidencia de Juan Domingo Perón  se inició el  4 de junio de 1952  y se extendió hasta el  16 de septiembre de 1955 , cuando fue derrocado por un golpe de Estado. Este período estuvo marcado por crecientes tensiones políticas, la profundización del modelo peronista y, finalmente, un aumento de la confrontación con sectores opositores.
+    </p>
+
+    <h2>Contexto de asunción y desafíos</h2>
+    <p>
+      Perón fue reelegido con un amplio apoyo popular, esta vez con Hortensio Quijano como vicepresidente (aunque este fallecería poco después, siendo reemplazado por Alberto Teisaire). Sin embargo, el contexto económico internacional ya no era tan favorable como en su primer mandato, y la Argentina enfrentaba desafíos como la inflación y la disminución de las reservas. A esto se sumó la trágica muerte de  Eva Perón  en julio de 1952, un golpe emocional y político para el movimiento peronista.
+    </p>
+
+    <h2>Profundización del modelo y nuevas políticas</h2>
+    <p>
+      Durante esta segunda etapa, el gobierno peronista buscó consolidar y ajustar su proyecto:
+      <ul>
+        <li> Segundo Plan Quinquenal:  Se implementó un nuevo plan económico que priorizó el desarrollo de la industria pesada, la inversión extranjera (con un mayor pragmatismo que en el primer plan) y un reordenamiento de la economía frente a las dificultades.</li>
+        <li> Reforma Constitucional:  Aunque la Constitución de 1949 ya había consolidado el marco legal del peronismo, esta etapa vio la profundización de la Doctrina Nacional y Social y un control más estricto sobre los medios de comunicación y la oposición.</li>
+        <li> Conflicto con la Iglesia:  Se produjo un fuerte enfrentamiento con la Iglesia Católica, que había sido inicialmente aliada. Medidas como la ley de divorcio vincular, la eliminación de la enseñanza religiosa obligatoria y la prohibición de procesiones religiosas generaron un quiebre que llevó a la excomunión de Perón.</li>
+        <li> Tensiones militares:  Las Fuerzas Armadas, que habían sido un pilar en su ascenso, comenzaron a mostrar disidencias, llevando a intentos de levantamiento militar.</li>
+      </ul>
+    </p>
+
+    <h2>El derrocamiento: Revolución Libertadora</h2>
+    <p>
+      La creciente polarización política, la crisis económica, el conflicto con la Iglesia y la persecución a la oposición fueron factores que debilitaron el gobierno. El  16 de septiembre de 1955 , un levantamiento militar conocido como la  Revolución Libertadora , liderado por el general Eduardo Lonardi, derrocó a Perón. Los bombardeos de Plaza de Mayo en junio de 1955 por parte de la Armada habían sido un preludio trágico de la violencia que se desataría. Perón se exilió, y se inició un largo período de proscripción del peronismo.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      La segunda presidencia de Perón es un período complejo y controversial. Representa la fase de consolidación de sus políticas sociales y económicas, pero también el aumento de la confrontación y la polarización que culminaría en su derrocamiento. Marcó el inicio de una etapa de inestabilidad política en Argentina, con alternancia de gobiernos militares y civiles, y una profunda división en la sociedad que perduraría por décadas.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="peron_segunda_presidencia1.jpg" alt="Perón asumiendo su segundo mandato en 1952" />
+      <img src="peron_segunda_presidencia2.jpg" alt="Eva Perón en sus últimos años" />
+      <img src="peron_segunda_presidencia3.jpg" alt="Bombardeo de Plaza de Mayo en junio de 1955" />
+      <img src="peron_segunda_presidencia4.jpg" alt="Manifestación antiperonista tras el derrocamiento" />
+      <img src="peron_segunda_presidencia5.jpg" alt="Perón en el exilio" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Segunda Presidencia de Perón</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

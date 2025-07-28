@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pacto Roca-Runciman en Londres</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento9">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Pacto Roca-Runciman en Londres</h1>
+
+    <p>
+      El  Pacto Roca-Runciman  fue un controvertido acuerdo comercial firmado en Londres el  1 de mayo de 1933  entre Argentina y el Reino Unido. Este pacto, nombrado por el vicepresidente argentino Julio Argentino Roca (hijo) y el jefe del Board of Trade británico, Walter Runciman, se dio en un contexto de profunda crisis económica global y buscaba asegurar el comercio de carnes argentinas con Gran Bretaña.
+    </p>
+
+    <h2>Contexto histórico: La Gran Depresión y el Imperio Británico</h2>
+    <p>
+      La  Gran Depresión de 1929  impactó fuertemente en la economía mundial, llevando a los países a adoptar políticas proteccionistas. En 1932, el Reino Unido celebró la  Conferencia de Ottawa  con los países de la Commonwealth, acordando un sistema de preferencias arancelarias que amenazaba con dejar fuera a los productos argentinos, especialmente la carne, del mercado británico. Ante esta situación crítica para la economía agroexportadora argentina, el gobierno de facto de Agustín P. Justo (instaurado tras el golpe de 1930) envió una misión a Londres para negociar un acuerdo.
+    </p>
+
+    <h2>Principales cláusulas del Pacto</h2>
+    <p>
+      El Pacto Roca-Runciman establecía una serie de condiciones que, para muchos, resultaron desventajosas para Argentina:
+      <ul>
+        <li> Cuota de Carne:  Gran Bretaña se comprometía a seguir comprando una determinada cuota de carne argentina (la "cuota Hilton"), pero con la condición de que el precio fuera competitivo y siempre que no afectara la producción de la Commonwealth.</li>
+        <li> Libre de Aranceles:  Argentina mantendría libre de aranceles las importaciones de carbón y otras mercaderías británicas.</li>
+        <li> Control Británico:  Se garantizaba la libertad de acción para las empresas británicas en Argentina, incluyendo el control de frigoríficos y la regulación del transporte. El Reino Unido también exigía que los pagos por las compras de carne se utilizaran para saldar deudas con empresas británicas.</li>
+        <li> Creación de la Corporación Argentina de Productores de Carnes (CAP):  Este organismo se creó para administrar la cuota de exportación de carne, pero con una fuerte influencia de los frigoríficos británicos.</li>
+      </ul>
+    </p>
+
+    <h2>Repercusiones y Críticas en Argentina</h2>
+    <p>
+      El Pacto generó un encendido debate en Argentina y fue fuertemente criticado por amplios sectores políticos y de la opinión pública. La frase del vicepresidente Roca (hijo) de que "la Argentina, por su interdependencia recíproca, es, desde el punto de vista económico, una parte integrante del Imperio Británico", se convirtió en un símbolo de la supuesta "entrega" del país.
+
+      El senador santafesino  Lisandro de la Torre  se destacó por su feroz oposición al acuerdo, denunciando en el Congreso los negociados y las condiciones desfavorables para los productores nacionales en los "debates de las carnes". Sus denuncias llevaron a un trágico incidente en el Senado donde el ex comisario Ramón Valdez Cora atentó contra su vida, asesinando al senador Enzo Bordabehere.
+
+      El Pacto Roca-Runciman es considerado uno de los símbolos de la  Década Infame , caracterizada por el fraude electoral, la corrupción y una política exterior que muchos vieron como subordinada a los intereses británicos.
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      Aunque el Pacto Roca-Runciman permitió a Argentina mantener un importante mercado para sus exportaciones en un período de crisis, también profundizó la dependencia económica del país con Gran Bretaña y expuso las debilidades y los intereses de los gobiernos conservadores de la época. Su recuerdo sigue siendo un tema de debate en la historiografía argentina sobre la soberanía y el modelo de desarrollo nacional.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="roca_runciman1.jpg" alt="Julio A. Roca (hijo) y Walter Runciman firmando el pacto" />
+      <img src="roca_runciman2.jpg" alt="Portada de periódico de la época sobre el Pacto" />
+      <img src="roca_runciman3.jpg" alt="Lisandro de la Torre en el Senado" />
+      <img src="roca_runciman4.jpg" alt="Caricatura crítica del Pacto Roca-Runciman" />
+      <img src="roca_runciman5.jpg" alt="Manifestación en contra del pacto" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Pacto Roca-Runciman</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

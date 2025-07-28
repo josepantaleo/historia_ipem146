@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Creación de YPF</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento5">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Creación de YPF</h1>
+
+    <p>
+      La creación de <strong>Yacimientos Petrolíferos Fiscales (YPF)</strong> el
+      <strong>3 de junio de 1922</strong> marcó un hito fundamental en la
+      historia económica y política de Argentina. Fue la primera empresa
+      petrolera estatal integrada verticalmente del mundo, un paso audaz hacia
+      la soberanía energética.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      A principios del siglo XX, la explotación petrolera en Argentina estaba
+      mayormente en manos de empresas extranjeras. La visión de nacionalizar los
+      recursos hidrocarburíferos surgió de la necesidad de asegurar el
+      abastecimiento interno y de controlar un sector estratégico para el
+      desarrollo del país.
+    </p>
+
+    <h2>Impulsores y objetivos</h2>
+    <p>
+      La creación de YPF fue impulsada durante el segundo gobierno de Hipólito
+      Yrigoyen, siendo su principal artífice el General
+      <strong>Enrique Mosconi</strong>, quien se convirtió en su primer
+      director. El objetivo era promover la exploración, explotación, refinación
+      y comercialización de petróleo a nivel nacional, garantizando el
+      autoabastecimiento y fomentando la industrialización.
+    </p>
+
+    <h2>Importancia y Legado</h2>
+    <p>
+      YPF se convirtió en un símbolo de la soberanía nacional y del desarrollo
+      industrial argentino. Su modelo fue replicado por otros países en el mundo
+      que buscaron nacionalizar sus recursos naturales. A lo largo de su
+      historia, YPF ha sido un actor clave en la economía argentina, con
+      períodos de expansión y desafíos, pero siempre manteniendo su relevancia
+      estratégica.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="ypf_creacion1.jpg" alt="Enrique Mosconi, impulsor de YPF" />
+      <img src="ypf_creacion2.jpg" alt="Primera refinería de YPF" />
+      <img src="ypf_creacion3.jpg" alt="Camiones de YPF en sus inicios" />
+      <img src="ypf_creacion4.jpg" alt="Pozo petrolero de YPF" />
+      <img src="ypf_creacion5.jpg" alt="Logo histórico de YPF" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Creación de YPF</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

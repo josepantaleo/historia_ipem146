@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      Mapa Interactivo de Eventos Históricos - IPEM 146 "Centenario"
+    </title>
+
+    <meta
+      name="description"
+      content="Explore un visor interactivo con mapa y lista detallada de eventos históricos, desarrollado por 4º Año Informática del IPEM 146 'Centenario'."
+    />
+    <meta name="author" content="IPEM 146 'Centenario'" />
+    <meta
+      name="keywords"
+      content="eventos históricos, mapa, historia, Argentina, IPEM 146, Centenario, informática, programación web"
+    />
+
+    <meta
+      property="og:title"
+      content="Mapa Interactivo de Eventos Históricos"
+    />
+    <meta
+      property="og:description"
+      content="Explore un visor interactivo con mapa y lista detallada de eventos históricos, desarrollado por 4º Año Informática del IPEM 146 'Centenario'."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tudominio.com/mapa-historico" />
+    <meta
+      property="og:image"
+      content="https://tudominio.com/imagen-previsualizacion.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@tuusuarioTwitter" />
+    <meta
+      name="twitter:title"
+      content="Mapa Interactivo de Eventos Históricos"
+    />
+    <meta
+      name="twitter:description"
+      content="Explore un visor interactivo con mapa y lista detallada de eventos históricos, desarrollado por 4º Año Informática del IPEM 146 'Centenario'."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tudominio.com/imagen-previsualizacion.jpg"
+    />
+
+    <link
+      rel="preload"
+      href="https://unpkg.com/leaflet/dist/leaflet.css"
+      as="style"
+    />
+    <link
+      rel="preload"
+      href="https://unpkg.com/leaflet/dist/leaflet.js"
+      as="script"
+    />
+    <link rel="preload" href="principal.js" as="script" />
+    <link rel="preconnect" href="https://unpkg.com/" crossorigin />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+    />
+
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <noscript>
+      <div
+        style="
+          text-align: center;
+          padding: 20px;
+          background-color: #ffe0b2;
+          color: #cc5500;
+        "
+      >
+        <p>
+          ¡Atención! Para visualizar el mapa y los eventos históricos,
+          JavaScript debe estar habilitado en su navegador.
+        </p>
+        <p>Por favor, active JavaScript o use un navegador compatible.</p>
+      </div>
+    </noscript>
+
+    <header role="banner" class="site-header">
+      <div class="header-content">
+        <header class="hero">
+          <h1>📜 Visor Interactivo de Eventos Históricos</h1>
+          <p class="subtitle">4°A Informática TT · 2025</p>
+          <p class="school-info">
+            <em>Formación Profesional en Programación Web</em>
+          </p>
+          <p class="school-name">🏫 IPEM N.º 146 “Centenario”</p>
+        </header>
+
+        <section class="subjects">
+          <h2>Asignaturas Participantes</h2>
+
+          <div class="subject">
+            <h3>📘 Historia</h3>
+            <p>Prof. Sergio Agüero</p>
+            <p>Prof. José Riveros</p>
+          </div>
+
+          <div class="subject">
+            <h3>💻 Sistemas Digitales</h3>
+            <p>Prof. José Pantaleo</p>
+          </div>
+        </section>
+      </div>
+      <div class="control-group">
+        <label for="selectorVoces">Voz de Narración 👇</label>
+        <select id="selectorVoces"></select>
+      </div>
+      <h3>Filtros 👇​</h3>
+      <nav
+        class="filters-nav"
+        aria-label="Filtros de búsqueda de eventos históricos"
+      >
+        <h2 class="sr-only" id="filter-heading">Opciones de Filtrado</h2>
+        <form id="form-filtros" role="search" aria-labelledby="filter-heading">
+          <div class="filter-group">
+            <div class="filter-item">
+              <label for="filtroPeriodo">Período:</label>
+              <select
+                id="filtroPeriodo"
+                aria-label="Filtrar eventos por período"
+              >
+                <option value="todos">Todos los períodos</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label for="filtroPais">País:</label>
+              <select id="filtroPais" aria-label="Filtrar eventos por país">
+                <option value="todos">Todos los países</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label for="busquedaTitulo">Buscar por título:</label>
+              <input
+                id="busquedaTitulo"
+                type="search"
+                placeholder="Ej: Reforma Universitaria, Batalla de San Lorenzo..."
+                aria-label="Buscar eventos por título, palabras clave o fecha"
+                autocomplete="off"
+              />
+            </div>
+            <div class="filter-item">
+              <button
+                id="limpiarFiltros"
+                type="button"
+                aria-label="Limpiar todos los filtros"
+                title="Limpiar todos los filtros"
+              >
+                <i class="fas fa-times-circle"></i> Limpiar Filtros
+              </button>
+            </div>
+          </div>
+        </form>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="map-section">
+        <h2 class="sr-only">Mapa de Eventos Históricos</h2>
+        <div
+          id="mapa"
+          role="application"
+          aria-label="Mapa interactivo que muestra la ubicación de eventos históricos. Utilice las teclas de flecha para moverse y el zoom para explorar."
+          tabindex="0"
+        ></div>
+      </section>
+
+      <aside
+        class="events-sidebar"
+        role="complementary"
+        aria-labelledby="events-list-heading"
+      >
+        <h2 id="events-list-heading" class="sidebar-title">Lista de Eventos</h2>
+        <div id="event-status-area" role="status" aria-live="polite">
+          <p id="mensaje-no-eventos" hidden>
+            No se encontraron eventos que coincidan con los criterios de
+            búsqueda.
+          </p>
+          <p id="contador-eventos" style="text-align: center"></p>
+        </div>
+        <div
+          id="lista-eventos"
+          class="events-list"
+          aria-label="Lista filtrada de eventos históricos"
+          tabindex="0"
+        ></div>
+      </aside>
+    </main>
+
+    <div
+      id="cargando"
+      class="loader"
+      role="status"
+      aria-live="assertive"
+      hidden
+    >
+      <p>⏳ Cargando eventos... Por favor, espere.</p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
+    <script
+      src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"
+      defer
+    ></script>
+
+    <script src="principal.js" defer></script>
+
+    <style>
+      /* Estilos para accesibilidad */
+      .sr-only {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+      /* Estilos para Toast */
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 1050; /* Por encima de popups de Leaflet */
+      }
+      .toast.visible {
+        opacity: 1;
+      }
+    </style>
+  </body>
+</html>

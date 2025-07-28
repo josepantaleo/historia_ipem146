@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Revolución de Mayo</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento41">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>La Revolución de Mayo</h1>
+
+    <p>
+      La  Revolución de Mayo  fue una serie de acontecimientos que tuvieron lugar en Buenos Aires, capital del Virreinato del Río de la Plata, entre el  18 y el 25 de mayo de 1810 . Este proceso culminó con la destitución del virrey Baltasar Hidalgo de Cisneros y la formación de la  Primera Junta de Gobierno , marcando el inicio del camino hacia la independencia de las Provincias Unidas del Río de la Plata.
+    </p>
+
+    <h2>Contexto y Causas</h2>
+    <p>
+      La Revolución de Mayo no fue un hecho aislado, sino la consecuencia de una combinación de factores internos y externos:
+      <ul>
+        <li> Crisis de la Monarquía Española:  La invasión napoleónica a España en  1808 , la abdicación de Fernando VII y la imposición de José Bonaparte generaron un vacío de poder y una crisis de legitimidad en las colonias.</li>
+        <li> Invasiones Inglesas (1806-1807):  La exitosa defensa de Buenos Aires sin ayuda de España demostró la capacidad de autogobierno de los criollos y el Virreinato, y fortaleció las milicias locales.</li>
+        <li> Ideas Ilustradas:  La difusión de los principios de la  Ilustración  (soberanía popular, división de poderes, derechos del hombre) y el ejemplo de la  Independencia de Estados Unidos  y la  Revolución Francesa  inspiraron a las élites criollas.</li>
+        <li> Disconformidad Criolla:  Los criollos, a pesar de su poder económico y social, estaban excluidos de los principales cargos de gobierno y administración, reservados para los peninsulares.</li>
+        <li> Reglamento de Libre Comercio (1778):  Si bien benefició a Buenos Aires, generó tensiones con el interior y demostró la centralización del poder económico.</li>
+      </ul>
+    </p>
+
+    <h2>La Semana de Mayo (18 al 25 de mayo de 1810)</h2>
+    <p>
+      Los eventos se precipitaron rápidamente:
+      <ul>
+        <li> 18 de Mayo:  Llegan a Buenos Aires noticias de la caída de la Junta Central de Sevilla, último bastión de resistencia al poder napoleónico en España. El virrey Cisneros intenta ocultar la información, pero la noticia se difunde.</li>
+        <li> 19 de Mayo:  Destacados criollos, como Cornelio Saavedra y Manuel Belgrano, exigen a Cisneros la convocatoria a un Cabildo Abierto para decidir sobre la autoridad del Virreinato.</li>
+        <li> 20 de Mayo:  Cisneros acepta a regañadientes la convocatoria al Cabildo Abierto.</li>
+        <li> 22 de Mayo:  Se celebra el  Cabildo Abierto . Tras un intenso debate, se vota por la destitución del virrey.</li>
+        <li> 23 de Mayo:  Se forma una Junta Provisional presidida por Cisneros, lo que genera un fuerte rechazo popular y de las milicias.</li>
+        <li> 24 de Mayo:  La indignación crece. El pueblo se congrega en la Plaza de la Victoria (hoy Plaza de Mayo) y exige la renuncia de Cisneros y la formación de una nueva Junta.</li>
+        <li> 25 de Mayo:  Ante la presión popular y militar, Cisneros renuncia. Se proclama la  Primera Junta de Gobierno , presidida por  Cornelio Saavedra  y compuesta mayoritariamente por criollos.</li>
+      </ul>
+    </p>
+
+    <h2>Impacto y Legado</h2>
+    <p>
+      La Revolución de Mayo fue un punto de inflexión decisivo:
+      <ul>
+        <li> Fin del Virreinato:  Significó el colapso del poder virreinal en el Río de la Plata y el inicio de un proceso de autogobierno.</li>
+        <li> Inicio del Proceso Independentista:  Aunque la Primera Junta juró lealtad a Fernando VII (la "máscara de Fernando VII"), el objetivo subyacente era la autonomía y, a la larga, la independencia.</li>
+        <li> Surgimiento del Liderazgo Criollo:  Consolidó el poder y la influencia de figuras como  Cornelio Saavedra ,  Mariano Moreno ,  Manuel Belgrano  y  Juan José Castelli , quienes liderarían las futuras etapas del proceso.</li>
+        <li> Impacto Regional:  La noticia se difundió por las demás ciudades del Virreinato, generando adhesiones y resistencias y dando inicio a las guerras de independencia en la región.</li>
+      </ul>
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="revolucion_mayo1.jpg" alt="Cabildo de Buenos Aires el 25 de mayo de 1810" />
+      <img src="revolucion_mayo2.jpg" alt="Representación del Cabildo Abierto" />
+      <img src="revolucion_mayo3.jpg" alt="Retrato de Cornelio Saavedra" />
+      <img src="revolucion_mayo4.jpg" alt="Escena en la Plaza de la Victoria el 25 de Mayo" />
+      <img src="revolucion_mayo5.jpg" alt="Virrey Baltasar Hidalgo de Cisneros" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Revolución de Mayo</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

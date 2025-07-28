@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reducciones Jesuíticas</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento34">
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Reducciones Jesuíticas en Brasil y Paraguay</h1>
+
+    <p>
+      Las Reducciones Jesuíticas fueron comunidades autónomas establecidas por
+      la Compañía de Jesús (Jesuitas) entre los siglos XVII y XVIII en América
+      del Sur. Su objetivo principal era la evangelización y protección de las
+      poblaciones indígenas, especialmente los Guaraníes , frente a la
+      explotación y la esclavitud de los colonizadores europeos y los
+      bandeirantes.
+    </p>
+
+    <h2>Contexto histórico</h2>
+    <p>
+      Durante el período colonial, la expansión de los imperios español y
+      portugués generó una gran vulnerabilidad para los pueblos indígenas. Los
+      Jesuitas emergieron como defensores de estas comunidades, creando un
+      modelo social, económico y religioso único que buscaba preservar la
+      cultura indígena mientras se integraban a la fe cristiana. Estas misiones
+      se extendieron por vastas áreas, incluyendo regiones del actual Brasil
+      (principalmente el sur) y Paraguay .
+    </p>
+
+    <h2>Vida en las Reducciones</h2>
+    <p>
+      Las reducciones eran verdaderas ciudades planificadas, con iglesias
+      majestuosas, viviendas comunitarias, talleres artesanales y campos de
+      cultivo. La vida diaria combinaba el trabajo agrícola y artesanal con la
+      instrucción religiosa y educativa. Los Guaraníes aprendieron oficios como
+      carpintería, herrería, tejido y música, alcanzando una notable
+      autosuficiencia económica. Eran comunidades prósperas que exportaban
+      productos como la yerba mate, cueros y algodón.
+    </p>
+
+    <h2>Importancia y desafíos</h2>
+    <p>
+      Estas misiones representan un experimento social sin precedentes en la
+      historia colonial, buscando una convivencia armónica y justa para los
+      indígenas. Sin embargo, enfrentaron enormes desafíos: los constantes
+      ataques de los bandeirantes portugueses en busca de esclavos, la creciente
+      hostilidad de las coronas europeas y las intrigas políticas que culminaron
+      en la Guerra Guaranítica .
+    </p>
+
+    <h2>Legado</h2>
+    <p>
+      El legado de las Reducciones Jesuíticas es inmenso. Numerosas ruinas
+      arquitectónicas permanecen hoy como sitios del Patrimonio Mundial de la
+      UNESCO, como las de São Miguel das Missões en Brasil o La Santísima
+      Trinidad de Paraná en Paraguay. Simbolizan la capacidad de organización y
+      resistencia indígena, así como la visión de un proyecto evangelizador y
+      social alternativo que, lamentablemente, fue desmantelado con la expulsión
+      de los Jesuitas en 1767 . Su historia sigue siendo un testimonio de
+      encuentro y conflicto entre culturas.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="misiones1.jpg" alt="Ruinas de São Miguel das Missões" />
+      <img src="misiones2.jpg" alt="Plano de una Reducción Jesuítica" />
+      <img src="misiones3.jpg" alt="Indígenas Guaraníes en una Reducción" />
+      <img src="misiones4.jpg" alt="Arte sacro de las Misiones" />
+      <img
+        src="misiones5.jpg"
+        alt="Ruinas de La Santísima Trinidad de Paraná"
+      />
+    </div>
+
+    <h2>Trivia Histórica sobre las Reducciones</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top: 10px; font-weight: bold"></div>
+      <button id="siguiente" style="display: none">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            // For now, just hide it and show the start button
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

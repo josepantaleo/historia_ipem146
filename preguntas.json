@@ -1,0 +1,106 @@
+{
+  "evento1": [
+    {
+      "pregunta": "¿En qué año cayó el Imperio Romano de Occidente?",
+      "opciones": ["395 d.C.", "476 d.C.", "509 d.C."],
+      "respuesta": "476 d.C."
+    },
+    {
+      "pregunta": "¿Quién depuso al último emperador romano de Occidente?",
+      "opciones": ["Julio César", "Odoacro", "Atila"],
+      "respuesta": "Odoacro"
+    },
+    {
+      "pregunta": "¿Cómo se llamaba el último emperador del Imperio Romano de Occidente?",
+      "opciones": ["Constantino", "Rómulo Augústulo", "Teodosio"],
+      "respuesta": "Rómulo Augústulo"
+    },
+    {
+      "pregunta": "¿Qué grupo presionaba las fronteras del Imperio en sus últimos años?",
+      "opciones": ["Griegos", "Vikingos", "Pueblos bárbaros"],
+      "respuesta": "Pueblos bárbaros"
+    },
+    {
+      "pregunta": "¿Cuál fue una de las principales causas de la caída del Imperio Romano?",
+      "opciones": ["Erupciones volcánicas", "Crisis interna y externa", "Falta de tecnología"],
+      "respuesta": "Crisis interna y externa"
+    },
+    {
+      "pregunta": "¿Qué parte del Imperio continuó existiendo tras la caída de Occidente?",
+      "opciones": ["El Imperio Galo", "El Imperio Bizantino", "El Reino de los Francos"],
+      "respuesta": "El Imperio Bizantino"
+    },
+    {
+      "pregunta": "¿Cuál fue la capital del Imperio Romano de Oriente?",
+      "opciones": ["Roma", "Atenas", "Constantinopla"],
+      "respuesta": "Constantinopla"
+    },
+    {
+      "pregunta": "¿Qué rol jugó la Iglesia en la transición tras la caída de Roma?",
+      "opciones": ["Desapareció del mapa político", "Reemplazó parte del poder imperial", "Se trasladó a Egipto"],
+      "respuesta": "Reemplazó parte del poder imperial"
+    },
+    {
+      "pregunta": "¿Qué fenómeno social surgió tras la caída del Imperio en Europa Occidental?",
+      "opciones": ["Globalización", "Feudalismo", "Comunismo"],
+      "respuesta": "Feudalismo"
+    },
+    {
+      "pregunta": "¿Qué idioma se mantuvo como lengua culta tras la caída del Imperio?",
+      "opciones": ["Griego", "Latín", "Germánico"],
+      "respuesta": "Latín"
+    }
+  ],
+  "evento2": [
+    {
+      "pregunta": "¿Qué ley permitió la elección de Yrigoyen como presidente?",
+      "opciones": ["Ley de Residencia", "Ley Sáenz Peña", "Ley Avellaneda"],
+      "respuesta": "Ley Sáenz Peña"
+    },
+    {
+      "pregunta": "¿En qué año asumió Yrigoyen su primer mandato presidencial?",
+      "opciones": ["1912", "1916", "1922"],
+      "respuesta": "1916"
+    },
+    {
+      "pregunta": "¿Qué partido político representaba Yrigoyen?",
+      "opciones": ["Partido Justicialista", "Unión Cívica Radical", "Partido Conservador"],
+      "respuesta": "Unión Cívica Radical"
+    },
+    {
+      "pregunta": "¿Cuál fue una empresa estatal creada durante su gobierno?",
+      "opciones": ["YPF", "Ferrocarriles Argentinos", "Aerolíneas Argentinas"],
+      "respuesta": "YPF"
+    },
+    {
+      "pregunta": "¿Qué acontecimiento puso fin a su segundo mandato?",
+      "opciones": ["Renuncia voluntaria", "Golpe militar", "Juicio político"],
+      "respuesta": "Golpe militar"
+    },
+    {
+      "pregunta": "¿En qué año ocurrió el golpe que derrocó a Yrigoyen?",
+      "opciones": ["1928", "1930", "1932"],
+      "respuesta": "1930"
+    },
+    {
+      "pregunta": "¿Cuál fue una de sus principales políticas sociales?",
+      "opciones": ["Expulsión de inmigrantes", "Promoción de la educación pública", "Privatización del transporte"],
+      "respuesta": "Promoción de la educación pública"
+    },
+    {
+      "pregunta": "¿Qué sector lo apoyó mayoritariamente en las elecciones?",
+      "opciones": ["La oligarquía terrateniente", "Las clases medias y populares", "Los militares"],
+      "respuesta": "Las clases medias y populares"
+    },
+    {
+      "pregunta": "¿Cómo era apodado popularmente Yrigoyen?",
+      "opciones": ["El Viejo", "El Profe", "El General"],
+      "respuesta": "El Viejo"
+    },
+    {
+      "pregunta": "¿Qué periodo comenzó tras su derrocamiento?",
+      "opciones": ["La Revolución Libertadora", "La Década Infame", "La Restauración Radical"],
+      "respuesta": "La Década Infame"
+    }
+  ]
+}

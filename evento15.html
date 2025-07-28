@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Golpe de Estado de 1955: Revolución Libertadora</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento15">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Golpe de Estado de 1955: Revolución Libertadora</h1>
+
+    <p>
+      El  16 de septiembre de 1955 , un nuevo golpe de Estado derrocó al presidente constitucional  Juan Domingo Perón , poniendo fin a casi una década de gobierno peronista. Este alzamiento cívico-militar fue autodenominado  "Revolución Libertadora"  por sus impulsores y marcó el inicio de un largo período de proscripción del peronismo en Argentina, que duraría hasta 1973.
+    </p>
+
+    <h2>Contexto de creciente polarización</h2>
+    <p>
+      La segunda presidencia de Perón (1952-1955) había estado marcada por un aumento de la confrontación con diversos sectores de la sociedad. El gobierno enfrentó una creciente oposición política, tensiones con las Fuerzas Armadas y un fuerte conflicto con la Iglesia Católica. Medidas como la ley de divorcio vincular, la eliminación de la enseñanza religiosa obligatoria y la prohibición de ciertas festividades religiosas profundizaron la brecha con la jerarquía eclesiástica y sectores conservadores. La crisis económica también contribuyó al descontento.
+    </p>
+
+    <h2>Los sucesos del golpe</h2>
+    <p>
+      El antecedente más violento y traumático del golpe fue el  bombardeo de Plaza de Mayo  ocurrido el 16 de junio de 1955, cuando aviones de la Armada y la Aeronáutica sublevadas atacaron la Casa Rosada, causando la muerte de más de 300 civiles. Aunque ese intento fue sofocado, la tensión se mantuvo.
+
+      El golpe definitivo de septiembre fue liderado por el general  Eduardo Lonardi , quien inició la sublevación desde Córdoba, y rápidamente se expandió a otras guarniciones militares. Tras días de combates y la falta de un apoyo masivo para defender al gobierno, Perón decidió renunciar y buscar asilo en una embajada, partiendo luego al exilio.
+    </p>
+
+    <h2>Consecuencias inmediatas y a largo plazo</h2>
+    <p>
+      La "Revolución Libertadora" tuvo un impacto profundo y duradero en la política argentina:
+      <ul>
+        <li> Proscripción del peronismo:  El peronismo fue ilegalizado, sus símbolos y hasta el nombre de Perón y Evita fueron prohibidos. Esto generó una fractura social y política que marcaría las décadas siguientes.</li>
+        <li> Intervención de sindicatos:  Los sindicatos fueron intervenidos y muchos dirigentes peronistas encarcelados o perseguidos.</li>
+        <li> Inestabilidad política:  Abrió un ciclo de alternancia entre gobiernos militares y civiles débiles, con la constante intervención de las Fuerzas Armadas en la vida política.</li>
+        <li> Desperonización:  Se impulsó una política de "desperonización" de la sociedad, intentando borrar la influencia del peronismo de la cultura y la vida pública.</li>
+        <li> Ajuste económico:  Se implementaron políticas económicas que buscaron revertir algunas de las nacionalizaciones y estatizaciones del peronismo, abriendo más la economía a la inversión extranjera.</li>
+      </ul>
+      El golpe de 1955 no solo derrocó a un presidente, sino que clausuró una etapa de la historia argentina y sumergió al país en un período de intensa conflictividad y fragmentación política, cuya resolución solo se daría con el retorno de la democracia plena años después.
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="golpe_1955_1.jpg" alt="Tropas rebeldes ingresando a Buenos Aires" />
+      <img src="golpe_1955_2.jpg" alt="Eduardo Lonardi, líder del golpe" />
+      <img src="golpe_1955_3.jpg" alt="Bombardeo de Plaza de Mayo, 16 de junio de 1955" />
+      <img src="golpe_1955_4.jpg" alt="Perón partiendo al exilio" />
+      <img src="golpe_1955_5.jpg" alt="Edificio bombardeado en Plaza de Mayo" />
+    </div>
+
+    <h2>Trivia Histórica sobre el Golpe de Estado de 1955</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            preguntas = [];
+            indice = 0;
+            puntaje = 0;
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

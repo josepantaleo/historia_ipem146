@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Revolución en la Nueva Granada</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento39">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>La Revolución en la Nueva Granada</h1>
+
+    <p>
+      La  Revolución en la Nueva Granada  se refiere al proceso independentista que llevó a la emancipación de los territorios que hoy conforman  Colombia ,  Venezuela ,  Ecuador  y  Panamá  del dominio español. Este período, que se extiende aproximadamente desde  1810 hasta 1819 , estuvo marcado por conflictos armados, la formación de juntas de gobierno y la lucha por establecer nuevas repúblicas.
+    </p>
+
+    <h2>Contexto y Causas</h2>
+    <p>
+      A principios del siglo XIX, el Virreinato de la Nueva Granada, como otras colonias españolas, experimentaba un creciente descontento. Las causas principales incluyeron:
+      <ul>
+        <li> Reformas Borbónicas:  Las políticas impuestas por la Corona española buscaban aumentar el control económico y político sobre las colonias, lo que generó un fuerte rechazo entre criollos y otras clases sociales.</li>
+        <li> Influencia de la Ilustración y Revoluciones:  Las ideas de libertad, igualdad y soberanía popular provenientes de la  Ilustración , la  Revolución Francesa  y la  Independencia de Estados Unidos  inspiraron a las élites criollas.</li>
+        <li> Invasión Napoleónica a España (1808):  La crisis de la monarquía española tras la abdicación de Fernando VII y la imposición de José Bonaparte creó un vacío de poder y legitimidad, impulsando a las colonias a formar juntas de gobierno autónomas.</li>
+        <li> Discriminación Criolla:  A pesar de su riqueza e influencia, los criollos estaban excluidos de los altos cargos políticos y administrativos, lo que alimentó su deseo de autogobierno.</li>
+      </ul>
+    </p>
+
+    <h2>Hitos Clave del Proceso Revolucionario</h2>
+    <p>
+      El camino hacia la independencia fue complejo y no lineal:
+      <ul>
+        <li> El "Grito de Independencia" (20 de julio de 1810):  Un incidente en Santa Fe de Bogotá que llevó a la formación de una Junta Suprema, marcando el inicio formal del proceso. Aunque inicialmente se declaró lealtad a Fernando VII, pronto derivaría en demandas de independencia.</li>
+        <li> La Patria Boba (1810-1816):  Un período de inestabilidad política y conflictos internos entre centralistas y federalistas en la Nueva Granada, que debilitó el movimiento independentista.</li>
+        <li> La Reconquista Española (1815-1819):  Fernando VII, al ser restaurado en el trono, envió expediciones militares lideradas por Pablo Morillo para sofocar las revueltas, restaurando temporalmente el dominio español con gran represión.</li>
+        <li> Campaña Libertadora de Simón Bolívar (1819):  La llegada de  Simón Bolívar  con su ejército desde Venezuela, su audaz cruce de los Andes y las victorias decisivas en la  Batalla del Pantano de Vargas  y la  Batalla de Boyacá  (7 de agosto de 1819) sellaron la independencia de la Nueva Granada.</li>
+      </ul>
+    </p>
+
+    <h2>Consecuencias y Legado</h2>
+    <p>
+      La Revolución en la Nueva Granada tuvo consecuencias trascendentales:
+      <ul>
+        <li> Nacimiento de la Gran Colombia:  Tras la victoria de Boyacá, se estableció la  Gran Colombia , un vasto estado que unía los territorios liberados bajo el liderazgo de Bolívar, aunque esta unión sería efímera.</li>
+        <li> Fin del Dominio Español:  Significó el colapso del Virreinato de la Nueva Granada y el establecimiento de repúblicas independientes.</li>
+        <li> Figura de Bolívar:  Consolidó a Simón Bolívar como el "Libertador" y una de las figuras más prominentes de la independencia hispanoamericana.</li>
+        <li> Desafíos Post-Independentistas:  La región enfrentó un largo período de consolidación nacional, conflictos territoriales y la búsqueda de estabilidad política y económica.</li>
+      </ul>
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="nueva_granada1.jpg" alt="Acta de Independencia de Colombia (20 de julio de 1810)" />
+      <img src="nueva_granada2.jpg" alt="Simón Bolívar cruzando los Andes" />
+      <img src="nueva_granada3.jpg" alt="Batalla de Boyacá" />
+      <img src="nueva_granada4.jpg" alt="Mapa de la Gran Colombia" />
+      <img src="nueva_granada5.jpg" alt="Junta de Gobierno en Santa Fe de Bogotá" />
+    </div>
+
+    <h2>Trivia Histórica sobre la Nueva Granada</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

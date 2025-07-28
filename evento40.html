@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invasiones Inglesas a Buenos Aires</title>
+    <link rel="stylesheet" href="estiloseventos.css" />
+  </head>
+  <body data-evento="evento40">
+
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <h1>Las Invasiones Inglesas a Buenos Aires</h1>
+
+    <p>
+      Las  Invasiones Inglesas  fueron dos expediciones militares británicas que intentaron conquistar la ciudad de  Buenos Aires  y otros territorios del  Virreinato del Río de la Plata  en  1806 y 1807 . Aunque fracasaron en su objetivo de establecer el dominio británico, tuvieron un impacto profundo en la sociedad local, acelerando el proceso hacia la independencia.
+    </p>
+
+    <h2>Contexto Histórico y Causas</h2>
+    <p>
+      A principios del siglo XIX, Europa estaba inmersa en las  Guerras Napoleónicas . Gran Bretaña, en su conflicto con Francia y sus aliados (entre ellos España), buscaba nuevos mercados para sus productos y bases estratégicas en América. Las principales motivaciones para las invasiones fueron:
+      <ul>
+        <li> Económicas:  Abrir nuevos mercados para la creciente producción industrial británica, ya que el bloqueo napoleónico afectaba su comercio con Europa.</li>
+        <li> Estratégicas:  Establecer una base naval en el Atlántico Sur y controlar la ruta hacia el Pacífico, especialmente con el debilitamiento de España.</li>
+        <li> Rumores de riqueza:  La creencia de que Buenos Aires y el Virreinato guardaban grandes riquezas, especialmente la plata del Potosí, y que la población criolla estaba descontenta con el dominio español y sería receptiva al cambio.</li>
+      </ul>
+    </p>
+
+    <h2>Primera Invasión (1806)</h2>
+    <p>
+      La primera expedición, al mando del general  William Carr Beresford , desembarcó en Quilmes en junio de  1806 . Ante la inacción del virrey  Rafael de Sobremonte , las tropas británicas tomaron Buenos Aires casi sin resistencia. Los invasores lograron apoderarse de un importante tesoro real, que fue enviado a Londres. Sin embargo, la población local, liderada por figuras como  Santiago de Liniers , organizó la resistencia. Desde la Banda Oriental (actual Uruguay), Liniers cruzó el Río de la Plata con milicias populares y, tras combates en las calles, logró la  Reconquista de Buenos Aires  el 12 de agosto de 1806.
+    </p>
+
+    <h2>Segunda Invasión (1807)</h2>
+    <p>
+      Animados por el tesoro capturado y subestimando la capacidad de resistencia local, los británicos organizaron una segunda y más numerosa invasión en  1807 , esta vez bajo el mando del general  John Whitelocke . Las tropas desembarcaron en Ensenada y, tras avanzar hacia Buenos Aires, intentaron tomar la ciudad por asalto. No obstante, la población se había organizado en  milicias urbanas  (Patricios, Húsares, Arribeños, etc.) y, bajo el liderazgo del ya popular Liniers, libraron una feroz defensa calle por calle. Tras sufrir enormes bajas, Whitelocke capituló el 7 de julio de 1807, aceptando evacuar el Río de la Plata.
+    </p>
+
+    <h2>Impacto y Legado</h2>
+    <p>
+      Las Invasiones Inglesas dejaron un legado duradero en el Río de la Plata:
+      <ul>
+        <li> Prueba de Autonomía:  Demostraron la incapacidad de España para defender sus colonias y la capacidad de los criollos y la población local para autogobernarse y defenderse.</li>
+        <li> Ascenso de los Criollos:  Las milicias urbanas, compuestas mayoritariamente por criollos, ganaron prestigio, poder militar y conciencia política. Liniers, de origen francés, se convirtió en virrey interino por aclamación popular, un hecho sin precedentes.</li>
+        <li> Semilla de la Revolución de Mayo:  El vacío de poder y la experiencia de autogobierno sentaron las bases para la  Revolución de Mayo de 1810 . Los líderes que emergieron de las milicias jugarían un rol clave en el proceso independentista.</li>
+        <li> Crecimiento de Buenos Aires:  A pesar de los conflictos, se fortaleció el rol de Buenos Aires como centro político y militar de la región.</li>
+      </ul>
+    </p>
+
+    <h2>Galería de Imágenes Históricas</h2>
+    <div class="galeria">
+      <img src="invasiones_inglesas1.jpg" alt="Desembarco británico en Quilmes (1806)" />
+      <img src="invasiones_inglesas2.jpg" alt="Santiago de Liniers liderando la Reconquista" />
+      <img src="invasiones_inglesas3.jpg" alt="Miliciano de Buenos Aires durante las invasiones" />
+      <img src="invasiones_inglesas4.jpg" alt="Defensa de Buenos Aires calle por calle (1807)" />
+      <img src="invasiones_inglesas5.jpg" alt="Rendición de Beresford a Liniers" />
+    </div>
+
+    <h2>Trivia Histórica sobre las Invasiones Inglesas</h2>
+    <button id="comenzar">✅ Comenzar trivia</button>
+
+    <div id="trivia-container" style="display: none">
+      <div id="progreso"></div>
+      <div
+        id="pregunta"
+        style="font-weight: bold; font-size: 1.2rem; margin-bottom: 10px"
+      ></div>
+      <div id="opciones"></div>
+      <div id="respuesta" style="margin-top:10px; font-weight:bold;"></div>
+      <button id="siguiente" style="display:none;">Siguiente pregunta</button>
+    </div>
+
+    <br />
+    <a href="index.html" class="volver-mapa">← Volver al mapa</a>
+
+    <script src="trivia.js"></script>
+    <script>
+      // Código para cancelar audio y trivia al volver al mapa
+      document.querySelectorAll(".volver-mapa").forEach((enlace) => {
+        enlace.addEventListener("click", function () {
+          window.speechSynthesis.cancel();
+
+          if (document.getElementById("trivia-container")) {
+            // Reiniciar la lógica de la trivia si existe
+            // Estas variables se deberían manejar en trivia.js o ser globales si es necesario
+            document.getElementById("trivia-container").style.display = "none";
+            document.getElementById("comenzar").style.display = "inline-block";
+            // Posiblemente necesites más lógica para resetear el estado interno de la trivia.js
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
