@@ -96,8 +96,9 @@ strong {
 }
 
 .galeria img:hover {
-  transform: scale(1.08) rotate(-1deg);
+  transform: scale(2.08) rotate(-1deg);
   filter: saturate(1.5) brightness(1.2);
+  z-index: 10;
 }
 
 /* Contenedor trivia - efecto glass y color */
