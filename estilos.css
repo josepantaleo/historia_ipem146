@@ -789,3 +789,100 @@ main {
     box-shadow: 10px 10px 3px rgba(0,0,0,0.4); /* Sombra para mejor visibilidad */
 }
 
+/* Estilos generales para el panel lateral */
+#panel-lateral {
+    /* Asegúrate de que tu panel lateral tenga un overflow-y: auto; para scroll */
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-right: 1px solid #ddd;
+}
+
+/* Estilo para cada elemento de evento en la lista */
+.evento-item {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.evento-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.evento-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.evento-header h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.evento-fecha {
+    font-size: 0.9em;
+    color: #666;
+    background-color: #e9ecef;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.evento-details p {
+    margin: 3px 0;
+    font-size: 0.9em;
+    color: #090909;
+}
+
+.evento-descripcion-corta {
+    font-style: italic;
+    color: #777;
+}
+
+
+.ver-en-mapa-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    align-self: flex-end; /* Alinea el botón a la derecha */
+    transition: background-color 0.2s ease;
+}
+
+.ver-en-mapa-btn:hover {
+    background-color: #0056b3;
+}
+.evento-thumbnail {
+    
+    max-width: 20%; /* Nuevo: Define un ancho máximo fijo para la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 4px;
+    margin-top: 1px;
+    display: block;
+    float: left; /* Nuevo: Flota la imagen a la izquierda para que el texto la rodee */
+    margin-right: 10px; /* Nuevo: Añade espacio a la derecha de la imagen */
+    object-fit: cover; /* Nuevo: Asegura que la imagen cubra el área sin distorsionarse */
+}
+
+/* Opcional: Limpiar el flotado después de la imagen si hay elementos que no deben flotar */
+.evento-details::after {
+    content: "";
+    display: table;
+    clear: both;
+}

@@ -948,44 +948,81 @@ function filtrarEvento(evento) {
 /**
  * Actualiza la lista de eventos y los marcadores visibles en el mapa según los filtros.
  */
+/**
+ * Actualiza la lista de eventos en el panel lateral y los marcadores en el mapa
+ * basándose en los filtros y la búsqueda actuales.
+ */
 function actualizarEventos() {
-  window.speechSynthesis.cancel(); // Detener narración al actualizar filtros
-  if (popupAbierto) {
-    popupAbierto.closePopup();
-    popupAbierto = null;
-  }
-  if (tourIsActive) {
-    finalizarTourUI(); // Si se actualizan los filtros, se detiene el tour.
-    showToast("Tour detenido debido a un cambio de filtros.");
-  }
-
-  markerCluster.clearLayers();
-  listaEventos.innerHTML = "";
-  let eventosVisibles = 0;
-
-  const fragment = document.createDocumentFragment();
-
-  marcadores.forEach((marker) => {
-    const evento = eventosMap.get(marker.eventoId);
-    if (evento && filtrarEvento(evento)) {
-      markerCluster.addLayer(marker); // Agrega el marcador al cluster si coincide con los filtros
-      crearElementoListaEvento(evento, fragment);
-      eventosVisibles++;
-    } else {
-      markerCluster.removeLayer(marker); // Asegura que el marcador sea removido si no coincide
+    window.speechSynthesis.cancel(); // Detener cualquier narración activa
+    if (tourIsActive) { // Si el tour está activo, finalizarlo al cambiar filtros
+        finalizarTourUI();
     }
-  });
 
-  listaEventos.appendChild(fragment);
-  contadorEventos.textContent = eventosVisibles;
+    if (cargandoElement) cargandoElement.style.setProperty("display", "block");
 
-  if (eventosVisibles === 0) {
-    mensajeNoEventos.style.display = "block";
-  } else {
-    mensajeNoEventos.style.display = "none";
-  }
+    // Limpiar marcadores y lista antes de añadir los nuevos
+    markerCluster.clearLayers();
+    listaEventos.innerHTML = "";
+    marcadores.forEach(m => m.closeTooltip()); // Cierra tooltips permanentes
 
-  guardarFiltros(); // Guarda el estado actual de los filtros
+    const eventosFiltrados = eventos.filter(filtrarEvento);
+    tourEventosDisponibles = eventosFiltrados; // Actualiza los eventos disponibles para el tour
+
+    if (eventosFiltrados.length === 0) {
+        mensajeNoEventos.style.display = "block";
+        contadorEventos.textContent = "0";
+        if (cargandoElement) cargandoElement.style.setProperty("display", "none");
+        return;
+    } else {
+        mensajeNoEventos.style.display = "none";
+    }
+
+    contadorEventos.textContent = eventosFiltrados.length;
+
+    const marcadoresFiltrados = [];
+
+    eventosFiltrados.forEach((evento) => {
+        const li = document.createElement("li");
+        li.className = "evento-item"; // Clase para estilizar
+        li.dataset.eventId = evento.id; // Para identificar el evento
+
+        // Contenido mejorado para el elemento de la lista
+        li.innerHTML = `
+            <div class="evento-header">
+                <h4>${evento.titulo}</h4>
+                <span class="evento-fecha">${evento.fecha}</span>
+            </div>
+            <div class="evento-details">
+                <p class="evento-periodo"><strong>Periodo:</strong> ${evento.periodo}</p>
+                <p class="evento-pais"><strong>País:</strong> ${evento.pais || 'Desconocido'}</p>
+                ${evento.descripcion ? `<p class="evento-descripcion-corta">${evento.descripcion.substring(0, 100)}...</p>` : ''}
+                ${evento.media ? `<img src="${evento.media}" alt="Imagen de ${evento.titulo}" class="evento-thumbnail">` : ''}
+            </div>
+            <button class="ver-en-mapa-btn" data-event-id="${evento.id}" title="Ver en el mapa">Ver en Mapa</button>
+        `;
+
+        li.querySelector(".ver-en-mapa-btn").addEventListener("click", (e) => {
+            e.stopPropagation(); // Evita que el click se propague al li
+            abrirEventoEnMapa(evento.id);
+        });
+
+        li.addEventListener("click", () => {
+            abrirEventoEnMapa(evento.id);
+        });
+
+        listaEventos.appendChild(li);
+
+        const marcador = marcadores.find((m) => m.eventoId === evento.id);
+        if (marcador) {
+            marcadoresFiltrados.push(marcador);
+            // Asegúrate de que el tooltip se reabra si es un marcador filtrado
+            marcador.openTooltip();
+        }
+    });
+
+    markerCluster.addLayers(marcadoresFiltrados);
+
+    if (cargandoElement) cargandoElement.style.setProperty("display", "none");
 }
 
 /**
