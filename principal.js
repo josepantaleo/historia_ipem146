@@ -129,7 +129,7 @@ function agregarControlesTour() {
           // La lógica en narrar.onend o catch se encargará de avanzar.
           // Es importante que el `await narrar(...)` termine o falle para que el `finally` se ejecute.
         } else {
-            showToast("No hay narración activa para saltar.");
+          showToast("No hay narración activa para saltar.");
         }
       };
 
@@ -210,8 +210,8 @@ function pausarReanudarTour() {
       btnTourPlayPause.classList.add("paused");
       showToast("Tour reanudado.");
       // Si reanudamos y no hay narración, forzamos el avance si no es el final
-      if (!window.speechSynthesis.speaking && tourCurrentIndex < tourEventosDisponibles.length -1) {
-          ejecutarSiguientePasoTour();
+      if (!window.speechSynthesis.speaking && tourCurrentIndex < tourEventosDisponibles.length - 1) {
+        ejecutarSiguientePasoTour();
       }
     }
     actualizarEstadoBotonesTour();
@@ -222,10 +222,10 @@ function pausarReanudarTour() {
  * Actualiza el estado (habilitado/deshabilitado) de los botones de navegación del tour.
  */
 function actualizarEstadoBotonesTour() {
-    const tourRunning = tourIsActive && !tourIsPaused;
-    // Quitamos la lógica para btnTourPrev y btnTourNext
-    btnTourSkipNarracion.disabled = !tourRunning || !isNarrating; // Habilitado solo si está narrando
-    selectorVelocidadNarracion.disabled = !tourRunning;
+  const tourRunning = tourIsActive && !tourIsPaused;
+  // Quitamos la lógica para btnTourPrev y btnTourNext
+  btnTourSkipNarracion.disabled = !tourRunning || !isNarrating; // Habilitado solo si está narrando
+  selectorVelocidadNarracion.disabled = !tourRunning;
 }
 
 
@@ -334,7 +334,7 @@ async function ejecutarSiguientePasoTour() {
         // y el "catch" o "finally" se ejecutan), avanzamos al siguiente solo si el tour
         // no ha sido detenido o pausado *manualmente* durante la narración de este evento.
         if (tourIsActive && !tourIsPaused) {
-            ejecutarSiguientePasoTour();
+          ejecutarSiguientePasoTour();
         }
       }
     }, 100); // Pequeño retraso para asegurar que el popup esté completamente renderizado
@@ -345,13 +345,13 @@ async function ejecutarSiguientePasoTour() {
  * Resetea la UI de los botones del tour cuando este finaliza o se detiene.
  */
 function finalizarTourUI() {
-    tourIsActive = false;
-    tourIsPaused = false;
-    isNarrating = false;
-    btnTourPlayPause.textContent = "▶️ Tour";
-    btnTourPlayPause.classList.remove("paused");
-    actualizarEstadoBotonesTour(); // Deshabilita los botones de navegación
-    tourCurrentEventData = null; // Limpia el evento actual
+  tourIsActive = false;
+  tourIsPaused = false;
+  isNarrating = false;
+  btnTourPlayPause.textContent = "▶️ Tour";
+  btnTourPlayPause.classList.remove("paused");
+  actualizarEstadoBotonesTour(); // Deshabilita los botones de navegación
+  tourCurrentEventData = null; // Limpia el evento actual
 }
 
 // --- Funciones auxiliares ---
@@ -459,25 +459,25 @@ async function narrar(texto) {
  * @param {object} evento - El objeto evento a narrar.
  */
 async function narrarEventoCompleto(evento) {
-    if (!evento) return;
+  if (!evento) return;
 
-    window.speechSynthesis.cancel();
-    isNarrating = true;
-    actualizarEstadoBotonesTour(); // Habilitar "Saltar narración"
+  window.speechSynthesis.cancel();
+  isNarrating = true;
+  actualizarEstadoBotonesTour(); // Habilitar "Saltar narración"
 
-    let fullText = `${evento.titulo}. ${evento.descripcion || ''}.`;
-    if (evento.sabiasQue) {
-        fullText += ` Dato curioso: ${evento.sabiasQue}.`;
-    }
+  let fullText = `${evento.titulo}. ${evento.descripcion || ''}.`;
+  if (evento.sabiasQue) {
+    fullText += ` Dato curioso: ${evento.sabiasQue}.`;
+  }
 
-    try {
-        await narrar(fullText);
-    } catch (error) {
-        console.error("Error al narrar evento completo:", error);
-    } finally {
-        isNarrating = false;
-        actualizarEstadoBotonesTour(); // Deshabilitar "Saltar narración"
-    }
+  try {
+    await narrar(fullText);
+  } catch (error) {
+    console.error("Error al narrar evento completo:", error);
+  } finally {
+    isNarrating = false;
+    actualizarEstadoBotonesTour(); // Deshabilitar "Saltar narración"
+  }
 }
 
 /**
@@ -712,6 +712,13 @@ function crearMarcadores() {
       const marker = L.marker(evento.ubicacion);
       marker.eventoId = evento.id;
 
+      // --- NUEVO: Añadir tooltip permanente con el título del evento ---
+      marker.bindTooltip(`${evento.titulo} (${evento.fecha})`, {
+        permanent: true,
+        direction: 'right',
+        className: 'titulo-marcador-tooltip'
+      }).openTooltip();
+
       marker.bindPopup("", {
         minWidth: 320,
         maxWidth: 360,
@@ -722,13 +729,13 @@ function crearMarcadores() {
       marker.on("popupopen", () => {
         if (popupAbierto && popupAbierto !== marker) {
           popupAbierto.closePopup();
+          popupAbierto = null;
         }
         popupAbierto = marker;
 
         const popupContentElement = crearPopupContenido(evento);
         marker.getPopup().setContent(popupContentElement);
 
-        // --- Magnific Popup initialization moved here to ensure content is in DOM ---
         if (typeof jQuery !== "undefined") {
           $(popupContentElement)
             .find(".mfp-image")
@@ -751,33 +758,28 @@ function crearMarcadores() {
         } else {
           console.warn("jQuery no está cargado. Magnific Popup no funcionará.");
         }
-        // --- End Magnific Popup initialization ---
       });
 
       marker.on("popupclose", () => {
         if (popupAbierto === marker) {
           popupAbierto = null;
         }
-        // Solo cancela la voz si NO es parte de un tour activo que está pausado.
-        // Si el tour está activo y avanzando (no pausado), la narración
-        // del siguiente evento ya ha sido manejada por el tour,
-        // o si se salta, el `window.speechSynthesis.cancel()` ya fue llamado.
         if (!tourIsActive || tourIsPaused) {
-            window.speechSynthesis.cancel();
-            isNarrating = false;
-            actualizarEstadoBotonesTour();
+          window.speechSynthesis.cancel();
+          isNarrating = false;
+          actualizarEstadoBotonesTour();
         }
       });
 
-      // Abre el popup al pasar el mouse sobre el marcador
-      marker.on("mouseover", () => {
-        if (!popupAbierto || popupAbierto === marker) {
-          if (!marker.getPopup().isOpen()) {
-            marker.openPopup();
-            popupAbierto = marker;
-          }
-        }
-      });
+      // Se puede eliminar el evento mouseover si el tooltip permanente ya muestra el título
+      // marker.on("mouseover", () => {
+      //     if (!popupAbierto || popupAbierto === marker) {
+      //         if (!marker.getPopup().isOpen()) {
+      //             marker.openPopup();
+      //             popupAbierto = marker;
+      //         }
+      //     }
+      // });
 
       return marker;
     });
@@ -850,18 +852,18 @@ function crearPopupContenido(evento) {
   repeatNarrationBtn.innerHTML = "🔁 Repetir Narración";
   repeatNarrationBtn.title = "Repetir la descripción y el dato curioso del evento";
   repeatNarrationBtn.onclick = () => {
-      window.speechSynthesis.cancel();
-      if (tourCurrentEventData) {
-          narrarEventoCompleto(tourCurrentEventData);
-      } else {
-          const currentMarker = popupAbierto;
-          if (currentMarker && currentMarker.eventoId) {
-              const currentEvent = eventosMap.get(currentMarker.eventoId);
-              if (currentEvent) {
-                  narrarEventoCompleto(currentEvent);
-              }
-          }
+    window.speechSynthesis.cancel();
+    if (tourCurrentEventData) {
+      narrarEventoCompleto(tourCurrentEventData);
+    } else {
+      const currentMarker = popupAbierto;
+      if (currentMarker && currentMarker.eventoId) {
+        const currentEvent = eventosMap.get(currentMarker.eventoId);
+        if (currentEvent) {
+          narrarEventoCompleto(currentEvent);
+        }
       }
+    }
   };
   mediaButtonsContainer.appendChild(repeatNarrationBtn); // Añadido aquí
 
@@ -1032,20 +1034,20 @@ function actualizarEventos() {
   const sinFiltroBusqueda = filtros.busqueda.value.trim() === "";
 
   if (!popupAbierto) { // Solo si no hay un popup abierto
-      if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
-          window.speechSynthesis.cancel();
-          map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 3.2 });
-      } else if (filtrados.length > 0) {
-          map.flyTo(filtrados[0].ubicacion, Math.max(map.getZoom(), 9), {
-              duration: 3.2,
-          });
-      }
+    if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
+      window.speechSynthesis.cancel();
+      map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 3.2 });
+    } else if (filtrados.length > 0) {
+      map.flyTo(filtrados[0].ubicacion, Math.max(map.getZoom(), 9), {
+        duration: 3.2,
+      });
+    }
   }
 
   // Si no hay eventos filtrados y había un popup abierto, cerrarlo.
   if (filtrados.length === 0 && popupAbierto) {
-      popupAbierto.closePopup();
-      popupAbierto = null;
+    popupAbierto.closePopup();
+    popupAbierto = null;
   }
 
   // Detener el tour si los filtros cambian y no hay eventos
@@ -1133,7 +1135,7 @@ function cargarEstadoMapa() {
       localStorage.removeItem("mapaEstado");
     }
   } catch (err) {
-      console.error(
+    console.error(
       "Error al parsear el estado del mapa desde localStorage:",
       err
     );

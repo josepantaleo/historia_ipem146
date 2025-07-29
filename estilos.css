@@ -531,7 +531,7 @@ main {
 
 /* Estilos específicos para el botón "Ver Más" */
 .boton-ver-mas {
-  background-color: var(--color-primary); /* Azul oscuro para Ver Más */
+  background-color: greenyellow; /* Azul oscuro para Ver Más */
   color: var(--color-white); /* Mantener texto blanco para Ver Más */
   font-weight: bold;
 }
@@ -776,3 +776,16 @@ main {
 .boton-tour-repeat-narracion:hover {
     background-color: #545b62;
 }
+.titulo-marcador-tooltip {
+    font-family: Arial, Helvetica, sans-serif;
+   font-size: 1.1em;
+    background-color: rgba(246, 210, 111, 0.9); /* Fondo semitransparente */
+    color: #000000; /* Color del texto */
+    border: 1px solid #ccc; /* Borde */
+    padding: 6px 6px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    font-weight: bold; /* Negrita */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    box-shadow: 10px 10px 3px rgba(0,0,0,0.4); /* Sombra para mejor visibilidad */
+}
+
