@@ -102,5 +102,167 @@
       "opciones": ["La Revolución Libertadora", "La Década Infame", "La Restauración Radical"],
       "respuesta": "La Década Infame"
     }
-  ]
-}
+  ],
+
+  "evento3": [
+    {
+      "pregunta": "¿En qué ciudad argentina se inició la Reforma Universitaria de 1918?",
+      "opciones": ["Buenos Aires", "Córdoba", "La Plata"],
+      "respuesta": "Córdoba"
+    },
+    {
+      "pregunta": "¿Cuál fue uno de los principales reclamos de los estudiantes reformistas?",
+      "opciones": ["Aumento de aranceles", "Mayor participación estudiantil en el gobierno universitario", "Restricción del acceso a la universidad"],
+      "respuesta": "Mayor participación estudiantil en el gobierno universitario"
+    },
+    {
+      "pregunta": "¿Qué principio fundamental de la Reforma promovía la libre elección de docentes por parte de los estudiantes?",
+      "opciones": ["Autonomía universitaria", "Cátedra libre", "Cogobierno"],
+      "respuesta": "Cátedra libre"
+    },
+    {
+      "pregunta": "¿Qué documento clave fue redactado por los estudiantes reformistas y se considera el manifiesto de la Reforma?",
+      "opciones": ["La Declaración de la Independencia", "El Manifiesto Liminar", "Las Bases de Alberdi"],
+      "respuesta": "El Manifiesto Liminar"
+    },
+    {
+      "pregunta": "¿Qué presidente argentino apoyó la Reforma Universitaria, permitiendo su expansión?",
+      "opciones": ["Julio Argentino Roca", "Hipólito Yrigoyen", "Juan Domingo Perón"],
+      "respuesta": "Hipólito Yrigoyen"
+    },
+    {
+      "pregunta": "¿Cuál fue una consecuencia importante de la Reforma Universitaria a nivel latinoamericano?",
+      "opciones": ["El establecimiento de dictaduras militares", "La creación de universidades privadas", "La extensión del movimiento reformista a otros países"],
+      "respuesta": "La extensión del movimiento reformista a otros países"
+    },
+    {
+      "pregunta": "¿Qué rol jugó el concepto de 'autonomía universitaria' en las demandas de la Reforma?",
+      "opciones": ["Limitar la independencia académica", "Permitir la injerencia política en la universidad", "Garantizar la independencia de la universidad frente al poder político"],
+      "respuesta": "Garantizar la independencia de la universidad frente al poder político"
+    },
+    {
+      "pregunta": "¿Qué sector de la sociedad, además de los estudiantes, apoyó activamente la Reforma?",
+      "opciones": ["La Iglesia Católica", "Sectores intelectuales y obreros", "Los grandes terratenientes"],
+      "respuesta": "Sectores intelectuales y obreros"
+    },
+    {
+      "pregunta": "¿Qué concepto se refiere a la idea de que la universidad debe estar al servicio de la sociedad y no solo de una élite?",
+      "opciones": ["Elitismo académico", "Extensión universitaria", "Investigación básica"],
+      "respuesta": "Extensión universitaria"
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes no fue una de las principales demandas de la Reforma Universitaria?",
+      "opciones": ["La creación de universidades confesionales", "El cogobierno (participación de estudiantes, docentes y graduados)", "La periodicidad de las cátedras"],
+      "respuesta": "La creación de universidades confesionales"
+    }
+  ],
+  
+    "evento4": [
+      {
+        "pregunta": "¿En qué región de Argentina tuvieron lugar los sucesos de la Patagonia Rebelde?",
+        "opciones": ["Pampeana", "Cuyo", "Patagonia"],
+        "respuesta": "Patagonia"
+      },
+      {
+        "pregunta": "¿En qué década ocurrieron principalmente los eventos conocidos como la Patagonia Rebelde?",
+        "opciones": ["1900", "1910", "1920"],
+        "respuesta": "1920"
+      },
+      {
+        "pregunta": "¿Cuál fue una de las principales causas de las huelgas y conflictos en la Patagonia?",
+        "opciones": ["Altos salarios para los peones", "Mejores condiciones laborales y salariales", "Abundancia de tierras cultivables"],
+        "respuesta": "Mejores condiciones laborales y salariales"
+      },
+      {
+        "pregunta": "¿Qué tipo de trabajadores fueron los protagonistas de las huelgas en la Patagonia?",
+        "opciones": ["Obreros industriales", "Peones rurales y ovejeros", "Empleados bancarios"],
+        "respuesta": "Peones rurales y ovejeros"
+      },
+      {
+        "pregunta": "¿Qué presidente argentino gobernaba durante los sucesos de la Patagonia Rebelde?",
+        "opciones": ["Agustín P. Justo", "Hipólito Yrigoyen", "Marcelo T. de Alvear"],
+        "respuesta": "Hipólito Yrigoyen"
+      },
+      {
+        "pregunta": "¿Qué rol jugó el Teniente Coronel Varela en la represión de las huelgas?",
+        "opciones": ["Mediador en el conflicto", "Líder de los huelguistas", "Comandante de las tropas que reprimieron a los peones"],
+        "respuesta": "Comandante de las tropas que reprimieron a los peones"
+      },
+      {
+        "pregunta": "¿Qué sindicato tuvo un papel importante en la organización de los trabajadores en la Patagonia?",
+        "opciones": ["Unión Industrial Argentina", "Federación Obrera Regional Argentina (FORA)", "Sociedad Rural Argentina"],
+        "respuesta": "Federación Obrera Regional Argentina (FORA)"
+      },
+      {
+        "pregunta": "¿Cuál fue una de las demandas clave de los huelguistas, además de las salariales?",
+        "opciones": ["El derecho a voto femenino", "El reconocimiento de los sindicatos", "La independencia de la Patagonia"],
+        "respuesta": "El reconocimiento de los sindicatos"
+      },
+      {
+        "pregunta": "¿Qué trágico desenlace tuvieron los conflictos de la Patagonia Rebelde para muchos de los huelguistas?",
+        "opciones": ["Fueron exiliados a Europa", "Fueron encarcelados por un corto tiempo", "Fueron fusilados en masa"],
+        "respuesta": "Fueron fusilados en masa"
+      },
+      {
+        "pregunta": "¿Qué escritor argentino documentó los sucesos de la Patagonia Rebelde en su obra?",
+        "opciones": ["Jorge Luis Borges", "Osvaldo Bayer", "Julio Cortázar"],
+        "respuesta": "Osvaldo Bayer"
+      }
+    ],
+      
+        "evento5": [
+          {
+            "pregunta": "¿En qué año fue creada Yacimientos Petrolíferos Fiscales (YPF)?",
+            "opciones": ["1910", "1922", "1930"],
+            "respuesta": "1922"
+          },
+          {
+            "pregunta": "¿Qué presidente argentino creó YPF?",
+            "opciones": ["Hipólito Yrigoyen", "Juan Domingo Perón", "Julio A. Roca"],
+            "respuesta": "Hipólito Yrigoyen"
+          },
+          {
+            "pregunta": "¿Quién fue el primer director de YPF?",
+            "opciones": ["Enrique Mosconi", "Raúl Alfonsín", "Carlos Menem"],
+            "respuesta": "Enrique Mosconi"
+          },
+          {
+            "pregunta": "¿Cuál era el objetivo principal de la creación de YPF?",
+            "opciones": ["Privatizar el petróleo", "Controlar y explotar los recursos petroleros del país", "Importar petróleo de otros países"],
+            "respuesta": "Controlar y explotar los recursos petroleros del país"
+          },
+          {
+            "pregunta": "¿Qué modelo económico impulsó la creación de YPF?",
+            "opciones": ["Liberalismo clásico", "Nacionalismo económico", "Neoliberalismo"],
+            "respuesta": "Nacionalismo económico"
+          },
+          {
+            "pregunta": "¿Qué rol cumplió Enrique Mosconi en el desarrollo de YPF?",
+            "opciones": ["Fue ministro de Economía", "Fue su director y principal impulsor de su desarrollo técnico e industrial", "Fue el fundador de Shell en Argentina"],
+            "respuesta": "Fue su director y principal impulsor de su desarrollo técnico e industrial"
+          },
+          {
+            "pregunta": "¿Qué importancia tuvo la creación de YPF para la soberanía nacional?",
+            "opciones": ["Permitir el control extranjero del petróleo", "Favorecer la inversión internacional sin regulaciones", "Asegurar el control estatal de un recurso estratégico"],
+            "respuesta": "Asegurar el control estatal de un recurso estratégico"
+          },
+          {
+            "pregunta": "¿Qué empresa competidora internacional representaba un desafío para YPF en sus comienzos?",
+            "opciones": ["Chevron", "Shell", "Exxon"],
+            "respuesta": "Shell"
+          },
+          {
+            "pregunta": "¿Qué característica distinguía a YPF en comparación con otras petroleras del mundo en esa época?",
+            "opciones": ["Era la primera empresa privada con subsidio estatal", "Era la primera empresa estatal integrada verticalmente en el mundo", "Era la única empresa con petróleo en Argentina"],
+            "respuesta": "Era la primera empresa estatal integrada verticalmente en el mundo"
+          },
+          {
+            "pregunta": "¿Qué provincia argentina fue clave en los primeros desarrollos de YPF?",
+            "opciones": ["Buenos Aires", "Neuquén", "Chubut"],
+            "respuesta": "Chubut"
+          }
+        ]
+      }
+      
+  
+
