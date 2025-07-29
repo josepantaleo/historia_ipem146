@@ -838,7 +838,8 @@ function crearPopupContenido(evento) {
     const videoId = getYoutubeVideoId(evento.video);
     if (videoId) {
       const videoButton = document.createElement("a");
-      videoButton.href = `http://googleusercontent.com/youtube.com/1{videoId}`; // URL de YouTube directa
+      // CORREGIDO: URL de YouTube directa para el video
+      videoButton.href = `https://www.youtube.com/watch?v=${videoId}`;
       videoButton.className = "popup-button mfp-youtube";
       videoButton.title = `Video de ${evento.titulo}`;
       videoButton.innerHTML = `<i class="fas fa-play-circle"></i> <span>Ver Video</span>`;
@@ -890,7 +891,7 @@ function crearPopupContenido(evento) {
   if (evento.ubicacion && evento.ubicacion.length === 2) {
     const linkMaps = document.createElement("a");
     // CORREGIDO: URL de Google Maps directa
-    linkMaps.href = `https://www.google.com/maps/search/?api=1&query=${evento.ubicacion[0]},${evento.ubicacion[1]}`;
+    linkMaps.href = `https://www.google.com/maps?q=${evento.ubicacion[0]},${evento.ubicacion[1]}`;
     linkMaps.target = "_blank";
     linkMaps.rel = "noopener noreferrer";
     linkMaps.textContent = "📸 Ver en Google Maps";
@@ -918,318 +919,214 @@ function normalizarTexto(texto) {
 }
 
 /**
- * Determina si un evento coincide con los criterios de filtro y búsqueda.
- * @param {object} evento - El objeto evento a filtrar.
- * @returns {boolean} True si el evento coincide, False en caso contrario.
+ * Determina si un evento coincide con los criterios de filtrado actuales.
+ * @param {object} evento - El objeto evento a verificar.
+ * @returns {boolean} True si el evento debe mostrarse, false en caso contrario.
  */
-function filtrarEvento({ titulo, descripcion = "", pais = "", periodo }) {
-  const textoBusquedaNormalizado = normalizarTexto(
-    filtros.busqueda.value.trim()
-  );
-  const palabrasBusqueda = textoBusquedaNormalizado
-    .split(/\s+/)
-    .filter(Boolean);
+function filtrarEvento(evento) {
+  const periodoSeleccionado = filtros.periodo.value;
+  const busquedaTexto = normalizarTexto(filtros.busqueda.value);
+  const paisSeleccionado = filtros.pais.value;
 
-  const camposEventoNormalizados = [titulo, descripcion, pais, periodo]
-    .map((c) => normalizarTexto(c || ""))
-    .join(" ");
-  const coincideTexto = palabrasBusqueda.every((palabra) =>
-    camposEventoNormalizados.includes(palabra)
-  );
-
-  const valorPeriodo = filtros.periodo.value;
   const coincidePeriodo =
-    valorPeriodo === "todos" ||
-    normalizarTexto(periodo) === normalizarTexto(valorPeriodo);
-
-  const valorPais = filtros.pais.value;
+    periodoSeleccionado === "todos" || evento.periodo === periodoSeleccionado;
   const coincidePais =
-    valorPais === "todos" ||
-    normalizarTexto(pais) === normalizarTexto(valorPais);
+    paisSeleccionado === "todos" || evento.pais === paisSeleccionado;
 
-  return coincidePeriodo && coincideTexto && coincidePais;
+  const coincideBusqueda =
+    !busquedaTexto ||
+    normalizarTexto(evento.titulo).includes(busquedaTexto) ||
+    normalizarTexto(evento.descripcion).includes(busquedaTexto) ||
+    (evento.sabiasQue && normalizarTexto(evento.sabiasQue).includes(busquedaTexto)) ||
+    normalizarTexto(evento.fecha).includes(busquedaTexto) ||
+    (evento.tags &&
+      evento.tags.some((tag) => normalizarTexto(tag).includes(busquedaTexto)));
+
+  return coincidePeriodo && coincideBusqueda && coincidePais;
 }
 
 /**
- * Actualiza los marcadores en el mapa y la lista de eventos en el panel lateral
- * basándose en los filtros aplicados.
+ * Actualiza la lista de eventos y los marcadores visibles en el mapa según los filtros.
  */
 function actualizarEventos() {
-  markerCluster.clearLayers();
-  listaEventos.innerHTML = "";
-
-  const filtrados = eventos.filter(filtrarEvento);
-  filtrados.sort((a, b) => {
-    const fechaA = a.fecha.split("/").reverse().join("-");
-    const fechaB = b.fecha.split("/").reverse().join("-");
-    return new Date(fechaB) - new Date(fechaA);
-  });
-
-  mensajeNoEventos.hidden = filtrados.length > 0;
-  contadorEventos.textContent = `${filtrados.length} evento(s) encontrado(s). Clic para abrir en el mapa.`;
-
-  const idsVisibles = new Set(filtrados.map((e) => e.id));
-  const visibles = marcadores.filter((m) => idsVisibles.has(m.eventoId));
-  markerCluster.addLayers(visibles);
-
-  filtrados.forEach((ev) => {
-    const div = document.createElement("div");
-    div.className = "item-lista-evento";
-    div.tabIndex = 0;
-    div.setAttribute("role", "button");
-
-    const textSpan = document.createElement("span");
-    textSpan.textContent = `${ev.titulo} (${ev.fecha})`;
-    div.appendChild(textSpan);
-
-    const narrarBtn = document.createElement("button");
-    narrarBtn.className = "boton-narrar-lista";
-    narrarBtn.innerHTML = "▶️";
-    narrarBtn.title = `Escuchar "${ev.titulo}"`;
-    narrarBtn.onclick = async (e) => {
-      e.stopPropagation();
-
-      if (
-        window.speechSynthesis.speaking &&
-        currentUtterance &&
-        currentUtterance.text.includes(ev.titulo)
-      ) {
-        window.speechSynthesis.cancel();
-        narrarBtn.innerHTML = "▶️";
-        narrarBtn.disabled = false;
-        currentUtterance = null;
-        return;
-      }
-
-      window.speechSynthesis.cancel();
-
-      narrarBtn.innerHTML = "🔊";
-      narrarBtn.disabled = true;
-
-      const textoANarrar = `${ev.titulo}. Ocurrido el ${ev.fecha}.`;
-      try {
-        await narrar(textoANarrar);
-        narrarBtn.innerHTML = "▶️";
-        narrarBtn.disabled = false;
-      } catch (error) {
-        console.error("La narración del elemento de la lista falló:", error);
-        narrarBtn.innerHTML = "▶️";
-        narrarBtn.disabled = false;
-      }
-    };
-    div.appendChild(narrarBtn);
-
-    div.onclick = () => abrirEventoEnMapa(ev.id);
-    div.onkeypress = (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        abrirEventoEnMapa(ev.id);
-      }
-    };
-    listaEventos.appendChild(div);
-  });
-
-  const sinFiltroPeriodo = filtros.periodo.value === "todos";
-  const sinFiltroPais = filtros.pais.value === "todos";
-  const sinFiltroBusqueda = filtros.busqueda.value.trim() === "";
-
-  if (!popupAbierto) { // Solo si no hay un popup abierto
-    if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
-      window.speechSynthesis.cancel();
-      map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 3.2 });
-    } else if (filtrados.length > 0) {
-      map.flyTo(filtrados[0].ubicacion, Math.max(map.getZoom(), 9), {
-        duration: 3.2,
-      });
-    }
-  }
-
-  // Si no hay eventos filtrados y había un popup abierto, cerrarlo.
-  if (filtrados.length === 0 && popupAbierto) {
+  window.speechSynthesis.cancel(); // Detener narración al actualizar filtros
+  if (popupAbierto) {
     popupAbierto.closePopup();
     popupAbierto = null;
   }
-
-  // Detener el tour si los filtros cambian y no hay eventos
-  if (tourIsActive && filtrados.length === 0) {
-    finalizarTourUI();
-    showToast("Tour detenido debido a cambios en los filtros sin eventos.");
+  if (tourIsActive) {
+    finalizarTourUI(); // Si se actualizan los filtros, se detiene el tour.
+    showToast("Tour detenido debido a un cambio de filtros.");
   }
+
+  markerCluster.clearLayers();
+  listaEventos.innerHTML = "";
+  let eventosVisibles = 0;
+
+  const fragment = document.createDocumentFragment();
+
+  marcadores.forEach((marker) => {
+    const evento = eventosMap.get(marker.eventoId);
+    if (evento && filtrarEvento(evento)) {
+      markerCluster.addLayer(marker); // Agrega el marcador al cluster si coincide con los filtros
+      crearElementoListaEvento(evento, fragment);
+      eventosVisibles++;
+    } else {
+      markerCluster.removeLayer(marker); // Asegura que el marcador sea removido si no coincide
+    }
+  });
+
+  listaEventos.appendChild(fragment);
+  contadorEventos.textContent = eventosVisibles;
+
+  if (eventosVisibles === 0) {
+    mensajeNoEventos.style.display = "block";
+  } else {
+    mensajeNoEventos.style.display = "none";
+  }
+
+  guardarFiltros(); // Guarda el estado actual de los filtros
 }
 
 /**
- * Centra el mapa en la ubicación de un evento y abre su popup.
- * @param {string} id - El ID del evento a mostrar.
+ * Crea un elemento de lista HTML para un evento y lo añade a un contenedor.
+ * @param {object} evento - El objeto evento para el que se creará el elemento.
+ * @param {DocumentFragment} container - El DocumentFragment al que se añadirá el elemento.
  */
-function abrirEventoEnMapa(id) {
-  const evento = eventosMap.get(id);
-  if (!evento) {
-    showToast("Evento no encontrado.");
-    return;
-  }
-  const marcador = marcadores.find((m) => m.eventoId === id);
-  if (marcador) {
-    window.speechSynthesis.cancel(); // Cancel any current narration
-    isNarrating = false; // Reset narration flag
-    actualizarEstadoBotonesTour(); // Update button state
+function crearElementoListaEvento(evento, container) {
+  const li = document.createElement("li");
+  li.className = "evento-item";
+  li.innerHTML = `
+        <div class="evento-info">
+            <h4>${evento.titulo}</h4>
+            <p>${evento.fecha} - ${evento.periodo} (${evento.pais || 'Desconocido'})</p>
+        </div>
+        <button class="ver-en-mapa-btn" data-id="${evento.id}" title="Ver en mapa">
+            <i class="fas fa-map-marker-alt"></i>
+        </button>
+    `;
+  li.querySelector(".ver-en-mapa-btn").addEventListener("click", () => {
+    abrirEventoEnMapa(evento.id);
+  });
+  container.appendChild(li);
+}
 
-    if (popupAbierto && popupAbierto !== marcador) {
-      popupAbierto.closePopup();
+/**
+ * Centra el mapa en un evento específico y abre su popup.
+ * @param {string} eventoId - El ID del evento a mostrar.
+ */
+function abrirEventoEnMapa(eventoId) {
+  const evento = eventosMap.get(eventoId);
+  const marcador = marcadores.find((m) => m.eventoId === eventoId);
+
+  if (evento && marcador) {
+    window.speechSynthesis.cancel();
+    // Detener el tour si está activo y se abre un evento manualmente
+    if (tourIsActive) {
+      finalizarTourUI();
+      showToast("Tour detenido para ver el evento seleccionado.");
     }
-    // Only set popupAbierto if the popup is actually opened
-    // The openPopup() call below will handle setting it.
 
-    // Usa zoomToShowLayer para asegurar que el marcador sea visible
+    // Usamos zoomToShowLayer para manejar los clusters
     markerCluster.zoomToShowLayer(marcador, () => {
-      // Si el mapa se mueve para desagrupar, Leaflet ya lo dejará en la vista correcta.
-      // No necesitamos un map.flyTo() adicional aquí si la intención es solo abrir el popup.
+      map.flyTo(evento.ubicacion, Math.max(map.getZoom(), ZOOM_FINAL_TOUR_CERCANO - 2), {
+        duration: 1.5,
+      }); // Vuela a la ubicación y zoom apropiado
       marcador.openPopup();
-      popupAbierto = marcador; // Set popupAbierto here after openPopup
+      popupAbierto = marcador;
     });
   } else {
-    showToast(
-      "Marcador no encontrado para este evento. Puede que la ubicación no sea válida."
-    );
-    console.error(`Marcador para evento ID ${id} no encontrado.`);
+    showToast("Evento o marcador no encontrado.", 3000);
   }
 }
 
-// --- Guardado y Carga de Estado (localStorage) ---
+// --- Persistencia de Estado (LocalStorage) ---
 
 /**
- * Guarda el centro y el zoom actual del mapa en el localStorage.
+ * Guarda el estado actual del mapa (centro y zoom) en el localStorage.
  */
 function guardarEstadoMapa() {
-  const estado = {
-    centro: map.getCenter(),
-    zoom: map.getZoom(),
-  };
-  try {
-    localStorage.setItem("mapaEstado", JSON.stringify(estado));
-  } catch (e) {
-    console.warn("Error al guardar el estado del mapa en localStorage:", e);
-  }
+  const centro = map.getCenter();
+  const zoom = map.getZoom();
+  localStorage.setItem(
+    "mapaEstado",
+    JSON.stringify({ lat: centro.lat, lng: centro.lng, zoom: zoom })
+  );
 }
 
 /**
- * Carga el centro y el zoom del mapa desde el localStorage, si están disponibles.
+ * Carga el estado del mapa desde el localStorage si existe.
  */
 function cargarEstadoMapa() {
-  const estadoStr = localStorage.getItem("mapaEstado");
-  if (!estadoStr) return;
-  try {
-    const estado = JSON.parse(estadoStr);
-    if (
-      typeof estado.centro === "object" &&
-      typeof estado.centro.lat === "number" &&
-      typeof estado.centro.lng === "number" &&
-      typeof estado.zoom === "number" &&
-      estado.zoom >= ZOOM_MIN &&
-      estado.zoom <= ZOOM_MAX
-    ) {
-      map.setView([estado.centro.lat, estado.centro.lng], estado.zoom);
-    } else {
-      console.warn(
-        "Estado del mapa guardado inválido o fuera de límites. Se usará la posición inicial."
-      );
-      localStorage.removeItem("mapaEstado");
-    }
-  } catch (err) {
-    console.error(
-      "Error al parsear el estado del mapa desde localStorage:",
-      err
-    );
-    localStorage.removeItem("mapaEstado");
+  const estadoGuardado = localStorage.getItem("mapaEstado");
+  if (estadoGuardado) {
+    const estado = JSON.parse(estadoGuardado);
+    map.setView([estado.lat, estado.lng], estado.zoom);
   }
 }
 
 /**
- * Guarda el estado actual de los filtros en el localStorage.
+ * Guarda los valores actuales de los filtros en el localStorage.
  */
 function guardarFiltros() {
-  const filtrosObj = {
+  const estadoFiltros = {
     periodo: filtros.periodo.value,
     busqueda: filtros.busqueda.value,
     pais: filtros.pais.value,
   };
-  try {
-    localStorage.setItem("filtrosEvento", JSON.stringify(filtrosObj));
-  } catch (e) {
-    console.warn("Error al guardar los filtros en localStorage:", e);
+  localStorage.setItem("filtrosEstado", JSON.stringify(estadoFiltros));
+}
+
+/**
+ * Carga los valores de los filtros desde el localStorage y los aplica.
+ */
+function cargarFiltros() {
+  const estadoGuardado = localStorage.getItem("filtrosEstado");
+  if (estadoGuardado) {
+    const estado = JSON.parse(estadoGuardado);
+    filtros.periodo.value = estado.periodo || "todos";
+    filtros.busqueda.value = estado.busqueda || "";
+    filtros.pais.value = estado.pais || "todos";
   }
 }
 
 /**
- * Carga el estado de los filtros desde el localStorage y los aplica a la UI.
+ * Limpia todos los filtros y actualiza los eventos.
  */
-function cargarFiltros() {
-  const filtroStr = localStorage.getItem("filtrosEvento");
-  if (!filtroStr) return;
-  try {
-    const f = JSON.parse(filtroStr);
-    if (
-      f.periodo !== undefined &&
-      filtros.periodo.querySelector(`option[value="${f.periodo}"]`)
-    ) {
-      filtros.periodo.value = f.periodo;
-    } else {
-      filtros.periodo.value = "todos";
-    }
-    if (f.busqueda !== undefined) {
-      filtros.busqueda.value = f.busqueda;
-    }
-    if (
-      f.pais !== undefined &&
-      filtros.pais.querySelector(`option[value="${f.pais}"]`)
-    ) {
-      filtros.pais.value = f.pais; // Corrected: Load the actual country value
-    } else {
-      filtros.pais.value = "todos";
-    }
-  } catch (err) {
-    console.error("Error al parsear los filtros desde localStorage:", err);
-    localStorage.removeItem("filtrosEvento");
+function limpiarFiltros() {
+  filtros.periodo.value = "todos";
+  filtros.busqueda.value = "";
+  filtros.pais.value = "todos";
+  actualizarEventos();
+  showToast("Filtros limpiados.");
+}
+
+// --- Event Listeners ---
+map.on("moveend", guardarEstadoMapa); // Guarda el estado del mapa cada vez que se mueve o hace zoom
+
+// Escuchadores para los filtros
+if (filtros.periodo) filtros.periodo.addEventListener("change", actualizarEventos);
+if (filtros.busqueda) filtros.busqueda.addEventListener("input", actualizarEventos);
+if (filtros.pais) filtros.pais.addEventListener("change", actualizarEventos);
+
+// Botón limpiar filtros
+if (botonLimpiarFiltros) botonLimpiarFiltros.addEventListener("click", limpiarFiltros);
+
+// Cargar voces cuando estén disponibles
+if (window.speechSynthesis) {
+  popularSelectorVoces();
+  window.speechSynthesis.onvoiceschanged = popularSelectorVoces; // Asegura que se carguen si cambian
+} else {
+  console.warn("SpeechSynthesis API no soportada en este navegador.");
+  if (selectorVoces) {
+    selectorVoces.disabled = true;
+    selectorVoces.innerHTML = '<option value="">Narración no soportada</option>';
   }
 }
 
-// --- Manejo de Eventos UI ---
-
-// Uso de addEventListener para mayor flexibilidad
-filtros.periodo.addEventListener("change", () => {
-  guardarFiltros();
-  actualizarEventos();
-});
-
-filtros.pais.addEventListener("change", () => {
-  guardarFiltros();
-  actualizarEventos();
-});
-
-// Debounce para la búsqueda de texto
-let searchTimeout;
-filtros.busqueda.addEventListener("input", () => {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    guardarFiltros();
-    actualizarEventos();
-  }, 300); // Espera 300ms después de la última pulsación
-});
-
-if (botonLimpiarFiltros) {
-  botonLimpiarFiltros.addEventListener("click", () => {
-    filtros.periodo.value = "todos";
-    filtros.pais.value = "todos";
-    filtros.busqueda.value = ""; // Limpiar también el campo de búsqueda
-    guardarFiltros(); // Guardar el estado de filtros limpios
-    actualizarEventos(); // Actualizar el mapa y la lista
-    showToast("Filtros limpiados.");
-  });
-}
-
-// Inicialización
+// --- Inicialización ---
 document.addEventListener("DOMContentLoaded", () => {
-  cargarEventos();
-  popularSelectorVoces();
+  cargarEventos(); // Carga eventos, crea marcadores y configura la UI
   agregarBotonInicio();
-  agregarBotonDemostracion();
+  agregarBotonDemostracion(); // Asegúrate de que se agrega después de cargar eventos
 });
