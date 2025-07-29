@@ -4,6 +4,10 @@ const ZOOM_INICIAL = 3;
 const ZOOM_MIN = 3;
 const ZOOM_MAX = 18; // Nivel de zoom máximo para desagrupar marcadores
 
+// NUEVAS CONSTANTES PARA EL TOUR
+const ZOOM_INICIAL_TOUR_LEJOS = 5; // Nivel de zoom inicial (alejado) para el tour
+const ZOOM_FINAL_TOUR_CERCANO = 17; // Nivel de zoom final (cercano) para el tour
+
 // Define las diferentes capas base para el control de capas
 const osmLayer = L.tileLayer(
   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -42,7 +46,6 @@ let eventosMap = new Map(); // Para un acceso rápido a los eventos por ID
 let popupAbierto = null; // Guarda la referencia al popup actualmente abierto
 
 // Referencias a filtros y elementos UI (usando constantes para IDs)
-const MAP_ID = "mapa";
 const FILTRO_PERIODO_ID = "filtroPeriodo";
 const BUSQUEDA_TITULO_ID = "busquedaTitulo";
 const FILTRO_PAIS_ID = "filtroPais";
@@ -80,6 +83,276 @@ let voicesLoaded = false; // Bandera para saber si las voces ya se cargaron
 
 // Variable global para mantener la referencia a la síntesis de voz actual
 let currentUtterance = null;
+let isNarrating = false; // Flag para saber si hay una narración en curso
+
+// --- NUEVO: FUNCIONALIDAD DE TOUR Y CONTROLES ADICIONALES ---
+let tourEventosDisponibles = []; // Eventos que cumplen con los filtros actuales
+let tourIsActive = false; // Bandera para saber si el tour está activo
+let tourIsPaused = false; // Nueva bandera para controlar la pausa
+let tourCurrentIndex = -1; // Índice del evento actual en el tour
+let tourCurrentEventData = null; // Almacena los datos del evento actual para repetición/salto
+
+// Referencias a los nuevos botones de control
+let btnTourPlayPause, btnTourSkipNarracion, selectorVelocidadNarracion; // Quitamos btnTourPrev, btnTourNext
+
+/**
+ * Agrega un botón "Tour" al mapa para iniciar un recorrido aleatorio por los eventos.
+ * Ahora crea un contenedor para todos los controles del tour.
+ */
+function agregarControlesTour() {
+  const TourControls = L.Control.extend({
+    onAdd: function (map) {
+      const container = L.DomUtil.create("div", "tour-controls leaflet-bar leaflet-control");
+
+      // Botón principal de Tour (Play/Pause)
+      btnTourPlayPause = L.DomUtil.create("button", "boton-tour-play-pause", container);
+      btnTourPlayPause.textContent = "▶️ Tour";
+      btnTourPlayPause.title = "Iniciar/Pausar el tour";
+      btnTourPlayPause.onclick = () => {
+        if (tourIsActive) {
+          pausarReanudarTour();
+        } else {
+          iniciarTour();
+        }
+      };
+
+      // Botón Saltar Narración
+      btnTourSkipNarracion = L.DomUtil.create("button", "boton-tour-skip-narracion", container);
+      btnTourSkipNarracion.textContent = "⏩ Saltar Narración";
+      btnTourSkipNarracion.title = "Saltar la narración actual y pasar al siguiente evento";
+      btnTourSkipNarracion.disabled = true;
+      btnTourSkipNarracion.onclick = () => {
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+          showToast("Narración actual saltada.");
+          // No llamamos a ejecutarSiguientePasoTour() aquí directamente
+          // La lógica en narrar.onend o catch se encargará de avanzar.
+          // Es importante que el `await narrar(...)` termine o falle para que el `finally` se ejecute.
+        } else {
+            showToast("No hay narración activa para saltar.");
+        }
+      };
+
+      // Selector de Velocidad de Narración
+      selectorVelocidadNarracion = L.DomUtil.create("select", "selector-velocidad-narracion", container);
+      selectorVelocidadNarracion.title = "Cambiar velocidad de narración";
+      selectorVelocidadNarracion.innerHTML = `
+        <option value="0.7">Lenta</option>
+        <option value="1.0" selected>Normal</option>
+        <option value="1.3">Rápida</option>
+      `;
+      selectorVelocidadNarracion.onchange = () => {
+        localStorage.setItem("narracionVelocidad", selectorVelocidadNarracion.value);
+        showToast(`Velocidad de narración: ${selectorVelocidadNarracion.options[selectorVelocidadNarracion.selectedIndex].text}`);
+      };
+
+      // Cargar velocidad de narración guardada
+      const savedSpeed = localStorage.getItem("narracionVelocidad");
+      if (savedSpeed) {
+        selectorVelocidadNarracion.value = savedSpeed;
+      }
+
+      L.DomEvent.disableClickPropagation(container); // Evita que clicks en los controles muevan el mapa
+      return container;
+    },
+    onRemove: function (map) {
+      // Limpiar si es necesario
+    },
+  });
+  new TourControls({ position: "bottomright" }).addTo(map);
+}
+
+/**
+ * Inicia el tour de eventos aleatorios.
+ */
+function iniciarTour() {
+  tourEventosDisponibles = eventos.filter(filtrarEvento); // Usa los eventos filtrados
+  if (tourEventosDisponibles.length === 0) {
+    showToast("No hay eventos disponibles para el tour con los filtros actuales.");
+    btnTourPlayPause.textContent = "▶️ Tour";
+    btnTourPlayPause.classList.remove("paused");
+    return;
+  }
+
+  // Mezclar los eventos para un tour aleatorio
+  for (let i = tourEventosDisponibles.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [tourEventosDisponibles[i], tourEventosDisponibles[j]] = [
+      tourEventosDisponibles[j],
+      tourEventosDisponibles[i],
+    ];
+  }
+
+  tourCurrentIndex = -1; // Reinicia el índice para empezar desde el primero
+  tourIsActive = true; // Activa el flag del tour
+  tourIsPaused = false; // Asegura que no esté pausado al inicio
+  actualizarEstadoBotonesTour();
+  btnTourPlayPause.textContent = "⏸️ Tour";
+  btnTourPlayPause.classList.add("paused");
+  showToast("Tour iniciado. La narración controlará el avance.");
+  ejecutarSiguientePasoTour(); // Ejecuta el primer paso inmediatamente
+}
+
+/**
+ * Pausa o reanuda el tour.
+ */
+function pausarReanudarTour() {
+  if (tourIsActive) {
+    tourIsPaused = !tourIsPaused;
+    if (tourIsPaused) {
+      window.speechSynthesis.pause();
+      btnTourPlayPause.textContent = "▶️ Reanudar";
+      btnTourPlayPause.classList.remove("paused");
+      showToast("Tour pausado.");
+    } else {
+      window.speechSynthesis.resume();
+      btnTourPlayPause.textContent = "⏸️ Tour";
+      btnTourPlayPause.classList.add("paused");
+      showToast("Tour reanudado.");
+      // Si reanudamos y no hay narración, forzamos el avance si no es el final
+      if (!window.speechSynthesis.speaking && tourCurrentIndex < tourEventosDisponibles.length -1) {
+          ejecutarSiguientePasoTour();
+      }
+    }
+    actualizarEstadoBotonesTour();
+  }
+}
+
+/**
+ * Actualiza el estado (habilitado/deshabilitado) de los botones de navegación del tour.
+ */
+function actualizarEstadoBotonesTour() {
+    const tourRunning = tourIsActive && !tourIsPaused;
+    // Quitamos la lógica para btnTourPrev y btnTourNext
+    btnTourSkipNarracion.disabled = !tourRunning || !isNarrating; // Habilitado solo si está narrando
+    selectorVelocidadNarracion.disabled = !tourRunning;
+}
+
+
+/**
+ * Ejecuta el siguiente paso del tour: abre el popup del siguiente evento y reproduce su contenido.
+ * Se llama recursivamente cuando la narración anterior ha terminado.
+ */
+async function ejecutarSiguientePasoTour() {
+  if (!tourIsActive) {
+    // Si el tour fue detenido manualmente, salir
+    finalizarTourUI(); // Resetea la UI del tour
+    return;
+  }
+
+  if (tourIsPaused) {
+    // Si el tour está pausado, no avanzamos
+    return;
+  }
+
+  tourCurrentIndex++;
+  if (tourCurrentIndex >= tourEventosDisponibles.length) {
+    // Fin del tour
+    showToast("Tour finalizado. ¡Gracias por tu recorrido!");
+    tourIsActive = false; // Desactiva el tour
+    finalizarTourUI(); // Resetea la UI del tour
+    return;
+  }
+
+  const evento = tourEventosDisponibles[tourCurrentIndex];
+  tourCurrentEventData = evento; // Almacenar el evento actual
+
+  if (!evento) {
+    console.warn("Evento no encontrado en el tour en el índice:", tourCurrentIndex);
+    ejecutarSiguientePasoTour(); // Intenta el siguiente evento si este falla
+    return;
+  }
+
+  const marcador = marcadores.find((m) => m.eventoId === evento.id);
+  if (!marcador) {
+    console.warn("Marcador no encontrado para el evento en tour:", evento.id);
+    ejecutarSiguientePasoTour(); // Intenta el siguiente evento si este falla
+    return;
+  }
+
+  // Asegúrate de que cualquier narración anterior se ha cancelado si no fue ya manejado.
+  // Y resetear el estado de narración.
+  window.speechSynthesis.cancel();
+  isNarrating = false;
+  actualizarEstadoBotonesTour();
+
+  if (popupAbierto && popupAbierto !== marcador) {
+    popupAbierto.closePopup();
+    popupAbierto = null;
+  }
+
+  // PASO 1: Usar zoomToShowLayer para abrir el clúster y volar a la ubicación del marcador
+  markerCluster.zoomToShowLayer(marcador, () => {
+    marcador.openPopup();
+    popupAbierto = marcador;
+
+    // Pequeño retraso para asegurar que el popup esté completamente renderizado antes de narrar
+    setTimeout(async () => {
+      const popupContentElement = marcador.getPopup().getContent();
+      const verMasBtn = popupContentElement.querySelector(".boton-ver-mas");
+      const sabiasQueTextDiv = popupContentElement.querySelector(".sabias-que-texto");
+
+      // 1. Narrar título, fecha, período y país
+      const textoBasico = `${evento.titulo}. Ocurrió el ${evento.fecha}, durante el periodo ${evento.periodo}, en ${evento.pais || 'un país desconocido'}.`;
+
+      try {
+        isNarrating = true;
+        actualizarEstadoBotonesTour();
+        await narrar(textoBasico); // Espera a que la narración básica termine
+
+        // 2. Si hay un "Sabías que", narrarlo
+        if (evento.sabiasQue && tourIsActive && !tourIsPaused) {
+          // Mostrar el texto del sabías que en el popup
+          if (sabiasQueTextDiv) {
+            sabiasQueTextDiv.style.display = "block";
+            sabiasQueTextDiv.classList.add("narrando");
+          }
+
+          await narrar(evento.sabiasQue); // Espera a que el "Sabías que" termine
+
+          // Ocultar el texto del sabías que y remover clase de narración
+          if (sabiasQueTextDiv) {
+            sabiasQueTextDiv.classList.remove("narrando");
+            sabiasQueTextDiv.style.display = "none";
+          }
+
+          // Animar el botón "Ver más"
+          if (verMasBtn) {
+            verMasBtn.classList.add("animate-pulse");
+            setTimeout(() => {
+              verMasBtn.classList.remove("animate-pulse");
+            }, 2000);
+          }
+        }
+      } catch (e) {
+        console.error("Error o interrupción en la narración del tour:", e);
+      } finally {
+        isNarrating = false; // La narración de este evento ha terminado
+        actualizarEstadoBotonesTour();
+        // SIEMPRE AVANZAR SI EL TOUR ESTÁ ACTIVO Y NO PAUSADO
+        // Esto es crucial: después de que un evento ha terminado de narrarse (o fue interrumpido
+        // y el "catch" o "finally" se ejecutan), avanzamos al siguiente solo si el tour
+        // no ha sido detenido o pausado *manualmente* durante la narración de este evento.
+        if (tourIsActive && !tourIsPaused) {
+            ejecutarSiguientePasoTour();
+        }
+      }
+    }, 100); // Pequeño retraso para asegurar que el popup esté completamente renderizado
+  });
+}
+
+/**
+ * Resetea la UI de los botones del tour cuando este finaliza o se detiene.
+ */
+function finalizarTourUI() {
+    tourIsActive = false;
+    tourIsPaused = false;
+    isNarrating = false;
+    btnTourPlayPause.textContent = "▶️ Tour";
+    btnTourPlayPause.classList.remove("paused");
+    actualizarEstadoBotonesTour(); // Deshabilita los botones de navegación
+    tourCurrentEventData = null; // Limpia el evento actual
+}
 
 // --- Funciones auxiliares ---
 
@@ -126,10 +399,9 @@ async function narrar(texto) {
       return reject(new Error("SpeechSynthesis API no soportada."));
     }
 
-    const textoCompleto = texto + " te sugiero pulsar ver mas"; // Agrega la frase al final
-    const utterance = new SpeechSynthesisUtterance(textoCompleto);
-    window.speechSynthesis.cancel(); // Detiene cualquier narración en curso
-    currentUtterance = null; // Limpia la referencia a la locución anterior
+    const utterance = new SpeechSynthesisUtterance(texto);
+    currentUtterance = utterance; // Actualiza la referencia a la locución actual
+
     if (vozSeleccionada) {
       utterance.voice = vozSeleccionada;
       utterance.lang = vozSeleccionada.lang;
@@ -162,23 +434,50 @@ async function narrar(texto) {
       }
     }
 
+    // Set narration speed
+    const savedSpeed = localStorage.getItem("narracionVelocidad") || "1.0";
+    utterance.rate = parseFloat(savedSpeed);
+
+
     utterance.onend = () => {
-      currentUtterance = null; // Limpia la referencia cuando termina
       resolve();
     };
 
     utterance.onerror = (event) => {
       console.error("Error en la narración:", event.error);
       showToast("Error en la narración de voz.", 4000);
-      currentUtterance = null; // Limpia la referencia en caso de error
       reject(new Error(`Error de narración: ${event.error}`));
     };
 
-    // Asigna la locución a la variable global para evitar que sea recolectada por el garbage collector
-    currentUtterance = utterance;
-
     window.speechSynthesis.speak(utterance);
   });
+}
+
+/**
+ * Narra el título, descripción y "Sabías que" de un evento.
+ * Útil para la función "Repetir Narración".
+ * @param {object} evento - El objeto evento a narrar.
+ */
+async function narrarEventoCompleto(evento) {
+    if (!evento) return;
+
+    window.speechSynthesis.cancel();
+    isNarrating = true;
+    actualizarEstadoBotonesTour(); // Habilitar "Saltar narración"
+
+    let fullText = `${evento.titulo}. ${evento.descripcion || ''}.`;
+    if (evento.sabiasQue) {
+        fullText += ` Dato curioso: ${evento.sabiasQue}.`;
+    }
+
+    try {
+        await narrar(fullText);
+    } catch (error) {
+        console.error("Error al narrar evento completo:", error);
+    } finally {
+        isNarrating = false;
+        actualizarEstadoBotonesTour(); // Deshabilitar "Saltar narración"
+    }
 }
 
 /**
@@ -224,7 +523,11 @@ function agregarBotonInicio() {
         popupAbierto.closePopup();
         popupAbierto = null;
       }
-      map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 1.2 });
+      // Detener el tour si está activo
+      if (tourIsActive) {
+        finalizarTourUI();
+      }
+      map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 2.2 });
     };
     L.DomEvent.disableClickPropagation(div);
     return div;
@@ -246,6 +549,10 @@ function agregarBotonDemostracion() {
       button.title = "Mostrar el primer evento cargado";
       button.onclick = () => {
         window.speechSynthesis.cancel();
+        // Detener el tour si está activo
+        if (tourIsActive) {
+          finalizarTourUI();
+        }
         if (eventos.length === 0) {
           showToast("No hay eventos cargados para la demostración.");
           return;
@@ -283,6 +590,10 @@ async function cargarEventos() {
     cargarEstadoMapa();
     cargarFiltros();
     actualizarEventos();
+
+    // --- NUEVO: Agregar los controles de tour al cargar los eventos ---
+    agregarControlesTour();
+    // --- FIN NUEVO ---
 
     if (map.getZoom() < ZOOM_MIN || map.getZoom() > ZOOM_MAX) {
       map.setView(POSICION_INICIAL, ZOOM_INICIAL);
@@ -417,6 +728,7 @@ function crearMarcadores() {
         const popupContentElement = crearPopupContenido(evento);
         marker.getPopup().setContent(popupContentElement);
 
+        // --- Magnific Popup initialization moved here to ensure content is in DOM ---
         if (typeof jQuery !== "undefined") {
           $(popupContentElement)
             .find(".mfp-image")
@@ -439,13 +751,22 @@ function crearMarcadores() {
         } else {
           console.warn("jQuery no está cargado. Magnific Popup no funcionará.");
         }
+        // --- End Magnific Popup initialization ---
       });
 
       marker.on("popupclose", () => {
         if (popupAbierto === marker) {
           popupAbierto = null;
         }
-        window.speechSynthesis.cancel();
+        // Solo cancela la voz si NO es parte de un tour activo que está pausado.
+        // Si el tour está activo y avanzando (no pausado), la narración
+        // del siguiente evento ya ha sido manejada por el tour,
+        // o si se salta, el `window.speechSynthesis.cancel()` ya fue llamado.
+        if (!tourIsActive || tourIsPaused) {
+            window.speechSynthesis.cancel();
+            isNarrating = false;
+            actualizarEstadoBotonesTour();
+        }
       });
 
       // Abre el popup al pasar el mouse sobre el marcador
@@ -476,11 +797,6 @@ function getYoutubeVideoId(url) {
   const standardRegExp =
     /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
   let match = url.match(standardRegExp);
-  if (match && match[1]) {
-    return match[1];
-  }
-  const customRegExp = /http:\/\/googleusercontent\.com\/youtube\.com\/(\d+)/;
-  match = url.match(customRegExp);
   if (match && match[1]) {
     return match[1];
   }
@@ -520,14 +836,34 @@ function crearPopupContenido(evento) {
     const videoId = getYoutubeVideoId(evento.video);
     if (videoId) {
       const videoButton = document.createElement("a");
-      // Corrected YouTube embed URL for Magnific Popup
-      videoButton.href = `https://www.youtube.com/watch?v=${videoId}`;
+      videoButton.href = `http://googleusercontent.com/youtube.com/1{videoId}`; // URL de YouTube directa
       videoButton.className = "popup-button mfp-youtube";
       videoButton.title = `Video de ${evento.titulo}`;
       videoButton.innerHTML = `<i class="fas fa-play-circle"></i> <span>Ver Video</span>`;
       mediaButtonsContainer.appendChild(videoButton);
     }
   }
+
+  // AHORA: Agrega el botón "Repetir Narración" aquí, dentro de mediaButtonsContainer
+  const repeatNarrationBtn = document.createElement("button");
+  repeatNarrationBtn.className = "popup-button boton-repetir-narracion";
+  repeatNarrationBtn.innerHTML = "🔁 Repetir Narración";
+  repeatNarrationBtn.title = "Repetir la descripción y el dato curioso del evento";
+  repeatNarrationBtn.onclick = () => {
+      window.speechSynthesis.cancel();
+      if (tourCurrentEventData) {
+          narrarEventoCompleto(tourCurrentEventData);
+      } else {
+          const currentMarker = popupAbierto;
+          if (currentMarker && currentMarker.eventoId) {
+              const currentEvent = eventosMap.get(currentMarker.eventoId);
+              if (currentEvent) {
+                  narrarEventoCompleto(currentEvent);
+              }
+          }
+      }
+  };
+  mediaButtonsContainer.appendChild(repeatNarrationBtn); // Añadido aquí
 
   if (mediaButtonsContainer.children.length > 0) {
     container.appendChild(mediaButtonsContainer);
@@ -538,109 +874,20 @@ function crearPopupContenido(evento) {
   verMasBtn.textContent = "🔎 Ver más";
   verMasBtn.target = "_blank";
   verMasBtn.rel = "noopener noreferrer";
-  verMasBtn.className = "boton-ver-mas"; // Keep this class for general styling
+  verMasBtn.className = "boton-ver-mas";
 
   if (evento.sabiasQue) {
-    const btnSabiasQue = document.createElement("button");
-    btnSabiasQue.textContent = "▶️ Escuchar dato curioso";
-    btnSabiasQue.className = "boton-sabias-que";
-    btnSabiasQue.style.marginTop = "8px";
-
     const sabiasQueTextDiv = document.createElement("div");
     sabiasQueTextDiv.className = "sabias-que-texto";
     sabiasQueTextDiv.innerHTML = `<p><strong>Dato curioso:</strong> ${evento.sabiasQue}</p>`;
-    sabiasQueTextDiv.style.display = "none";
-
-    btnSabiasQue.onclick = async () => {
-      // If the same "Dato curioso" is already speaking, stop it
-      if (
-        window.speechSynthesis.speaking &&
-        currentUtterance &&
-        currentUtterance.text.includes(evento.sabiasQue)
-      ) {
-        window.speechSynthesis.cancel();
-        btnSabiasQue.textContent = "▶️ Escuchar dato curioso";
-        sabiasQueTextDiv.classList.remove("narrando");
-        sabiasQueTextDiv.style.display = "none";
-        currentUtterance = null;
-        verMasBtn.classList.remove("animate-pulse"); // Remove animation if stopped early
-        return;
-      }
-
-      window.speechSynthesis.cancel(); // Stop any other ongoing narration
-
-      btnSabiasQue.textContent = "🔊 Reproduciendo...";
-      btnSabiasQue.disabled = true;
-
-      sabiasQueTextDiv.style.display = "block";
-      sabiasQueTextDiv.classList.add("narrando");
-
-      const utterance = new SpeechSynthesisUtterance(evento.sabiasQue);
-      if (vozSeleccionada) {
-        utterance.voice = vozSeleccionada;
-        utterance.lang = vozSeleccionada.lang;
-      } else {
-        const voices = await cargarVoces();
-        const esArVoice = voices.find((voice) => voice.lang === "es-AR");
-        const esEsVoice = voices.find((voice) => voice.lang === "es-ES");
-        const esMxVoice = voices.find((voice) => voice.lang === "es-MX");
-        const defaultEsVoice = voices.find((voice) =>
-          voice.lang.startsWith("es")
-        );
-
-        if (esArVoice) {
-          utterance.voice = esArVoice;
-          utterance.lang = "es-AR";
-        } else if (esEsVoice) {
-          utterance.voice = esEsVoice;
-          utterance.lang = "es-ES";
-        } else if (esMxVoice) {
-          utterance.voice = esMxVoice;
-          utterance.lang = "es-MX";
-        } else if (defaultEsVoice) {
-          utterance.voice = defaultEsVoice;
-          utterance.lang = defaultEsVoice.lang;
-        } else {
-          utterance.lang = "es";
-        }
-      }
-
-      utterance.onend = () => {
-        btnSabiasQue.textContent = "▶️ Escuchar dato curioso";
-        btnSabiasQue.disabled = false;
-        sabiasQueTextDiv.classList.remove("narrando");
-        sabiasQueTextDiv.style.display = "none";
-        currentUtterance = null;
-
-        // --- NEW: Animate "Ver más" button when narration finishes ---
-        verMasBtn.classList.add("animate-pulse"); // Add a class for animation
-        setTimeout(() => {
-          verMasBtn.classList.remove("animate-pulse"); // Remove after animation duration
-        }, 2000); // Adjust duration to match your CSS animation
-        // --- END NEW ---
-      };
-
-      utterance.onerror = (event) => {
-        console.error("Error narrando dato curioso:", event.error);
-        btnSabiasQue.textContent = "▶️ Escuchar dato curioso";
-        btnSabiasQue.disabled = false;
-        sabiasQueTextDiv.classList.remove("narrando");
-        sabiasQueTextDiv.style.display = "none";
-        currentUtterance = null;
-        verMasBtn.classList.remove("animate-pulse"); // Ensure class is removed on error
-      };
-
-      currentUtterance = utterance; // Keep reference to prevent garbage collection
-      window.speechSynthesis.speak(utterance);
-    };
-    container.appendChild(btnSabiasQue);
+    sabiasQueTextDiv.style.display = "none"; // Oculto por defecto
     container.appendChild(sabiasQueTextDiv);
   }
 
   // Enlace a Google Street View (URL corregida para Google Maps general)
   if (evento.ubicacion && evento.ubicacion.length === 2) {
     const linkMaps = document.createElement("a");
-    // Corrected Google Maps URL for direct location search
+    // CORREGIDO: URL de Google Maps directa
     linkMaps.href = `https://www.google.com/maps/search/?api=1&query=${evento.ubicacion[0]},${evento.ubicacion[1]}`;
     linkMaps.target = "_blank";
     linkMaps.rel = "noopener noreferrer";
@@ -649,7 +896,7 @@ function crearPopupContenido(evento) {
     container.appendChild(linkMaps);
   }
 
-  container.appendChild(verMasBtn); // Append the "Ver más" button at the end
+  container.appendChild(verMasBtn);
 
   return container;
 }
@@ -729,20 +976,17 @@ function actualizarEventos() {
     div.tabIndex = 0;
     div.setAttribute("role", "button");
 
-    // Contenedor para el texto del evento
     const textSpan = document.createElement("span");
     textSpan.textContent = `${ev.titulo} (${ev.fecha})`;
     div.appendChild(textSpan);
 
-    // Botón de narración para la lista lateral
     const narrarBtn = document.createElement("button");
     narrarBtn.className = "boton-narrar-lista";
-    narrarBtn.innerHTML = "▶️"; // Icono de reproducción
+    narrarBtn.innerHTML = "▶️";
     narrarBtn.title = `Escuchar "${ev.titulo}"`;
     narrarBtn.onclick = async (e) => {
-      e.stopPropagation(); // Evita que se dispare el onclick del div padre
+      e.stopPropagation();
 
-      // Si ya está hablando este mismo evento, lo cancela
       if (
         window.speechSynthesis.speaking &&
         currentUtterance &&
@@ -755,16 +999,16 @@ function actualizarEventos() {
         return;
       }
 
-      window.speechSynthesis.cancel(); // Detiene cualquier otra narración
+      window.speechSynthesis.cancel();
 
-      narrarBtn.innerHTML = "🔊"; // Cambia el icono a "reproduciendo"
-      narrarBtn.disabled = true; // Deshabilita el botón mientras se reproduce
+      narrarBtn.innerHTML = "🔊";
+      narrarBtn.disabled = true;
 
       const textoANarrar = `${ev.titulo}. Ocurrido el ${ev.fecha}.`;
       try {
-        await narrar(textoANarrar); // Espera a que la narración termine
-        narrarBtn.innerHTML = "▶️"; // Vuelve al icono original
-        narrarBtn.disabled = false; // Habilita el botón
+        await narrar(textoANarrar);
+        narrarBtn.innerHTML = "▶️";
+        narrarBtn.disabled = false;
       } catch (error) {
         console.error("La narración del elemento de la lista falló:", error);
         narrarBtn.innerHTML = "▶️";
@@ -787,22 +1031,27 @@ function actualizarEventos() {
   const sinFiltroPais = filtros.pais.value === "todos";
   const sinFiltroBusqueda = filtros.busqueda.value.trim() === "";
 
-  if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
-    window.speechSynthesis.cancel();
-    map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 1.2 });
-    if (popupAbierto) {
+  if (!popupAbierto) { // Solo si no hay un popup abierto
+      if (sinFiltroPeriodo && sinFiltroPais && sinFiltroBusqueda) {
+          window.speechSynthesis.cancel();
+          map.flyTo(POSICION_INICIAL, ZOOM_INICIAL, { duration: 3.2 });
+      } else if (filtrados.length > 0) {
+          map.flyTo(filtrados[0].ubicacion, Math.max(map.getZoom(), 9), {
+              duration: 3.2,
+          });
+      }
+  }
+
+  // Si no hay eventos filtrados y había un popup abierto, cerrarlo.
+  if (filtrados.length === 0 && popupAbierto) {
       popupAbierto.closePopup();
       popupAbierto = null;
-    }
-  } else if (filtrados.length > 0) {
-    map.flyTo(filtrados[0].ubicacion, Math.max(map.getZoom(), 9), {
-      duration: 1.2,
-    });
-  } else {
-    if (popupAbierto) {
-      popupAbierto.closePopup();
-      popupAbierto = null;
-    }
+  }
+
+  // Detener el tour si los filtros cambian y no hay eventos
+  if (tourIsActive && filtrados.length === 0) {
+    finalizarTourUI();
+    showToast("Tour detenido debido a cambios en los filtros sin eventos.");
   }
 }
 
@@ -818,21 +1067,22 @@ function abrirEventoEnMapa(id) {
   }
   const marcador = marcadores.find((m) => m.eventoId === id);
   if (marcador) {
-    window.speechSynthesis.cancel(); // Asegura detener cualquier narración activa
+    window.speechSynthesis.cancel(); // Cancel any current narration
+    isNarrating = false; // Reset narration flag
+    actualizarEstadoBotonesTour(); // Update button state
 
     if (popupAbierto && popupAbierto !== marcador) {
       popupAbierto.closePopup();
-      popupAbierto = null;
     }
+    // Only set popupAbierto if the popup is actually opened
+    // The openPopup() call below will handle setting it.
 
-    map.flyTo(evento.ubicacion, Math.max(map.getZoom(), 14), { duration: 1.2 });
-
-    map.once("moveend", () => {
-      if (!map.getBounds().contains(marcador.getLatLng())) {
-        map.panTo(marcador.getLatLng());
-      }
+    // Usa zoomToShowLayer para asegurar que el marcador sea visible
+    markerCluster.zoomToShowLayer(marcador, () => {
+      // Si el mapa se mueve para desagrupar, Leaflet ya lo dejará en la vista correcta.
+      // No necesitamos un map.flyTo() adicional aquí si la intención es solo abrir el popup.
       marcador.openPopup();
-      popupAbierto = marcador;
+      popupAbierto = marcador; // Set popupAbierto here after openPopup
     });
   } else {
     showToast(
@@ -883,7 +1133,7 @@ function cargarEstadoMapa() {
       localStorage.removeItem("mapaEstado");
     }
   } catch (err) {
-    console.error(
+      console.error(
       "Error al parsear el estado del mapa desde localStorage:",
       err
     );
@@ -930,7 +1180,7 @@ function cargarFiltros() {
       f.pais !== undefined &&
       filtros.pais.querySelector(`option[value="${f.pais}"]`)
     ) {
-      filtros.pais.value = f.pais;
+      filtros.pais.value = f.pais; // Corrected: Load the actual country value
     } else {
       filtros.pais.value = "todos";
     }
@@ -967,35 +1217,17 @@ if (botonLimpiarFiltros) {
   botonLimpiarFiltros.addEventListener("click", () => {
     filtros.periodo.value = "todos";
     filtros.pais.value = "todos";
-    filtros.busqueda.value = "";
-    guardarFiltros();
-    actualizarEventos();
+    filtros.busqueda.value = ""; // Limpiar también el campo de búsqueda
+    guardarFiltros(); // Guardar el estado de filtros limpios
+    actualizarEventos(); // Actualizar el mapa y la lista
     showToast("Filtros limpiados.");
   });
 }
 
-// --- Zoom y Popups ---
-
-map.on("zoomend", () => {
-  if (map.getZoom() < 7 && popupAbierto) {
-    popupAbierto.closePopup();
-    popupAbierto = null;
-  }
-  guardarEstadoMapa();
-});
-
-map.on("moveend", () => {
-  guardarEstadoMapa();
-});
-
-window.addEventListener("beforeunload", () => {
-  window.speechSynthesis.cancel();
-});
-
-// --- Inicio de la Aplicación ---
-document.addEventListener("DOMContentLoaded", async () => {
+// Inicialización
+document.addEventListener("DOMContentLoaded", () => {
+  cargarEventos();
+  popularSelectorVoces();
   agregarBotonInicio();
   agregarBotonDemostracion();
-  await cargarEventos(); // Espera a que los eventos se carguen antes de popular voces
-  await popularSelectorVoces(); // Carga y popula el selector de voces
 });

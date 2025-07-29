@@ -695,4 +695,84 @@ main {
   box-shadow: 0 0 8px rgba(var(--color-success-rgb), 0.4); /* Usar RGB de success */
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
+/* Tour controls container */
+.leaflet-control.tour-controls {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 5px; /* Space between buttons */
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+}
 
+.leaflet-control.tour-controls button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.2s, border-color 0.2s;
+    width: 100%; /* Ensure buttons take full width of their container */
+    box-sizing: border-box; /* Include padding/border in width */
+}
+
+.leaflet-control.tour-controls button:hover {
+    background-color: #e2e2e2;
+    border-color: #999;
+}
+
+.leaflet-control.tour-controls button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.leaflet-control.tour-controls select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Specific button styles */
+.boton-tour-play-pause {
+    background-color: #28a745; /* Green for play */
+    color: white;
+    border-color: #218838;
+}
+.boton-tour-play-pause:hover {
+    background-color: #218838;
+}
+.boton-tour-play-pause.paused {
+    background-color: #ffc107; /* Yellow for paused */
+    color: #333;
+    border-color: #e0a800;
+}
+.boton-tour-play-pause.paused:hover {
+    background-color: #e0a800;
+}
+.boton-tour-skip-narracion {
+    background-color: #007bff;
+    color: white;
+    border-color: #0069d9;
+}
+.boton-tour-skip-narracion:hover {
+    background-color: #0069d9;
+}
+.boton-tour-repeat-narracion {
+    background-color: #6c757d;
+    color: white;
+    border-color: #545b62;
+}
+.boton-tour-repeat-narracion:hover {
+    background-color: #545b62;
+}
