@@ -2,7 +2,7 @@
   {
     "id": 1,
     "titulo": "Caída del Imperio Romano de Occidente",
-    "fecha": "04/09/0476",
+    "fecha": "04/09/476",
     "periodo": "Siglo V",
     "pais": "Italia",
     "descripcion": "El último emperador romano, Rómulo Augústulo, fue depuesto, marcando el fin del Imperio Romano de Occidente.",
@@ -438,7 +438,7 @@
   },
   {
     "id": 20,
-    "titulo": "Segundo Guerra Mundial",
+    "titulo": "Segunda Guerra Mundial",
     "fecha": "1939‑1945",
     "periodo": "Siglo XX",
     "pais": "Global",
@@ -600,14 +600,14 @@
   {
     "id": 27,
     "titulo": "Caída de Roma",
-    "fecha": "04/09/0476",
+    "fecha": "04/09/476",
     "periodo": "Antigüedad Tardía",
     "pais": "Italia",
     "descripcion": "Depósito de Rómulo Augústulo por Odoacro, marcando la disolución del Imperio Romano de Occidente.",
     "media": "caida_roma_476.jpg",
     "video": "http://www.youtube.com/watch?v=BZi1cNxG6Qs",
     "ubicacion": [41.9038, 12.4264],
-    "sabiasQue": "Aunque se considera convencionalmente que el Imperio Romano de Occidente cayó el 4 de septiembre de 476, el Imperio de Oriente continuó su existencia durante casi mil años más ."
+    "sabiasQue": "La caída del Imperio Romano, especialmente la del Imperio Romano de Occidente en 476 d.C., es un evento fascinante con muchos datos curiosos. Un hecho notable es que el último emperador romano, Rómulo Augústulo, fue depuesto por Odoacro, un líder germano. Además, mientras el Imperio de Occidente colapsaba, el Imperio Romano de Oriente, también conocido como Imperio Bizantino, sobrevivió durante casi mil años más. Otro dato curioso es que el emperador Honorio, al enterarse de la caída de Roma, inicialmente pensó que se referían a su gallo llamado, Roma"
   },
   {
     "id": 28,
