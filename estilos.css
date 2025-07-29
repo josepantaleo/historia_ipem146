@@ -886,3 +886,19 @@ main {
     display: table;
     clear: both;
 }
+
+/* Estilos para el cuerpo principal del popup */
+.leaflet-popup-content-wrapper {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+}
+
+/* Estilos para la "cola" o "punta" del popup */
+.leaflet-popup-tip {
+    box-shadow: 3px 3px 1px red; /* Sombra para la punta */
+}
+
+/* Opcional: Para el contenido interno del popup si quieres más control */
+.popup-evento {
+    padding: 15px; /* Ajusta el padding si es necesario */
+}

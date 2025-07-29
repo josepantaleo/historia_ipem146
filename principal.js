@@ -718,12 +718,11 @@ function crearMarcadores() {
         direction: 'right',
         className: 'titulo-marcador-tooltip'
       }).openTooltip();
-
       marker.bindPopup("", {
         minWidth: 320,
         maxWidth: 360,
         maxHeight: 450,
-        autoPan: true,
+        autoPan: true, // Esta opción ya centra el mapa para que el popup sea visible
       });
 
       marker.on("popupopen", () => {
@@ -953,41 +952,41 @@ function filtrarEvento(evento) {
  * basándose en los filtros y la búsqueda actuales.
  */
 function actualizarEventos() {
-    window.speechSynthesis.cancel(); // Detener cualquier narración activa
-    if (tourIsActive) { // Si el tour está activo, finalizarlo al cambiar filtros
-        finalizarTourUI();
-    }
+  window.speechSynthesis.cancel(); // Detener cualquier narración activa
+  if (tourIsActive) { // Si el tour está activo, finalizarlo al cambiar filtros
+    finalizarTourUI();
+  }
 
-    if (cargandoElement) cargandoElement.style.setProperty("display", "block");
+  if (cargandoElement) cargandoElement.style.setProperty("display", "block");
 
-    // Limpiar marcadores y lista antes de añadir los nuevos
-    markerCluster.clearLayers();
-    listaEventos.innerHTML = "";
-    marcadores.forEach(m => m.closeTooltip()); // Cierra tooltips permanentes
+  // Limpiar marcadores y lista antes de añadir los nuevos
+  markerCluster.clearLayers();
+  listaEventos.innerHTML = "";
+  marcadores.forEach(m => m.closeTooltip()); // Cierra tooltips permanentes
 
-    const eventosFiltrados = eventos.filter(filtrarEvento);
-    tourEventosDisponibles = eventosFiltrados; // Actualiza los eventos disponibles para el tour
+  const eventosFiltrados = eventos.filter(filtrarEvento);
+  tourEventosDisponibles = eventosFiltrados; // Actualiza los eventos disponibles para el tour
 
-    if (eventosFiltrados.length === 0) {
-        mensajeNoEventos.style.display = "block";
-        contadorEventos.textContent = "0";
-        if (cargandoElement) cargandoElement.style.setProperty("display", "none");
-        return;
-    } else {
-        mensajeNoEventos.style.display = "none";
-    }
+  if (eventosFiltrados.length === 0) {
+    mensajeNoEventos.style.display = "block";
+    contadorEventos.textContent = "0";
+    if (cargandoElement) cargandoElement.style.setProperty("display", "none");
+    return;
+  } else {
+    mensajeNoEventos.style.display = "none";
+  }
 
-    contadorEventos.textContent = eventosFiltrados.length;
+  contadorEventos.textContent = eventosFiltrados.length;
 
-    const marcadoresFiltrados = [];
+  const marcadoresFiltrados = [];
 
-    eventosFiltrados.forEach((evento) => {
-        const li = document.createElement("li");
-        li.className = "evento-item"; // Clase para estilizar
-        li.dataset.eventId = evento.id; // Para identificar el evento
+  eventosFiltrados.forEach((evento) => {
+    const li = document.createElement("li");
+    li.className = "evento-item"; // Clase para estilizar
+    li.dataset.eventId = evento.id; // Para identificar el evento
 
-        // Contenido mejorado para el elemento de la lista
-        li.innerHTML = `
+    // Contenido mejorado para el elemento de la lista
+    li.innerHTML = `
             <div class="evento-header">
                 <h4>${evento.titulo}</h4>
                 <span class="evento-fecha">${evento.fecha}</span>
@@ -1001,28 +1000,28 @@ function actualizarEventos() {
             <button class="ver-en-mapa-btn" data-event-id="${evento.id}" title="Ver en el mapa">Ver en Mapa</button>
         `;
 
-        li.querySelector(".ver-en-mapa-btn").addEventListener("click", (e) => {
-            e.stopPropagation(); // Evita que el click se propague al li
-            abrirEventoEnMapa(evento.id);
-        });
-
-        li.addEventListener("click", () => {
-            abrirEventoEnMapa(evento.id);
-        });
-
-        listaEventos.appendChild(li);
-
-        const marcador = marcadores.find((m) => m.eventoId === evento.id);
-        if (marcador) {
-            marcadoresFiltrados.push(marcador);
-            // Asegúrate de que el tooltip se reabra si es un marcador filtrado
-            marcador.openTooltip();
-        }
+    li.querySelector(".ver-en-mapa-btn").addEventListener("click", (e) => {
+      e.stopPropagation(); // Evita que el click se propague al li
+      abrirEventoEnMapa(evento.id);
     });
 
-    markerCluster.addLayers(marcadoresFiltrados);
+    li.addEventListener("click", () => {
+      abrirEventoEnMapa(evento.id);
+    });
 
-    if (cargandoElement) cargandoElement.style.setProperty("display", "none");
+    listaEventos.appendChild(li);
+
+    const marcador = marcadores.find((m) => m.eventoId === evento.id);
+    if (marcador) {
+      marcadoresFiltrados.push(marcador);
+      // Asegúrate de que el tooltip se reabra si es un marcador filtrado
+      marcador.openTooltip();
+    }
+  });
+
+  markerCluster.addLayers(marcadoresFiltrados);
+
+  if (cargandoElement) cargandoElement.style.setProperty("display", "none");
 }
 
 /**
