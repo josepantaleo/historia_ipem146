@@ -1,5 +1,294 @@
 {
   "evento1": [
+    {"pregunta":"¿En qué año cayó el Imperio Romano de Occidente?","opciones":["410","455","476"],"respuesta":"476"},
+    {"pregunta":"¿Quién fue el último emperador romano de Occidente?","opciones":["Rómulo Augústulo","Julio Nepote","Teodosio I"],"respuesta":"Rómulo Augústulo"},
+    {"pregunta":"¿Qué pueblo germánico depuso al último emperador romano de Occidente?","opciones":["Visigodos","Ostrogodos","Hérulos"],"respuesta":"Hérulos"},
+    {"pregunta":"¿Qué rey bárbaro lideró la caída del Imperio Romano de Occidente?","opciones":["Odoacro","Alarico","Atila"],"respuesta":"Odoacro"},
+    {"pregunta":"¿Qué ciudad fue saqueada en 410 por los visigodos?","opciones":["Milán","Roma","Rávena"],"respuesta":"Roma"}
+  ],
+  "evento2": [
+    {"pregunta":"¿En qué año asumió Hipólito Yrigoyen su primera presidencia?","opciones":["1916","1922","1930"],"respuesta":"1916"},
+    {"pregunta":"¿Qué ley permitió el voto secreto y obligatorio que llevó a Yrigoyen al poder?","opciones":["Ley 1420","Ley Sáenz Peña","Ley Avellaneda"],"respuesta":"Ley Sáenz Peña"},
+    {"pregunta":"¿Qué partido político lideraba Hipólito Yrigoyen?","opciones":["Partido Socialista","Partido Radical","Partido Conservador"],"respuesta":"Partido Radical"},
+    {"pregunta":"¿Qué hecho represivo ocurrió durante su gobierno en 1919?","opciones":["Semana Trágica","Patagonia Rebelde","Cordobazo"],"respuesta":"Semana Trágica"},
+    {"pregunta":"¿Qué empresa estatal creó Yrigoyen en 1922?","opciones":["YPF","SEGBA","Ferrocarriles Argentinos"],"respuesta":"YPF"}
+  ],
+  "evento3": [
+    {"pregunta":"¿En qué año se inició la Reforma Universitaria?","opciones":["1916","1918","1920"],"respuesta":"1918"},
+    {"pregunta":"¿Qué universidad fue el epicentro del movimiento reformista?","opciones":["Universidad de La Plata","Universidad de Córdoba","UBA"],"respuesta":"Universidad de Córdoba"},
+    {"pregunta":"¿Qué principio introdujo la Reforma en la vida académica?","opciones":["Co-gobierno estudiantil","Privatización","Educación religiosa"],"respuesta":"Co-gobierno estudiantil"},
+    {"pregunta":"¿Qué otro país influyó en la expansión de la Reforma Universitaria?","opciones":["México","Perú","Chile"],"respuesta":"Perú"},
+    {"pregunta":"¿Qué derechos reclamaban los estudiantes reformistas?","opciones":["Educación gratuita","Modernización, autonomía y participación","Solo autonomía"],"respuesta":"Modernización, autonomía y participación"}
+  ],
+  "evento4": [
+    {"pregunta":"¿Qué fue la Patagonia Rebelde?","opciones":["Una huelga ferroviaria","Un levantamiento militar","Una huelga obrera reprimida violentamente"],"respuesta":"Una huelga obrera reprimida violentamente"},
+    {"pregunta":"¿En qué provincias ocurrió la Patagonia Rebelde?","opciones":["Chubut y Santa Cruz","Neuquén y Río Negro","Santa Fe y Córdoba"],"respuesta":"Chubut y Santa Cruz"},
+    {"pregunta":"¿Durante qué gobierno tuvo lugar la represión?","opciones":["Yrigoyen","Alvear","Perón"],"respuesta":"Yrigoyen"},
+    {"pregunta":"¿Quién encabezó la represión militar?","opciones":["Manuel Savio","Luis Dellepiane","Héctor Varela"],"respuesta":"Héctor Varela"},
+    {"pregunta":"¿Qué grupo social protagonizó las huelgas?","opciones":["Estudiantes","Campesinos","Trabajadores rurales"],"respuesta":"Trabajadores rurales"}
+  ],
+  "evento5": [
+    {"pregunta":"¿Qué significa YPF?","opciones":["Yacimientos Petroleros Fiscales","Yacimientos Públicos Federales","Yacimientos Privados de Fósiles"],"respuesta":"Yacimientos Petroleros Fiscales"},
+    {"pregunta":"¿En qué año se fundó YPF?","opciones":["1922","1930","1910"],"respuesta":"1922"},
+    {"pregunta":"¿Qué presidente argentino impulsó la creación de YPF?","opciones":["Marcelo T. de Alvear","Hipólito Yrigoyen","Arturo Frondizi"],"respuesta":"Hipólito Yrigoyen"},
+    {"pregunta":"¿Quién fue el primer director de YPF?","opciones":["Raúl Alfonsín","Enrique Mosconi","Juan José Arévalo"],"respuesta":"Enrique Mosconi"},
+    {"pregunta":"¿Cuál era el objetivo principal de YPF?","opciones":["Exportar petróleo","Privatizar los recursos","Controlar estatalmente el petróleo"],"respuesta":"Controlar estatalmente el petróleo"}
+  ],
 
+
+
+  "evento6": [
+    {"pregunta":"¿Entre qué años gobernó Marcelo T. de Alvear?","opciones":["1922-1928","1916-1922","1930-1935"],"respuesta":"1922-1928"},
+    {"pregunta":"¿Qué partido representaba Alvear?","opciones":["Unión Cívica Radical","Partido Conservador","Partido Socialista"],"respuesta":"Unión Cívica Radical"},
+    {"pregunta":"¿Qué ley reguló la industria del azúcar durante su gestión?","opciones":["Ley de azucareros","Ley de Bancos","Ley de Ferrocarriles"],"respuesta":"Ley de azucareros"},
+    {"pregunta":"¿Qué relación tuvo con la Reforma Universitaria?","opciones":["Continuó su aplicación","La derogó","La ignoró"],"respuesta":"Continuó su aplicación"},
+    {"pregunta":"¿Qué crisis económica internacional afectó al final de su mandato?","opciones":["Crisis de 1929","Crisis de 1930","Crisis de 1918"],"respuesta":"Crisis de 1929"}
+  ],
+  "evento7": [
+    {"pregunta":"¿En qué año comenzó el segundo mandato de Yrigoyen?","opciones":["1928","1916","1930"],"respuesta":"1928"},
+    {"pregunta":"¿Cómo estaba la salud de Yrigoyen durante este período?","opciones":["Muy deteriorada","Excelente","Estable"],"respuesta":"Muy deteriorada"},
+    {"pregunta":"¿Qué hecho marcó el final de su mandato?","opciones":["Golpe de Estado de 1930","Renuncia voluntaria","Muerte en ejercicio"],"respuesta":"Golpe de Estado de 1930"},
+    {"pregunta":"¿Qué sectores se oponían a Yrigoyen?","opciones":["Conservadores y militares","Sindicalistas","Estudiantes"],"respuesta":"Conservadores y militares"},
+    {"pregunta":"¿Qué política petrolera mantuvo Yrigoyen?","opciones":["Defensa del monopolio estatal","Privatización del petróleo","Exportación sin control"],"respuesta":"Defensa del monopolio estatal"}
+  ],
+  "evento8": [
+    {"pregunta":"¿Quién derrocó a Yrigoyen en 1930?","opciones":["José Félix Uriburu","Marcelo T. de Alvear","Juan Perón"],"respuesta":"José Félix Uriburu"},
+    {"pregunta":"¿Qué ideología defendía Uriburu?","opciones":["Nacionalista y corporativista","Liberal","Socialista"],"respuesta":"Nacionalista y corporativista"},
+    {"pregunta":"¿Qué período de la historia argentina comenzó con este golpe?","opciones":["Década Infame","Década Radical","Década Peronista"],"respuesta":"Década Infame"},
+    {"pregunta":"¿Qué rol tuvo la Corte Suprema?","opciones":["Avaló el golpe","Se opuso al golpe","Se mantuvo neutral"],"respuesta":"Avaló el golpe"},
+    {"pregunta":"¿Qué presidente había sido electo democráticamente antes del golpe?","opciones":["Hipólito Yrigoyen","Marcelo T. de Alvear","José Figueroa Alcorta"],"respuesta":"Hipólito Yrigoyen"}
+  ],
+  "evento9": [
+    {"pregunta":"¿Qué países firmaron el Pacto Roca-Runciman?","opciones":["Argentina y Reino Unido","Argentina y Francia","Argentina y EE.UU."],"respuesta":"Argentina y Reino Unido"},
+    {"pregunta":"¿Qué producto fue clave en el acuerdo?","opciones":["Carne vacuna","Trigo","Cobre"],"respuesta":"Carne vacuna"},
+    {"pregunta":"¿Qué crítica recibió el pacto?","opciones":["Favorecía a Inglaterra","Favorecía a Argentina","No tuvo críticas"],"respuesta":"Favorecía a Inglaterra"},
+    {"pregunta":"¿En qué año se firmó?","opciones":["1933","1928","1945"],"respuesta":"1933"},
+    {"pregunta":"¿Qué representante argentino firmó el pacto?","opciones":["Julio A. Roca (hijo)","Hipólito Yrigoyen","José Félix Uriburu"],"respuesta":"Julio A. Roca (hijo)"}
+  ],
+  "evento10": [
+    {"pregunta":"¿Quién era Enzo Bordabehere?","opciones":["Senador socialista","Presidente de Argentina","Militar"],"respuesta":"Senador socialista"},
+    {"pregunta":"¿En qué ciudad fue asesinado?","opciones":["Buenos Aires","Rosario","Córdoba"],"respuesta":"Buenos Aires"},
+    {"pregunta":"¿Quién lo mató?","opciones":["Ramón Valdez Cora","José Félix Uriburu","Lisandro de la Torre"],"respuesta":"Ramón Valdez Cora"},
+    {"pregunta":"¿Qué debate se desarrollaba en el Senado?","opciones":["Escándalo de exportaciones de carnes","Ley de Ferrocarriles","Reforma Universitaria"],"respuesta":"Escándalo de exportaciones de carnes"},
+    {"pregunta":"¿Qué político estaba involucrado en la discusión?","opciones":["Lisandro de la Torre","Hipólito Yrigoyen","Marcelo T. de Alvear"],"respuesta":"Lisandro de la Torre"}
+  ],
+  "evento11": [
+    {"pregunta":"¿Qué significan las siglas GOU?","opciones":["Grupo de Oficiales Unidos","Gran Organización Unificada","Gobierno de Unidad"],"respuesta":"Grupo de Oficiales Unidos"},
+    {"pregunta":"¿En qué año ocurrió el golpe?","opciones":["1943","1930","1955"],"respuesta":"1943"},
+    {"pregunta":"¿A qué presidente derrocó?","opciones":["Ramón Castillo","Hipólito Yrigoyen","Marcelo T. de Alvear"],"respuesta":"Ramón Castillo"},
+    {"pregunta":"¿Qué figura emergió tras el golpe?","opciones":["Juan Domingo Perón","José Félix Uriburu","Lisandro de la Torre"],"respuesta":"Juan Domingo Perón"},
+    {"pregunta":"¿Qué medida social impulsó Perón desde la Secretaría de Trabajo?","opciones":["Derechos laborales","Privatización","Educación religiosa"],"respuesta":"Derechos laborales"}
+  ],
+  "evento12": [
+    {"pregunta":"¿Qué sector social impulsó la fundación del Partido Laborista?","opciones":["Sindicatos y trabajadores","Militares","Estudiantes"],"respuesta":"Sindicatos y trabajadores"},
+    {"pregunta":"¿En qué año se fundó el Partido Laborista?","opciones":["1945","1943","1946"],"respuesta":"1945"},
+    {"pregunta":"¿A quién apoyaba como candidato el Partido Laborista?","opciones":["Juan Domingo Perón","Hipólito Yrigoyen","Marcelo T. de Alvear"],"respuesta":"Juan Domingo Perón"},
+    {"pregunta":"¿Qué movimiento político se consolidó gracias a este partido?","opciones":["Peronismo","Radicalismo","Conservadurismo"],"respuesta":"Peronismo"},
+    {"pregunta":"¿Qué otro partido se integró luego al justicialismo?","opciones":["Unión Cívica Radical Junta Renovadora","Partido Socialista","Partido Conservador"],"respuesta":"Unión Cívica Radical Junta Renovadora"}
+  ],
+  "evento13": [
+    {"pregunta":"¿Qué programa económico aplicó el primer gobierno de Perón?","opciones":["Plan Quinquenal","Plan Trienal","Plan de Ajuste"],"respuesta":"Plan Quinquenal"},
+    {"pregunta":"¿Qué organización femenina lideró Eva Perón?","opciones":["Fundación Eva Perón","Partido Laborista Femenino","Sociedad de Beneficencia"],"respuesta":"Fundación Eva Perón"},
+    {"pregunta":"¿Qué derecho se conquistó en 1947?","opciones":["Voto femenino","Derecho a huelga","Educación gratuita"],"respuesta":"Voto femenino"},
+    {"pregunta":"¿Qué rol tuvo el Estado en la economía?","opciones":["Intervencionismo","Privatización","Libre mercado"],"respuesta":"Intervencionismo"},
+    {"pregunta":"¿Qué partido llevó a Perón al poder?","opciones":["Laborista (integrado luego al Justicialista)","Radical","Conservador"],"respuesta":"Laborista (integrado luego al Justicialista)"}
+  ],
+  "evento14": [
+    {"pregunta":"¿Qué crisis golpeó a Perón en su segunda presidencia?","opciones":["Crisis económica por sequía","Inflación de 1929","Crisis mundial 1918"],"respuesta":"Crisis económica por sequía"},
+    {"pregunta":"¿Qué institución enfrentó a Perón?","opciones":["La Iglesia Católica","Los sindicatos","Partido Radical"],"respuesta":"La Iglesia Católica"},
+    {"pregunta":"¿Qué sucedió con la Constitución de 1949?","opciones":["Fue derogada","Fue mantenida","No sufrió cambios"],"respuesta":"Fue derogada"},
+    {"pregunta":"¿Qué sector militar protagonizó el golpe de 1955?","opciones":["Ejército y Armada","Gendarmería","Policía Federal"],"respuesta":"Ejército y Armada"},
+    {"pregunta":"¿Qué nombre recibió el golpe que derrocó a Perón?","opciones":["Revolución Libertadora","Golpe de 1930","Revolución de Mayo"],"respuesta":"Revolución Libertadora"}
+  ],
+  "evento15": [
+    {"pregunta":"¿Qué nombre tuvo el golpe de 1955 que derrocó a Perón?","opciones":["Revolución Libertadora","Golpe de 1930","Revolución de Mayo"],"respuesta":"Revolución Libertadora"},
+    {"pregunta":"¿Qué presidente asumió tras el golpe?","opciones":["Eduardo Lonardi","Pedro Eugenio Aramburu","Juan Domingo Perón"],"respuesta":"Eduardo Lonardi"},
+    {"pregunta":"¿Qué política se tomó respecto al peronismo?","opciones":["Proscripción","Apoyo total","Neutralidad"],"respuesta":"Proscripción"},
+    {"pregunta":"¿Qué pasó con Eva Perón en esta etapa?","opciones":["Sus restos fueron ocultados","Fue exiliada","Se mantuvo en el país"],"respuesta":"Sus restos fueron ocultados"},
+    {"pregunta":"¿Qué facción interna derrocó a Lonardi?","opciones":["La de Aramburu","La de Perón","La de Yrigoyen"],"respuesta":"La de Aramburu"}
+  ],
+  "evento16": [
+    {"pregunta":"¿En qué año comenzó la Revolución Rusa?","opciones":["1917","1905","1922"],"respuesta":"1917"},
+    {"pregunta":"¿Qué partido lideró la Revolución Rusa?","opciones":["Bolcheviques","Mencheviques","Socialistas Moderados"],"respuesta":"Bolcheviques"},
+    {"pregunta":"¿Quién fue el líder de los bolcheviques?","opciones":["Lenin","Trotsky","Stalin"],"respuesta":"Lenin"},
+    {"pregunta":"¿Qué imperio cayó tras la Revolución Rusa?","opciones":["Imperio Ruso","Imperio Austrohúngaro","Imperio Otomano"],"respuesta":"Imperio Ruso"},
+    {"pregunta":"¿Qué sistema político instauraron los bolcheviques?","opciones":["Comunismo","Monarquía","Liberalismo"],"respuesta":"Comunismo"}
+  ],
+  "evento17": [
+    {"pregunta":"¿Qué crisis afectó al mundo en 1929?","opciones":["Gran Depresión","Primera Guerra Mundial","Segunda Guerra Mundial"],"respuesta":"Gran Depresión"},
+    {"pregunta":"¿En qué país comenzó la crisis económica de 1929?","opciones":["Estados Unidos","Alemania","Reino Unido"],"respuesta":"Estados Unidos"},
+    {"pregunta":"¿Qué sector fue más afectado por la crisis?","opciones":["Industria y empleo","Educación","Militar"],"respuesta":"Industria y empleo"},
+    {"pregunta":"¿Qué consecuencia política tuvo la crisis en Europa?","opciones":["Ascenso de regímenes totalitarios","Democracias fuertes","Neutralidad de países"],"respuesta":"Ascenso de regímenes totalitarios"},
+    {"pregunta":"¿Qué país fue ejemplo de recuperación rápida tras la crisis?","opciones":["Estados Unidos","Alemania","Francia"],"respuesta":"Estados Unidos"}
+  ],
+  "evento18": [
+    {"pregunta":"¿En qué año llegó Hitler al poder?","opciones":["1933","1928","1939"],"respuesta":"1933"},
+    {"pregunta":"¿Qué partido lideraba Hitler?","opciones":["NSDAP (Nazi)","Partido Comunista","Partido Socialista"],"respuesta":"NSDAP (Nazi)"},
+    {"pregunta":"¿Qué cargo asumió Hitler al llegar al poder?","opciones":["Canciller","Presidente","Ministro de Defensa"],"respuesta":"Canciller"},
+    {"pregunta":"¿Qué medidas tomó al inicio de su gobierno?","opciones":["Control total del Estado y persecución política","Apertura democrática","Desarme militar"],"respuesta":"Control total del Estado y persecución política"},
+    {"pregunta":"¿Qué tratado fue violado por Hitler?","opciones":["Tratado de Versalles","Tratado de París","Tratado de Berlín"],"respuesta":"Tratado de Versalles"}
+  ],
+  "evento19": [
+    {"pregunta":"¿En qué año llegó Mussolini al poder?","opciones":["1922","1930","1919"],"respuesta":"1922"},
+    {"pregunta":"¿Qué movimiento lideraba Mussolini?","opciones":["Fascismo","Comunismo","Socialismo"],"respuesta":"Fascismo"},
+    {"pregunta":"¿Qué título asumió Mussolini?","opciones":["Primer Ministro","Presidente","Rey"],"respuesta":"Primer Ministro"},
+    {"pregunta":"¿Qué país gobernó Mussolini?","opciones":["Italia","Alemania","España"],"respuesta":"Italia"},
+    {"pregunta":"¿Qué ideología promovió Mussolini?","opciones":["Nacionalismo y corporativismo","Liberalismo","Comunismo"],"respuesta":"Nacionalismo y corporativismo"}
+  ],
+  "evento20": [
+    {"pregunta":"¿Qué conflicto comenzó en 1939?","opciones":["Segunda Guerra Mundial","Primera Guerra Mundial","Guerra Fría"],"respuesta":"Segunda Guerra Mundial"},
+    {"pregunta":"¿Qué países integraron el Eje?","opciones":["Alemania, Italia, Japón","Reino Unido, Francia, EE.UU.","URSS, China, Francia"],"respuesta":"Alemania, Italia, Japón"},
+    {"pregunta":"¿Qué país fue invadido primero por Alemania?","opciones":["Polonia","Francia","Dinamarca"],"respuesta":"Polonia"},
+    {"pregunta":"¿Qué evento marcó la entrada de EE.UU. en la guerra?","opciones":["Ataque a Pearl Harbor","Invasión de Normandía","Batalla de Stalingrado"],"respuesta":"Ataque a Pearl Harbor"},
+    {"pregunta":"¿Qué tratado puso fin a la guerra en Europa?","opciones":["Rendición incondicional de Alemania","Tratado de Versalles","Tratado de París"],"respuesta":"Rendición incondicional de Alemania"}
+  ],
+  
+  "evento21": [
+    {"pregunta":"¿En qué año cayó el Muro de Berlín?","opciones":["1989","1991","1987"],"respuesta":"1989"},
+    {"pregunta":"¿Qué país dividía el Muro de Berlín?","opciones":["Alemania","Polonia","Checoslovaquia"],"respuesta":"Alemania"},
+    {"pregunta":"¿Qué simbolizaba la caída del muro?","opciones":["Fin de la Guerra Fría","Comienzo de la Segunda Guerra Mundial","Independencia de Alemania"],"respuesta":"Fin de la Guerra Fría"},
+    {"pregunta":"¿Qué líder alemán estuvo en el poder en la caída del muro?","opciones":["Helmut Kohl","Angela Merkel","Willy Brandt"],"respuesta":"Helmut Kohl"},
+    {"pregunta":"¿Qué acontecimiento internacional acompañó la caída del muro?","opciones":["Reunificación alemana","Caída del Imperio Ruso","Fundación de la ONU"],"respuesta":"Reunificación alemana"}
+  ],
+  "evento22": [
+    {"pregunta":"¿En qué año ocurrió el terremoto en San Juan?","opciones":["1944","1950","1935"],"respuesta":"1944"},
+    {"pregunta":"¿Qué presidente argentino envió ayuda?","opciones":["Juan Domingo Perón","Hipólito Yrigoyen","Marcelo T. de Alvear"],"respuesta":"Juan Domingo Perón"},
+    {"pregunta":"¿Qué tipo de ayuda se brindó?","opciones":["Material y médica","Sólo financiera","Sólo militar"],"respuesta":"Material y médica"},
+    {"pregunta":"¿Qué ciudad fue la más afectada?","opciones":["San Juan","Mendoza","Córdoba"],"respuesta":"San Juan"},
+    {"pregunta":"¿Qué consecuencia tuvo el terremoto en la política?","opciones":["Fortaleció la imagen de Perón","Debilitó al gobierno","No tuvo impacto"],"respuesta":"Fortaleció la imagen de Perón"}
+  ],
+  "evento23": [
+    {"pregunta":"¿Qué reclamaban los argentinos en la liberación de Perón?","opciones":["Fin de la proscripción y vuelta de Perón","Elecciones libres","Reformas laborales"],"respuesta":"Fin de la proscripción y vuelta de Perón"},
+    {"pregunta":"¿En qué año fue liberado Perón?","opciones":["1945","1943","1955"],"respuesta":"1945"},
+    {"pregunta":"¿Qué sector movilizó el 17 de octubre?","opciones":["Trabajadores y sindicatos","Militares","Estudiantes"],"respuesta":"Trabajadores y sindicatos"},
+    {"pregunta":"¿Qué nombre recibió ese día en la historia argentina?","opciones":["Día de la Lealtad","Día del Trabajo","Día de la Independencia"],"respuesta":"Día de la Lealtad"},
+    {"pregunta":"¿Qué partido político se consolidó tras estos hechos?","opciones":["Partido Laborista/Justicialista","Radical","Conservador"],"respuesta":"Partido Laborista/Justicialista"}
+  ],
+  "evento24": [
+    {"pregunta":"¿En qué año se realizó la Convención Constituyente de 1949?","opciones":["1949","1946","1955"],"respuesta":"1949"},
+    {"pregunta":"¿Qué reforma se aprobó?","opciones":["Reforma constitucional para permitir la reelección de Perón","Reforma laboral","Reforma educativa"],"respuesta":"Reforma constitucional para permitir la reelección de Perón"},
+    {"pregunta":"¿Qué derechos incorporó la Constitución de 1949?","opciones":["Derechos sociales y laborales","Sólo civiles","Sólo políticos"],"respuesta":"Derechos sociales y laborales"},
+    {"pregunta":"¿Qué presidente impulsó la reforma?","opciones":["Juan Domingo Perón","José Félix Uriburu","Marcelo T. de Alvear"],"respuesta":"Juan Domingo Perón"},
+    {"pregunta":"¿Qué ocurrió con esta reforma después del derrocamiento de Perón?","opciones":["Fue derogada","Se mantuvo","Fue modificada parcialmente"],"respuesta":"Fue derogada"}
+  ],
+  "evento25": [
+    {"pregunta":"¿En qué año votaron las mujeres por primera vez en Argentina?","opciones":["1951","1947","1945"],"respuesta":"1951"},
+    {"pregunta":"¿Qué líder promovió el voto femenino?","opciones":["Eva Perón","Hipólito Yrigoyen","Marcelo T. de Alvear"],"respuesta":"Eva Perón"},
+    {"pregunta":"¿Qué partido apoyó esta medida?","opciones":["Partido Laborista/Justicialista","Radical","Conservador"],"respuesta":"Partido Laborista/Justicialista"},
+    {"pregunta":"¿En qué elecciones votaron por primera vez las mujeres?","opciones":["Elecciones presidenciales 1951","Elecciones legislativas 1946","Elecciones municipales 1947"],"respuesta":"Elecciones presidenciales 1951"},
+    {"pregunta":"¿Qué impacto tuvo el voto femenino en la política?","opciones":["Fortaleció al peronismo","No tuvo impacto","Debilitó al peronismo"],"respuesta":"Fortaleció al peronismo"}
+  ],
+  "evento26": [
+    {"pregunta":"¿En qué año murió Eva Perón?","opciones":["1952","1951","1949"],"respuesta":"1952"},
+    {"pregunta":"¿Cuál era su edad al morir?","opciones":["33 años","30 años","40 años"],"respuesta":"33 años"},
+    {"pregunta":"¿Qué enfermedad padecía Eva Perón?","opciones":["Cáncer","Tuberculosis","Poliomielitis"],"respuesta":"Cáncer"},
+    {"pregunta":"¿Qué fundación lideraba Eva Perón?","opciones":["Fundación Eva Perón","Partido Laborista Femenino","Sociedad de Beneficencia"],"respuesta":"Fundación Eva Perón"},
+    {"pregunta":"¿Qué repercusión tuvo su muerte en la sociedad?","opciones":["Gran conmoción y luto","Pasó desapercibida","Provocó revueltas"],"respuesta":"Gran conmoción y luto"}
+  ],
+  "evento27": [
+    {"pregunta":"¿Qué año marca la caída de Roma?","opciones":["476","410","455"],"respuesta":"476"},
+    {"pregunta":"¿Qué emperador fue depuesto en la caída de Roma?","opciones":["Rómulo Augústulo","Julio Nepote","Teodosio I"],"respuesta":"Rómulo Augústulo"},
+    {"pregunta":"¿Qué pueblo invadió y causó la caída de Roma?","opciones":["Hérulos","Visigodos","Ostrogodos"],"respuesta":"Hérulos"},
+    {"pregunta":"¿Qué ciudad fue saqueada por los visigodos?","opciones":["Roma","Milán","Rávena"],"respuesta":"Roma"},
+    {"pregunta":"¿Qué líder bárbaro dirigió la caída de Roma?","opciones":["Odoacro","Alarico","Atila"],"respuesta":"Odoacro"}
+  ],
+  "evento28": [
+    {"pregunta":"¿En qué año cayó Constantinopla?","opciones":["1453","1492","1204"],"respuesta":"1453"},
+    {"pregunta":"¿Qué imperio la conquistó?","opciones":["Imperio Otomano","Imperio Bizantino","Imperio Ruso"],"respuesta":"Imperio Otomano"},
+    {"pregunta":"¿Qué líder otomano dirigió la conquista?","opciones":["Mehmed II","Suleimán","Selim I"],"respuesta":"Mehmed II"},
+    {"pregunta":"¿Qué ciudad era Constantinopla en la actualidad?","opciones":["Estambul","Atenas","Ankara"],"respuesta":"Estambul"},
+    {"pregunta":"¿Qué consecuencia tuvo la caída para Europa?","opciones":["Fin del Imperio Bizantino","Inicio de la Revolución Francesa","Descubrimiento de América"],"respuesta":"Fin del Imperio Bizantino"}
+  ],
+  "evento29": [
+    {"pregunta":"¿En qué siglo nació el Islam?","opciones":["Siglo VII","Siglo VI","Siglo VIII"],"respuesta":"Siglo VII"},
+    {"pregunta":"¿Quién fundó el Islam?","opciones":["Mahoma","Abraham","Jesús"],"respuesta":"Mahoma"},
+    {"pregunta":"¿Dónde nació Mahoma?","opciones":["Meca","Medina","Bagdad"],"respuesta":"Meca"},
+    {"pregunta":"¿Cuál es el libro sagrado del Islam?","opciones":["Corán","Biblia","Torá"],"respuesta":"Corán"},
+    {"pregunta":"¿Qué ciudad es considerada sagrada en el Islam?","opciones":["Meca","Jerusalén","Damasco"],"respuesta":"Meca"}
+  ],
+  "evento30": [
+    {"pregunta":"¿Qué batalla detuvo el avance musulmán en Europa?","opciones":["Batalla de Poitiers","Batalla de Hastings","Batalla de Viena"],"respuesta":"Batalla de Poitiers"},
+    {"pregunta":"¿En qué país se libró la Batalla de Poitiers?","opciones":["Francia","España","Italia"],"respuesta":"Francia"},
+    {"pregunta":"¿Qué rey cristiano lideró la defensa?","opciones":["Carlos Martel","Clodoveo","Luis XIV"],"respuesta":"Carlos Martel"},
+    {"pregunta":"¿En qué año ocurrió la Batalla de Poitiers?","opciones":["732","718","745"],"respuesta":"732"},
+    {"pregunta":"¿Qué consecuencia tuvo la batalla?","opciones":["Detuvo la expansión musulmana en Europa occidental","Consolidó el Imperio Islámico","No tuvo efecto"],"respuesta":"Detuvo la expansión musulmana en Europa occidental"}
+  ],
+  "evento31": [
+    {"pregunta":"¿En qué año llegó Cristóbal Colón a América?","opciones":["1492","1482","1500"],"respuesta":"1492"},
+    {"pregunta":"¿Qué reina patrocinó el viaje de Colón?","opciones":["Isabel I de Castilla","Leonor de Aragón","Juana la Loca"],"respuesta":"Isabel I de Castilla"},
+    {"pregunta":"¿Qué océano atravesó Colón?","opciones":["Atlántico","Pacífico","Índico"],"respuesta":"Atlántico"},
+    {"pregunta":"¿Qué tierras creyó haber llegado Colón?","opciones":["India","China","Japón"],"respuesta":"India"},
+    {"pregunta":"¿Qué continente descubrió?","opciones":["América","Australia","África"],"respuesta":"América"}
+  ],
+  "evento32": [
+    {"pregunta":"¿Qué imperio conquistó Hernán Cortés?","opciones":["Imperio Azteca","Imperio Inca","Imperio Maya"],"respuesta":"Imperio Azteca"},
+    {"pregunta":"¿En qué actual país estaba el Imperio Azteca?","opciones":["México","Perú","Guatemala"],"respuesta":"México"},
+    {"pregunta":"¿Qué ciudad era capital del Imperio Azteca?","opciones":["Tenochtitlán","Cuzco","Teotihuacán"],"respuesta":"Tenochtitlán"},
+    {"pregunta":"¿Qué recurso buscaban principalmente los conquistadores?","opciones":["Oro y plata","Especias","Trigo"],"respuesta":"Oro y plata"},
+    {"pregunta":"¿Qué aliado indígena ayudó a Cortés?","opciones":["Tlaxcaltecas","Mapuches","Mayas"],"respuesta":"Tlaxcaltecas"}
+  ],
+  "evento33": [
+    {"pregunta":"¿Qué imperio conquistó Francisco Pizarro?","opciones":["Imperio Inca","Imperio Azteca","Imperio Maya"],"respuesta":"Imperio Inca"},
+    {"pregunta":"¿En qué actual país estaba el Imperio Inca?","opciones":["Perú","México","Bolivia"],"respuesta":"Perú"},
+    {"pregunta":"¿Cuál era la capital del Imperio Inca?","opciones":["Cuzco","Tenochtitlán","Lima"],"respuesta":"Cuzco"},
+    {"pregunta":"¿Qué líder fue capturado por Pizarro?","opciones":["Atahualpa","Moctezuma II","Pachacútec"],"respuesta":"Atahualpa"},
+    {"pregunta":"¿Qué recurso buscaban principalmente los conquistadores?","opciones":["Oro y plata","Maíz","Cacao"],"respuesta":"Oro y plata"}
+  ],
+  "evento34": [
+    {"pregunta":"¿Qué son las reducciones jesuíticas?","opciones":["Asentamientos de indígenas guiados por jesuitas","Colonias militares","Fábricas"],"respuesta":"Asentamientos de indígenas guiados por jesuitas"},
+    {"pregunta":"¿En qué territorios se ubicaron principalmente?","opciones":["Brasil y Paraguay","Argentina y Chile","Uruguay y Bolivia"],"respuesta":"Brasil y Paraguay"},
+    {"pregunta":"¿Qué enseñaban en las reducciones?","opciones":["Religión, artes y oficios","Solo religión","Solo agricultura"],"respuesta":"Religión, artes y oficios"},
+    {"pregunta":"¿Qué orden religiosa las fundó?","opciones":["Jesuitas","Franciscanos","Dominicos"],"respuesta":"Jesuitas"},
+    {"pregunta":"¿Qué impacto tuvieron en la cultura indígena?","opciones":["Protección y educación","Destrucción total","No tuvieron impacto"],"respuesta":"Protección y educación"}
+  ],
+  "evento35": [
+    {"pregunta":"¿En qué año se fundó el Virreinato del Río de la Plata?","opciones":["1776","1580","1810"],"respuesta":"1776"},
+    {"pregunta":"¿Qué territorios incluía?","opciones":["Argentina, Uruguay, Paraguay, Bolivia","Argentina, Chile, Perú","Uruguay, Brasil, Paraguay"],"respuesta":"Argentina, Uruguay, Paraguay, Bolivia"},
+    {"pregunta":"¿Qué imperio lo estableció?","opciones":["España","Portugal","Inglaterra"],"respuesta":"España"},
+    {"pregunta":"¿Cuál era la capital del virreinato?","opciones":["Buenos Aires","Lima","Montevideo"],"respuesta":"Buenos Aires"},
+    {"pregunta":"¿Qué fin tenía el virreinato?","opciones":["Administrar y explotar territorios","Independencia","Comercio libre"],"respuesta":"Administrar y explotar territorios"}
+  ],
+  "evento36": [
+    {"pregunta":"¿Dónde se inició la Revolución Industrial?","opciones":["Inglaterra","Francia","Alemania"],"respuesta":"Inglaterra"},
+    {"pregunta":"¿En qué siglo comenzó la Revolución Industrial?","opciones":["Siglo XVIII","Siglo XVII","Siglo XIX"],"respuesta":"Siglo XVIII"},
+    {"pregunta":"¿Qué industria se desarrolló primero?","opciones":["Textil","Automotriz","Naval"],"respuesta":"Textil"},
+    {"pregunta":"¿Qué fuente de energía impulsó la Revolución Industrial?","opciones":["Carbón","Petróleo","Electricidad"],"respuesta":"Carbón"},
+    {"pregunta":"¿Qué consecuencia tuvo para la sociedad?","opciones":["Urbanización y cambios laborales","Disminución de la población","Fin de la monarquía"],"respuesta":"Urbanización y cambios laborales"}
+  ],
+  "evento37": [
+    {"pregunta":"¿En qué año comenzó la Revolución Francesa?","opciones":["1789","1799","1776"],"respuesta":"1789"},
+    {"pregunta":"¿Qué monarca gobernaba Francia al inicio de la Revolución?","opciones":["Luis XVI","Luis XIV","Napoleón"],"respuesta":"Luis XVI"},
+    {"pregunta":"¿Qué documento proclamó los derechos del hombre y del ciudadano?","opciones":["Declaración de los Derechos del Hombre y del Ciudadano","Constitución Francesa","Código Napoleónico"],"respuesta":"Declaración de los Derechos del Hombre y del Ciudadano"},
+    {"pregunta":"¿Qué evento simbólico marcó el inicio de la revolución?","opciones":["Toma de la Bastilla","Ejecutación de Luis XVI","Reinado de Napoleón"],"respuesta":"Toma de la Bastilla"},
+    {"pregunta":"¿Qué grupo social fue clave al inicio de la revolución?","opciones":["Tercer Estado","Nobleza","Clero"],"respuesta":"Tercer Estado"}
+  ],
+  "evento38": [
+    {"pregunta":"¿Quién lideró la rebelión de Túpac Amaru en el Alto Perú?","opciones":["Túpac Amaru II","José de San Martín","Simón Bolívar"],"respuesta":"Túpac Amaru II"},
+    {"pregunta":"¿En qué año comenzó la rebelión?","opciones":["1780","1810","1776"],"respuesta":"1780"},
+    {"pregunta":"¿Qué buscaba la rebelión?","opciones":["Fin de la explotación colonial","Independencia inmediata","Reformas educativas"],"respuesta":"Fin de la explotación colonial"},
+    {"pregunta":"¿Qué imperio enfrentaba la rebelión?","opciones":["Imperio Español","Imperio Portugués","Imperio Inca"],"respuesta":"Imperio Español"},
+    {"pregunta":"¿Qué pasó con Túpac Amaru II?","opciones":["Fue capturado y ejecutado","Exiliado","Triunfó"],"respuesta":"Fue capturado y ejecutado"}
+  ],
+  "evento39": [
+    {"pregunta":"¿En qué año comenzó la revolución en la Nueva Granada?","opciones":["1810","1820","1808"],"respuesta":"1810"},
+    {"pregunta":"¿Qué país corresponde a la Nueva Granada?","opciones":["Colombia","Venezuela","Ecuador"],"respuesta":"Colombia"},
+    {"pregunta":"¿Qué grupo lideró la independencia?","opciones":["Criollos","Indígenas","Peninsulares"],"respuesta":"Criollos"},
+    {"pregunta":"¿Qué figura fue clave en la independencia de la Nueva Granada?","opciones":["Simón Bolívar","José de San Martín","Túpac Amaru II"],"respuesta":"Simón Bolívar"},
+    {"pregunta":"¿Qué imperio controlaba la Nueva Granada antes de la independencia?","opciones":["España","Portugal","Inglaterra"],"respuesta":"España"}
+  ],
+  "evento40": [
+    {"pregunta":"¿En qué año ocurrieron las Invasiones Inglesas a Buenos Aires?","opciones":["1806-1807","1810-1811","1799-1800"],"respuesta":"1806-1807"},
+    {"pregunta":"¿Quién lideró la defensa en 1806?","opciones":["Santiago de Liniers","Cornelio Saavedra","Juan José Castelli"],"respuesta":"Santiago de Liniers"},
+    {"pregunta":"¿Qué consecuencia tuvieron las invasiones?","opciones":["Fortalecimiento de la identidad local","Pérdida de territorio","Indiferencia de la población"],"respuesta":"Fortalecimiento de la identidad local"},
+    {"pregunta":"¿Qué ciudad fue ocupada brevemente?","opciones":["Buenos Aires","Montevideo","Córdoba"],"respuesta":"Buenos Aires"},
+    {"pregunta":"¿Qué grupo social participó activamente en la defensa?","opciones":["Criollos","Peninsulares","Indígenas"],"respuesta":"Criollos"}
+  ],
+  "evento41": [
+    {"pregunta":"¿En qué año se produjo la Revolución de Mayo?","opciones":["1810","1816","1808"],"respuesta":"1810"},
+    {"pregunta":"¿Qué ciudad fue epicentro de la Revolución de Mayo?","opciones":["Buenos Aires","Córdoba","Montevideo"],"respuesta":"Buenos Aires"},
+    {"pregunta":"¿Qué virrey fue depuesto?","opciones":["Baltasar Hidalgo de Cisneros","José de la Serna","Pedro de Cevallos"],"respuesta":"Baltasar Hidalgo de Cisneros"},
+    {"pregunta":"¿Qué formación de gobierno se creó tras la revolución?","opciones":["Primera Junta","Congreso de Tucumán","Junta de Gobierno Local"],"respuesta":"Primera Junta"},
+    {"pregunta":"¿Qué influencia tuvo la Revolución de Mayo?","opciones":["Inspiró procesos independentistas en el Río de la Plata","Fue aislada","Fortaleció el dominio español"],"respuesta":"Inspiró procesos independentistas en el Río de la Plata"}
   ]
 }
+
